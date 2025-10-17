@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{10466244-5021-4dd5-b155-2ec11ee34024}</ProjectGuid>
+    <RootNamespace>KingofFighters</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Chin.cpp" />
+    <ClCompile Include="Chin_backmove.cpp" />
+    <ClCompile Include="Chin_bigkick.cpp" />
+    <ClCompile Include="Chin_bigpunch.cpp" />
+    <ClCompile Include="Chin_downsmallkick.cpp" />
+    <ClCompile Include="Chin_downsmalllpunch.cpp" />
+    <ClCompile Include="Chin_frontmove.cpp" />
+    <ClCompile Include="Chin_jump.cpp" />
+    <ClCompile Include="Chin_jumphit.cpp" />
+    <ClCompile Include="Chin_jumpsmallkick.cpp" />
+    <ClCompile Include="Chin_jumpsmallpunch.cpp" />
+    <ClCompile Include="Chin_sitdown.cpp" />
+    <ClCompile Include="Chin_sittingguard.cpp" />
+    <ClCompile Include="Chin_sittinghit.cpp" />
+    <ClCompile Include="Chin_smallkick.cpp" />
+    <ClCompile Include="Chin_smallpunch.cpp" />
+    <ClCompile Include="Chin_standing.cpp" />
+    <ClCompile Include="Chin_standingguard.cpp" />
+    <ClCompile Include="Chin_standinghit.cpp" />
+    <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="Effect_guard.cpp" />
+    <ClCompile Include="Effect_hit.cpp" />
+    <ClCompile Include="IMAGE.cpp" />
+    <ClCompile Include="Kaphwan.cpp" />
+    <ClCompile Include="Kaphwan_backmove.cpp" />
+    <ClCompile Include="Kaphwan_jump.cpp" />
+    <ClCompile Include="Kaphwan_jumphit.cpp" />
+    <ClCompile Include="Kaphwan_jumpkick.cpp" />
+    <ClCompile Include="Kaphwan_jumppunch.cpp" />
+    <ClCompile Include="Kaphwan_sitting.cpp" />
+    <ClCompile Include="Kaphwan_sittingguard.cpp" />
+    <ClCompile Include="Kaphwan_sittinghit.cpp" />
+    <ClCompile Include="Kaphwan_sittingkick.cpp" />
+    <ClCompile Include="Kaphwan_sittingpunch.cpp" />
+    <ClCompile Include="Kaphwan_standing.cpp" />
+    <ClCompile Include="Kaphwan_standingguard.cpp" />
+    <ClCompile Include="Kaphwan_standinghit.cpp" />
+    <ClCompile Include="Kaphwan_strongkick.cpp" />
+    <ClCompile Include="Kaphwan_strongpunch.cpp" />
+    <ClCompile Include="Kaphwan_weakkick.cpp" />
+    <ClCompile Include="Kaphwan_weakpunch.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Kaphwan_frontmove.cpp" />
+    <ClCompile Include="UI.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Chin.h" />
+    <ClInclude Include="Chin_backmove.h" />
+    <ClInclude Include="Chin_bigkick.h" />
+    <ClInclude Include="Chin_bigpunch.h" />
+    <ClInclude Include="Chin_downsmallkick.h" />
+    <ClInclude Include="Chin_downsmallpunch.h" />
+    <ClInclude Include="Chin_frontmove.h" />
+    <ClInclude Include="Chin_jump.h" />
+    <ClInclude Include="Chin_jumphit.h" />
+    <ClInclude Include="Chin_jumpsmallkick.h" />
+    <ClInclude Include="Chin_jumpsmallpunch.h" />
+    <ClInclude Include="Chin_sitdown.h" />
+    <ClInclude Include="Chin_sittingguard.h" />
+    <ClInclude Include="Chin_sittinghit.h" />
+    <ClInclude Include="Chin_smallkick.h" />
+    <ClInclude Include="Chin_smallpunch.h" />
+    <ClInclude Include="Chin_standing.h" />
+    <ClInclude Include="Chin_standinghit.h" />
+    <ClInclude Include="Effect.h" />
+    <ClInclude Include="Effect_guard.h" />
+    <ClInclude Include="Effect_hit.h" />
+    <ClInclude Include="IMAGE.h" />
+    <ClInclude Include="Kaphwan.h" />
+    <ClInclude Include="Kaphwan_backmove.h" />
+    <ClInclude Include="Kaphwan_frontmove.h" />
+    <ClInclude Include="Kaphwan_jump.h" />
+    <ClInclude Include="Kaphwan_jumphit.h" />
+    <ClInclude Include="Kaphwan_jumpkick.h" />
+    <ClInclude Include="Kaphwan_jumppunch.h" />
+    <ClInclude Include="Kaphwan_sitting.h" />
+    <ClInclude Include="Kaphwan_sittingguard.h" />
+    <ClInclude Include="Kaphwan_sittinghit.h" />
+    <ClInclude Include="Kaphwan_sittingkick.h" />
+    <ClInclude Include="Kaphwan_sittingpunch.h" />
+    <ClInclude Include="Kaphwan_standing.h" />
+    <ClInclude Include="Kaphwan_standingguard.h" />
+    <ClInclude Include="Kaphwan_standinghit.h" />
+    <ClInclude Include="Kaphwan_strongkick.h" />
+    <ClInclude Include="Kaphwan_strongpunch.h" />
+    <ClInclude Include="Kaphwan_weakkick.h" />
+    <ClInclude Include="Kaphwan_weakpunch.h" />
+    <ClInclude Include="UI.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

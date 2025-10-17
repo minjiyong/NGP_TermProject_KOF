@@ -1,0 +1,52 @@
+﻿  Chin.cpp
+  Chin_backmove.cpp
+  Chin_bigkick.cpp
+  Chin_bigpunch.cpp
+  Chin_downsmallkick.cpp
+  Chin_downsmalllpunch.cpp
+  Chin_frontmove.cpp
+  Chin_jump.cpp
+  Chin_jumphit.cpp
+  Chin_jumpsmallkick.cpp
+  Chin_jumpsmallpunch.cpp
+  Chin_sitdown.cpp
+  Chin_sittingguard.cpp
+  Chin_sittinghit.cpp
+  Chin_smallkick.cpp
+  Chin_smallpunch.cpp
+  Chin_standing.cpp
+  Chin_standingguard.cpp
+  Chin_standinghit.cpp
+  Effect.cpp
+  컴파일하고 있습니다...
+  Effect_guard.cpp
+  Effect_hit.cpp
+  IMAGE.cpp
+  Kaphwan.cpp
+  Kaphwan_backmove.cpp
+  Kaphwan_jump.cpp
+  Kaphwan_jumphit.cpp
+  Kaphwan_jumpkick.cpp
+  Kaphwan_jumppunch.cpp
+  Kaphwan_sitting.cpp
+  Kaphwan_sittingguard.cpp
+  Kaphwan_sittinghit.cpp
+  Kaphwan_sittingkick.cpp
+  Kaphwan_sittingpunch.cpp
+  Kaphwan_standing.cpp
+  Kaphwan_standingguard.cpp
+  Kaphwan_standinghit.cpp
+  Kaphwan_strongkick.cpp
+  Kaphwan_strongpunch.cpp
+  Kaphwan_weakkick.cpp
+  컴파일하고 있습니다...
+  Kaphwan_weakpunch.cpp
+  main.cpp
+D:\TUK\3-2\네트워크 게임 프로그래밍\WndProg\King_of_Fighters\main.cpp(116,16): warning C4244: 'return': 'WPARAM'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Kaphwan_frontmove.cpp
+  UI.cpp
+  코드를 생성하고 있습니다.
+  Previous IPDB not found, fall back to full compilation.
+  All 434 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  코드를 생성했습니다.
+  King_of_Fighters.vcxproj -> D:\TUK\3-2\네트워크 게임 프로그래밍\WndProg\x64\Release\King_of_Fighters.exe
