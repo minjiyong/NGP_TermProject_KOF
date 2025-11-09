@@ -40,6 +40,47 @@ struct CLIENT;
 static std::atomic_bool g_use_random{ false };
 
 
+static bool send_exact(SOCKET s, const void* p, int len) {
+	// 자료형의 크기만큼 정확히 전송
+	const char* c = (const char*)p;
+	int sent = 0;
+	while (sent < len) {
+		int n = send(s, c + sent, len - sent, 0);
+		if (n == SOCKET_ERROR) return false;
+		sent += n;
+	}
+	return true;
+}
+
+bool send_packet(SOCKET s, const void* p) {
+	const unsigned char* buf = reinterpret_cast<const unsigned char*>(p);
+	unsigned char size = buf[0];
+
+	// 1) 길이 검증 (최소 2: size+type, 최대 BUF_SIZE)
+	if (size < 2 || size > BUF_SIZE) return false;
+
+	// 2) 정확히 size 바이트 전송
+	send_exact(s, buf, size);
+	return true;
+}
+
+bool NetworkConnected() {
+	return (num_connections > 0) && g_clients[0].connected;
+}
+
+void SendInputToServer(P_MOVE_STATE m, P_ATTACK_STATE a,
+	P_GUARD_STATE g, P_HIT_STATE h)
+{
+	if (!NetworkConnected()) return;
+	CS_INPUT_PACKET p{};
+	p.size = sizeof(p);
+	p.type = CS_INPUT;
+	p.m_state = m;
+	p.a_state = a;
+	p.g_state = g;
+	p.h_state = h;
+	send_packet(g_clients[0].client_socket, &p); // 정확히 size바이트 전송
+}
 
 struct CLIENT {
 	int id;
