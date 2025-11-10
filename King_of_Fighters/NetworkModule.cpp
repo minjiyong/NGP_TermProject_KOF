@@ -19,7 +19,7 @@
 using namespace std;
 using namespace chrono;
 
-extern HWND		hWnd;
+extern HWND		hWnd = NULL;
 
 const static int MAX_TEST = 3;
 const static int MAX_CLIENTS = MAX_TEST * 2;
@@ -85,24 +85,6 @@ static bool recv_packet(SOCKET s, void* p) {
 	// 나머지 (size - 1) 바이트 받기
 	if (!recv_exact(s, buf + 1, size - 1)) return false;
 	return true;
-}
-
-bool NetworkConnected() {
-	return (num_connections > 0) && g_clients[0].connected;
-}
-
-void SendInputToServer(P_MOVE_STATE m, P_ATTACK_STATE a,
-	P_GUARD_STATE g, P_HIT_STATE h)
-{
-	if (!NetworkConnected()) return;
-	CS_INPUT_PACKET p{};
-	p.size = sizeof(p);
-	p.type = CS_INPUT;
-	p.m_state = m;
-	p.a_state = a;
-	p.g_state = g;
-	p.h_state = h;
-	send_packet(g_clients[0].client_socket, &p); // 정확히 size바이트 전송
 }
 
 struct CLIENT {
@@ -277,6 +259,25 @@ void Print_Thread()
 		//Sleep(1000);
 		//system("cls");
 	}
+}
+
+
+bool NetworkConnected() {
+	return (num_connections > 0) && g_clients[0].connected;
+}
+
+void SendInputToServer(P_MOVE_STATE m, P_ATTACK_STATE a,
+	P_GUARD_STATE g, P_HIT_STATE h)
+{
+	if (!NetworkConnected()) return;
+	CS_INPUT_PACKET p{};
+	p.size = sizeof(p);
+	p.type = CS_INPUT;
+	p.m_state = m;
+	p.a_state = a;
+	p.g_state = g;
+	p.h_state = h;
+	send_packet(g_clients[0].client_socket, &p); // 정확히 size바이트 전송
 }
 
 void InitializeNetwork()
