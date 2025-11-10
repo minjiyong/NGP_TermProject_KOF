@@ -9,6 +9,10 @@
 #include "Kaphwan.h"
 #include "Effect.h"
 #include "UI.h"
+
+#include "NetworkModule.h"
+#include "protocol.h"
+
 #pragma comment(linker,"/entry:WinMainCRTStartup /subsystem:console")
 #pragma comment(lib, "winmm.lib")
 
@@ -74,11 +78,12 @@ Kaphwan Kap{};
 
 Effect effect{};
 
-
 void draw_framerectangle(HDC mDC, int x1, int y1, int x2, int y2, COLORREF color);
 void draw_rectangle(HDC mDC, int x1, int y1, int x2, int y2, COLORREF color);
 void playbackgroundmusic();
 
+// NGP
+static void SendGenState();
 
 HINSTANCE g_hInst;
 LPCTSTR IpszClass = L"Window Class Name";
@@ -2299,3 +2304,44 @@ void playbackgroundmusic() {
 	}
 }
 
+
+static void SendGenState()
+{
+	// movement 매핑
+	P_MOVE_STATE m = PMS_NONE;
+	if (Gen.condition1 == JUMP) {
+		if (Gen.condition2 == FRONTMOVE) m = PMS_JUMP_LEFT;
+		else if (Gen.condition2 == BACKMOVE) m = PMS_JUMP_RIGHT;
+		else                                  m = PMS_JUMP;
+	}
+	else if (Gen.condition1 == SITTING) {
+		if (Gen.condition2 == FRONTMOVE) m = PMS_SIT_LEFT;
+		else if (Gen.condition2 == BACKMOVE) m = PMS_SIT_RIGHT;
+		else                                  m = PMS_SIT;
+	}
+	else { // STANDING
+		if (Gen.condition2 == FRONTMOVE) m = PMS_LEFT;
+		else if (Gen.condition2 == BACKMOVE) m = PMS_RIGHT;
+		else                                  m = PMS_NONE;
+	}
+
+	// attack 매핑
+	P_ATTACK_STATE a = PAS_NONE;
+	if (Gen.condition2 == WEAKPUNCH) a = PAS_LIGHT_HAND;
+	else if (Gen.condition2 == STRONGPUNCH) a = PAS_HEAVY_HAND;
+	else if (Gen.condition2 == WEAKKICK) a = PAS_LIGHT_FOOT;
+	else if (Gen.condition2 == STRONGKICK) a = PAS_HEAVY_FOOT;
+
+	// guard/hit은 게임 로직이 따로 판정하므로 일단 NONE
+	P_GUARD_STATE g = PGS_NONE;
+	if (Gen.condition3 == GUARD) {
+		g = (Gen.condition1 == SITTING) ? PGS_SIT : PGS_STAND;
+	}
+
+	P_HIT_STATE h = PHS_NONE;
+	if (Gen.condition3 == HITTED) {
+		h = (Gen.condition1 == SITTING) ? PHS_SIT : PHS_STAND;
+	}
+
+	SendInputToServer(m, a, g, h);
+}
