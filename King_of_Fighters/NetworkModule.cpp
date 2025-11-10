@@ -39,6 +39,16 @@ struct CLIENT;
 
 static std::atomic_bool g_use_random{ false };
 
+static bool recv_exact(SOCKET s, void* p, int len) {
+	// 자료형의	크기만큼 정확히 받기
+	char* c = (char*)p; int got = 0;
+	while (got < len) {
+		int n = recv(s, c + got, len - got, 0);
+		if (n <= 0) return false;
+		got += n;
+	}
+	return true;
+}
 
 static bool send_exact(SOCKET s, const void* p, int len) {
 	// 자료형의 크기만큼 정확히 전송
@@ -61,6 +71,19 @@ bool send_packet(SOCKET s, const void* p) {
 
 	// 2) 정확히 size 바이트 전송
 	send_exact(s, buf, size);
+	return true;
+}
+
+static bool recv_packet(SOCKET s, void* p) {
+	unsigned char size = 0;
+	if (!recv_exact(s, &size, 1)) return false;
+	if (size < 2 || size > BUF_SIZE) return false;
+
+	char* buf = reinterpret_cast<char*>(p);
+	buf[0] = size;
+
+	// 나머지 (size - 1) 바이트 받기
+	if (!recv_exact(s, buf + 1, size - 1)) return false;
 	return true;
 }
 
