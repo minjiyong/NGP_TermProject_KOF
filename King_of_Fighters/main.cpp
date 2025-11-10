@@ -1654,6 +1654,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					if (Gen.condition2 != FRONTMOVE) {
 						Gen.condition2 = FRONTMOVE;
 						Gen.frontmove_chin.ani_index = 0;
+						SendGenState();
 					}
 				}
 			}
@@ -1665,6 +1666,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					if (Gen.condition2 != BACKMOVE) {
 						Gen.condition2 = BACKMOVE;
 						Gen.backmove_chin.ani_index = 0;
+						SendGenState();
 					}
 				}
 			}
@@ -1676,6 +1678,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					if (Gen.condition1 != JUMP) {
 						Gen.condition1 = JUMP;
 						Gen.jump_chin.ani_index = 0;
+						SendGenState();
 					}
 				}
 			}
@@ -1686,13 +1689,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 				if (Gen.condition1 == STANDING && Gen.condition2 != WEAKPUNCH && Gen.condition2 != STRONGPUNCH && Gen.condition2 != WEAKKICK && Gen.condition2 != STRONGKICK) {
 					Gen.condition1 = SITTING;
 					Gen.sitdown_chin.ani_index = 0;
+					SendGenState();
+
 					if (Gen.condition2 == FRONTMOVE) {
 						Gen.condition1 = SITTING;
 						Gen.condition2 = NOATTACK;
+						SendGenState();
 					}
 					if (Gen.condition2 == BACKMOVE) {
 						Gen.condition1 = SITTING;
 						Gen.condition2 = NOATTACK;
+						SendGenState();
 					}
 				}
 			}
@@ -1705,6 +1712,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					Gen.smallpunch_chin.ani_index = 0;
 					Gen.downsmallpunch_chin.ani_index = 0;
 					Gen.jumpsmallpunch_chin.ani_index = 0;
+					SendGenState();
 				}
 			}
 			break;
@@ -1719,6 +1727,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					Gen.bigpunch_chin.ani_index = 0;
 					Gen.downsmallpunch_chin.ani_index = 0;
 					Gen.jumpsmallpunch_chin.ani_index = 0;
+					SendGenState();
 				}
 			}
 			break;
@@ -1730,6 +1739,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					Gen.smallkick_chin.ani_index = 0;
 					Gen.downsmallkick_chin.ani_index = 0;
 					Gen.jumpsmallkick_chin.ani_index = 0;
+					SendGenState();
 				}
 			}
 			break;
@@ -1744,6 +1754,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					Gen.smallkick_chin.ani_index = 0;
 					Gen.downsmallkick_chin.ani_index = 0;
 					Gen.jumpsmallkick_chin.ani_index = 0;
+					SendGenState();
 				}
 			}
 			break;
@@ -1757,8 +1768,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 				if (Kap.condition1 == STANDING && Kap.condition2 != WEAKPUNCH && Kap.condition2 != STRONGPUNCH && Kap.condition2 != WEAKKICK && Kap.condition2 != STRONGKICK) {
 					Kap.condition1 = SITTING;
 					Kap.sitting_kaphwan.ani_index = 0;
+					SendGenState();
+
 					if (Kap.condition2 == FRONTMOVE || Kap.condition2 == BACKMOVE) {
 						Kap.condition2 = NOATTACK;
+						SendGenState();
 					}
 				}
 			}
@@ -1770,6 +1784,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					if (Kap.condition2 != FRONTMOVE) {
 						Kap.condition2 = FRONTMOVE;
 						Kap.frontmove_kaphwan.ani_index = 0;
+						SendGenState();
 					}
 				}
 			}
@@ -1782,6 +1797,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					if (Kap.condition2 != BACKMOVE) {
 						Kap.condition2 = BACKMOVE;
 						Kap.backmove_kaphwan.ani_index = 0;
+						SendGenState();
 					}
 				}
 			}
@@ -1793,6 +1809,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					if (Kap.condition1 != JUMP) {
 						Kap.condition1 = JUMP;
 						Kap.jump_kaphwan.ani_index = 0;
+						SendGenState();
 					}
 				}
 			}
@@ -1806,6 +1823,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					Kap.weakpunch_kaphwan.ani_index = 0;
 					Kap.sittingpunch_kaphwan.ani_index = 0;
 					Kap.jumppunch_kaphwan.ani_index = 0;
+					SendGenState();
 				}
 			}
 			break;
@@ -1821,6 +1839,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					Kap.strongpunch_kaphwan.ani_index = 0;
 					Kap.sittingpunch_kaphwan.ani_index = 0;
 					Kap.jumppunch_kaphwan.ani_index = 0;
+					SendGenState();
 				}
 			}
 			break;
@@ -1832,6 +1851,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					Kap.weakkick_kaphwan.ani_index = 0;
 					Kap.sittingkick_kaphwan.ani_index = 0;
 					Kap.jumpkick_kaphwan.ani_index = 0;
+					SendGenState();
 				}
 			}
 			break;
@@ -1846,6 +1866,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					Kap.strongkick_kaphwan.ani_index = 0;
 					Kap.sittingkick_kaphwan.ani_index = 0;
 					Kap.jumpkick_kaphwan.ani_index = 0;
+					SendGenState();
 				}
 			}
 			break;
@@ -1865,12 +1886,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			if (Gen.condition2 != WEAKPUNCH && Gen.condition2 != STRONGPUNCH && Gen.condition2 != WEAKKICK && Gen.condition2 != STRONGKICK) {
 				Gen.condition2 = NOATTACK;
 				Gen.standing_chin.ani_index = 0;
+				SendGenState();
 			}
 			break;
 		case VK_RIGHT:
 			if (Gen.condition2 != WEAKPUNCH && Gen.condition2 != STRONGPUNCH && Gen.condition2 != WEAKKICK && Gen.condition2 != STRONGKICK) {
 				Gen.condition2 = NOATTACK;
 				Gen.standing_chin.ani_index = 0;
+				SendGenState();
 			}
 			break;
 		case VK_DOWN:
@@ -1878,6 +1901,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 				if (Gen.condition1 != JUMP) {
 					Gen.condition1 = STANDING;
 					Gen.standing_chin.ani_index = 0;
+					SendGenState();
 				}
 			}
 			break;
@@ -1888,6 +1912,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 				if (Kap.condition1 != JUMP) {
 					Kap.condition1 = STANDING;
 					Kap.standing_kaphwan.ani_index = 0;
+					SendGenState();
 				}
 			}
 		}
@@ -1895,12 +1920,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			if (Kap.condition2 != WEAKPUNCH && Kap.condition2 != STRONGPUNCH && Kap.condition2 != WEAKKICK && Kap.condition2 != STRONGKICK) {
 				Kap.condition2 = NOATTACK;
 				Kap.standing_kaphwan.ani_index = 0;
+				SendGenState();
 			}
 		}
 		else if (wParam == 'w' || wParam == 'W') {
 			if (Kap.condition2 != WEAKPUNCH && Kap.condition2 != STRONGPUNCH && Kap.condition2 != WEAKKICK && Kap.condition2 != STRONGKICK) {
 				Kap.condition2 = NOATTACK;
 				Kap.standing_kaphwan.ani_index = 0;
+				SendGenState();
 			}
 		}
 
