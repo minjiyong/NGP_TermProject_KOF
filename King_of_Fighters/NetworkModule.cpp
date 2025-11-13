@@ -148,3 +148,31 @@ struct CLIENT {
 		}
 	}
 };
+
+
+extern SOCKET g_sock;
+
+// 서버로 전송하는 함수
+void SendInputToServer(P_MOVE_STATE m, P_ATTACK_STATE a, P_GUARD_STATE g, P_HIT_STATE h)
+{
+	CS_INPUT_PACKET pkt{};
+	pkt.size = static_cast<unsigned char>(sizeof(CS_INPUT_PACKET));
+	pkt.type = CS_INPUT;
+	pkt.m_state = m;
+	pkt.a_state = a;
+	pkt.g_state = g;
+	pkt.h_state = h;
+
+	const char* buf = reinterpret_cast<const char*>(&pkt);
+	int total = 0;
+	int len = pkt.size;
+
+	while (total < len) {
+		int ret = send(g_sock, buf + total, len - total, 0);
+		if (ret == SOCKET_ERROR || ret == 0) {
+			// int err = WSAGetLastError();
+			break;
+		}
+		total += ret;
+	}
+}
