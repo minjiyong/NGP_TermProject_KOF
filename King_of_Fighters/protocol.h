@@ -1,3 +1,4 @@
+#pragma once
 // Protocol definitions for server-client communication in a multiplayer game.
 //--------------------------------------------------------------
 constexpr short GAME_PORT = 9000;
@@ -6,7 +7,7 @@ constexpr int BUF_SIZE = 200;
 constexpr unsigned short MAP_HEIGHT = 0;
 constexpr unsigned short MAP_WIDTH = 0;
 constexpr int NAME_SIZE = 20;
-//std::bitset<1> can_move[MAP_WIDTH][MAP_HEIGHT]{ 1 }; 이건 나중에
+
 //--------------------------------------------------------------
 // Packet Type Definitions
 //--------------------------------------------------------------
@@ -14,15 +15,13 @@ constexpr int NAME_SIZE = 20;
 constexpr char SC_LOGIN_INFO = 0;
 constexpr char SC_LOGOUT_INFO = 1;
 constexpr char SC_UPDATE = 2;
-//constexpr char SC_DAMAGE_EVENT = 10;
-//constexpr char SC_HP_UPDATE = 11;
-//constexpr char SC_GAME_OVER = 16; // 매치 종료(승자/사유)
 
 // Client to Server Packet Types
 constexpr char CS_LOGIN = 3;
 constexpr char CS_INPUT = 4;
+
 //--------------------------------------------------------------
-// Movement and Action Type Definitions
+// Movement and Action State Definitions
 //--------------------------------------------------------------
 enum P_MOVE_STATE {
 	PMS_NONE,
@@ -57,9 +56,8 @@ enum P_HIT_STATE {
 };
 
 //--------------------------------------------------------------
-// Overlapped I/O Extended Structure
+// Session State Definitions
 //--------------------------------------------------------------
-
 enum S_STATE { // 세션 상태
 	ST_FREE,
 	ST_CONNECT,
