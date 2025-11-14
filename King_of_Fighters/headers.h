@@ -1,4 +1,5 @@
 #pragma once
+<<<<<<< Updated upstream
 #include <winsock2.h> // 윈속2 메인 헤더
 #include <ws2tcpip.h> // 윈속2 확장 헤더
 
@@ -19,6 +20,42 @@
 #include "protocol.h"
 #include "Action.h"
 #include "Player.h"	
+=======
+
+#define _CRT_SECURE_NO_WARNINGS // 구형 C 함수 사용 시 경고 끄기
+#define _WINSOCK_DEPRECATED_NO_WARNINGS // 구형 소켓 API 사용 시 경고 끄기
+
+#include <winsock2.h> // 윈속2 메인 헤더
+#include <ws2tcpip.h> // 윈속2 확장 헤더
+
+#include <windows.h>
+#include <iostream>
+#include <string>
+#include <thread>
+#include <vector>
+#include <mutex>
+#include <chrono>
+#include <array>
+#include <memory>
+#include <TCHAR.H>
+#include <ctime>
+#include <atlImage.h>
+//#include "IMAGE.h"
+//#include "Chin.h"
+//#include "Kaphwan.h"
+//#include "Effect.h"
+//#include "UI.h"
+//
+//#include "NetworkModule.h"
+#include "protocol.h"
+
+#pragma comment(linker,"/entry:WinMainCRTStartup /subsystem:console")
+#pragma comment(lib, "winmm.lib")
+#pragma comment(lib, "ws2_32") // ws2_32.lib 링크
+
+#define WINDOW_WIDTH 900
+#define WINDOW_HEIGHT 600
+>>>>>>> Stashed changes
 
 // 소켓 함수 오류 출력 후 종료
 void err_quit(const char* msg)
@@ -60,18 +97,31 @@ void err_display(int errcode)
 	LocalFree(lpMsgBuf);
 }
 
+<<<<<<< Updated upstream
 bool recv_exact(SOCKET s, void* p, int len) {
 	char* c = reinterpret_cast<char*>(p);
 	int got = 0;
 	while (got < len) {
 		int n = recv(s, c + got, len - got, 0);
 		if (n <= 0) return false; // 0=FIN, <0=에러
+=======
+static bool recv_exact(SOCKET s, void* p, int len) {
+	// 자료형의	크기만큼 정확히 받기
+	char* c = (char*)p; int got = 0;
+	while (got < len) {
+		int n = recv(s, c + got, len - got, 0);
+		if (n <= 0) return false;
+>>>>>>> Stashed changes
 		got += n;
 	}
 	return true;
 }
 
+<<<<<<< Updated upstream
 bool send_exact(SOCKET s, const void* p, int len) {
+=======
+static bool send_exact(SOCKET s, const void* p, int len) {
+>>>>>>> Stashed changes
 	// 자료형의 크기만큼 정확히 전송
 	const char* c = (const char*)p;
 	int sent = 0;
@@ -83,6 +133,7 @@ bool send_exact(SOCKET s, const void* p, int len) {
 	return true;
 }
 
+<<<<<<< Updated upstream
 bool recv_packet(SOCKET s, void* p) {
 	unsigned char size = 0;
 	if (!recv_exact(s, &size, sizeof(unsigned char))) return false;
@@ -96,6 +147,8 @@ bool recv_packet(SOCKET s, void* p) {
 	return true;
 }
 
+=======
+>>>>>>> Stashed changes
 bool send_packet(SOCKET s, const void* p) {
 	const unsigned char* buf = reinterpret_cast<const unsigned char*>(p);
 	unsigned char size = buf[0];
@@ -106,4 +159,20 @@ bool send_packet(SOCKET s, const void* p) {
 	// 2) 정확히 size 바이트 전송
 	send_exact(s, buf, size);
 	return true;
+<<<<<<< Updated upstream
+=======
+}
+
+static bool recv_packet(SOCKET s, void* p) {
+	unsigned char size = 0;
+	if (!recv_exact(s, &size, 1)) return false;
+	if (size < 2 || size > BUF_SIZE) return false;
+
+	char* buf = reinterpret_cast<char*>(p);
+	buf[0] = size;
+
+	// 나머지 (size - 1) 바이트 받기
+	if (!recv_exact(s, buf + 1, size - 1)) return false;
+	return true;
+>>>>>>> Stashed changes
 }

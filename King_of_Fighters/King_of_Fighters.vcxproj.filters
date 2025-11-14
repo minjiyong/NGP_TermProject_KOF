@@ -13,266 +13,83 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="헤더 파일\network">
+      <UniqueIdentifier>{48e6b132-c5b3-4bfa-b43a-c6bf8b8d8346}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\network">
+      <UniqueIdentifier>{67ab00b8-049a-486a-a9a8-efabfff2ffd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\character">
+      <UniqueIdentifier>{65cb36ea-05c2-42b2-91bf-ee23d84070bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\character\chin">
+      <UniqueIdentifier>{be721109-3a42-4922-bcc7-1ef799e91925}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\character\image">
+      <UniqueIdentifier>{7dc09ed2-4608-4866-99f5-0c18d6002cc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\character">
+      <UniqueIdentifier>{82920422-518b-4188-84f0-d88063bdd172}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\character\chin">
+      <UniqueIdentifier>{956daee0-b9dd-4ad8-8b37-ea1e8b3f81a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\character\image">
+      <UniqueIdentifier>{66c3258a-8472-4927-a828-afad6a7501e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="IMAGE.cpp">
+    <ClCompile Include="draw.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Kaphwan_standing.cpp">
+    <ClCompile Include="image.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Kaphwan_frontmove.cpp">
+    <ClCompile Include="ui.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Kaphwan.cpp">
+    <ClCompile Include="game_manager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Kaphwan_backmove.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="NetworkModule.cpp">
+      <Filter>소스 파일\network</Filter>
     </ClCompile>
-    <ClCompile Include="Kaphwan_jump.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Kaphwan_sitting.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Kaphwan_standingguard.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Kaphwan_sittingguard.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Kaphwan_weakpunch.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Kaphwan_strongpunch.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Kaphwan_weakkick.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Kaphwan_strongkick.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Kaphwan_standinghit.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Kaphwan_sittinghit.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Kaphwan_jumphit.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Kaphwan_sittingpunch.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Kaphwan_sittingkick.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Kaphwan_jumppunch.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Kaphwan_jumpkick.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Chin_standing.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Chin.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Chin_backmove.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Chin_bigkick.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Chin_bigpunch.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Chin_downsmallkick.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Chin_downsmalllpunch.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Chin_frontmove.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Chin_jump.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Chin_jumpsmallkick.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Chin_jumpsmallpunch.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Chin_sitdown.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Chin_smallkick.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Chin_smallpunch.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Chin_standinghit.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Chin_jumphit.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Chin_sittingguard.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Chin_sittinghit.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Chin_standingguard.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Effect_hit.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Effect.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Effect_guard.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="session.cpp">
+      <Filter>소스 파일\network</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="IMAGE.h">
+    <ClInclude Include="headers.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Kaphwan_standing.h">
+    <ClInclude Include="draw.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Kaphwan_frontmove.h">
+    <ClInclude Include="game_manager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Kaphwan.h">
+    <ClInclude Include="sound.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Kaphwan_backmove.h">
+    <ClInclude Include="image.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Kaphwan_jump.h">
+    <ClInclude Include="ui.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Kaphwan_sitting.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="protocol.h">
+      <Filter>헤더 파일\network</Filter>
     </ClInclude>
-    <ClInclude Include="Kaphwan_standingguard.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="NetworkModule.h">
+      <Filter>헤더 파일\network</Filter>
     </ClInclude>
-    <ClInclude Include="Kaphwan_sittingguard.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="session.h">
+      <Filter>헤더 파일\network</Filter>
     </ClInclude>
-    <ClInclude Include="Kaphwan_weakpunch.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Kaphwan_strongpunch.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Kaphwan_weakkick.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Kaphwan_strongkick.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Kaphwan_standinghit.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Kaphwan_sittinghit.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Kaphwan_jumphit.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Kaphwan_sittingpunch.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Kaphwan_sittingkick.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Kaphwan_jumppunch.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Kaphwan_jumpkick.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Chin.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Chin_backmove.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Chin_bigkick.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Chin_bigpunch.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Chin_downsmallkick.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Chin_downsmallpunch.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Chin_frontmove.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Chin_jump.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Chin_jumpsmallkick.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Chin_jumpsmallpunch.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Chin_sitdown.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Chin_smallkick.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Chin_smallpunch.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Chin_standing.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Chin_standinghit.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Chin_jumphit.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Chin_sittingguard.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Chin_sittinghit.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect_hit.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect_guard.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="UI.h">
+    <ClInclude Include="player.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

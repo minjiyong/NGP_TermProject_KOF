@@ -1,13 +1,17 @@
-#include "IMAGE.h"
-#include <iostream>
-#pragma comment(linker,"/entry:WinMainCRTStartup /subsystem:console") 
+#include "image.h"
 
 IMAGE::IMAGE() {};
 IMAGE::~IMAGE() {};
 
-void IMAGE::ImageInitialize() {
-	img_width = img.GetWidth();
-	img_height = img.GetHeight();
+void IMAGE::SetImage(const wchar_t* filename, int left, int top, int right, int bottom) {
+	_img.Load(filename);
+	_width = _img.GetWidth();
+	_height = _img.GetHeight();
 
-	std::cout << "이미지마다 폭, 높이값 초기화됨" << std::endl;
+	_left = left;
+	_top = top;
+	_right = right;
+	_bottom = bottom;
+
+	std::cout << "이미지 로딩 완료" << std::endl;
 }

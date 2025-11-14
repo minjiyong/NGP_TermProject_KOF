@@ -1,14 +1,19 @@
 #pragma once
-#include <atlImage.h>
+#include "headers.h"
 
 class IMAGE {
 public:
-	CImage img{};
-	int img_width{};
-	int img_height{};
+	CImage _img{};
+	int _width{};
+	int _height{};
+
+	int _left{};
+	int _top{};
+	int _right{};
+	int _bottom{};
 
 	IMAGE();
 	~IMAGE();
 
-	void ImageInitialize();
+	void SetImage(const wchar_t*, int left, int top, int right, int bottom);
 };
