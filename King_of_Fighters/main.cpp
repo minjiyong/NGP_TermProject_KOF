@@ -1,53 +1,7 @@
-<<<<<<< Updated upstream
-#include <windows.h>			// 윈도우 헤더 파일
-#include <TCHAR.H>
-#include <ctime>
-#include <atlImage.h>
-#include <iostream>
-#include <thread>
-#include "IMAGE.h"
-#include "Chin.h"
-#include "Kaphwan.h"
-#include "Effect.h"
-#include "UI.h"
-#pragma comment(linker,"/entry:WinMainCRTStartup /subsystem:console")
-#pragma comment(lib, "winmm.lib")
-
-using namespace std;
-
-
-#define WINDOW_WIDTH 900
-#define WINDOW_HEIGHT 600
-
-#define HP 0
-#define MAP1_1 1
-#define MAP1_2 2
-#define MAP1_3 3
-#define CHINNAME 4
-#define KAPNAME 5
-#define KAPPROFILE 6
-#define CHINPROFILE 7
-
-#define TIME0 8
-#define TIME1 9
-#define TIME2 10
-#define TIME3 11
-#define TIME4 12
-#define TIME5 13
-#define TIME6 14
-#define TIME7 15
-#define TIME8 16
-#define TIME9 17
-#define START1 18
-#define START2 19
-#define FIGHT 20
-#define KO 21
-=======
 #include "headers.h"
 #include "game_manager.h"
 #include "draw.h"
 #include "NetworkModule.h"
->>>>>>> Stashed changes
 
 #define STANDING 0
 #define NOATTACK 1
@@ -73,23 +27,6 @@ using namespace std;
 #define HITTED 101
 #define GUARD 102
 
-<<<<<<< Updated upstream
-
-UI ui{};
-
-Chin Gen{};
-Kaphwan Kap{};
-
-Effect effect{};
-
-
-void draw_framerectangle(HDC mDC, int x1, int y1, int x2, int y2, COLORREF color);
-void draw_rectangle(HDC mDC, int x1, int y1, int x2, int y2, COLORREF color);
-void playbackgroundmusic();
-
-
-=======
->>>>>>> Stashed changes
 HINSTANCE g_hInst;
 LPCTSTR IpszClass = L"Window Class Name";
 LPCTSTR IpszWindowName = L"KOF";
@@ -253,10 +190,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 				if (Gen.condition1 == STANDING && Gen.condition2 != WEAKPUNCH && Gen.condition2 != STRONGPUNCH && Gen.condition2 != WEAKKICK && Gen.condition2 != STRONGKICK) {
 					Gen.condition1 = SITTING;
 					Gen.sitdown_chin.ani_index = 0;
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 					if (Gen.condition2 == FRONTMOVE) {
 						Gen.condition1 = SITTING;
 						Gen.condition2 = NOATTACK;
@@ -328,10 +262,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 				if (Kap.condition1 == STANDING && Kap.condition2 != WEAKPUNCH && Kap.condition2 != STRONGPUNCH && Kap.condition2 != WEAKKICK && Kap.condition2 != STRONGKICK) {
 					Kap.condition1 = SITTING;
 					Kap.sitting_kaphwan.ani_index = 0;
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 					if (Kap.condition2 == FRONTMOVE || Kap.condition2 == BACKMOVE) {
 						Kap.condition2 = NOATTACK;
 					}
@@ -532,61 +463,4 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		return 0;
 	}
 	return (DefWindowProc(hWnd, iMessage, wParam, lParam));
-<<<<<<< Updated upstream
 }
-
-void draw_framerectangle(HDC mDC, int x1, int y1, int x2, int y2, COLORREF color)
-{
-	HBRUSH hBrush = CreateSolidBrush(color); // GDI: 브러시 만들기
-	HBRUSH oldBrush = (HBRUSH)SelectObject(mDC, hBrush); // 새로운 브러시 선택하기
-	HPEN hPen = CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
-	HPEN oldPen = (HPEN)SelectObject(mDC, hPen);
-
-	RECT rt{ x1, y1, x2, y2 };
-	FrameRect(mDC, &rt, hBrush);
-
-	hBrush = (HBRUSH)SelectObject(mDC, oldBrush); // 새로운 펜 선택하기
-	DeleteObject(hBrush);
-	hPen = (HPEN)SelectObject(mDC, oldPen);
-	DeleteObject(hPen);
-}
-
-void draw_rectangle(HDC mDC, int x1, int y1, int x2, int y2, COLORREF color)
-{
-	HBRUSH hBrush = CreateSolidBrush(color); // GDI: 브러시 만들기
-	HBRUSH oldBrush = (HBRUSH)SelectObject(mDC, hBrush); // 새로운 브러시 선택하기
-	HPEN hPen = CreatePen(PS_SOLID, 0, RGB(255, 0, 0));
-	HPEN oldPen = (HPEN)SelectObject(mDC, hPen);
-
-	Rectangle(mDC, x1, y1, x2, y2);
-
-	hBrush = (HBRUSH)SelectObject(mDC, oldBrush); // 새로운 펜 선택하기
-	DeleteObject(hBrush);
-	hPen = (HPEN)SelectObject(mDC, oldPen);
-	DeleteObject(hPen);
-}
-
-void playbackgroundmusic() {
-	// 배경음악 파일을 엽니다.
-	MCIERROR mciError = mciSendString(TEXT("open \"06-Hey_-_England-Stage_.wav\" type mpegvideo alias bgm"), NULL, 0, NULL);
-	if (mciError != 0) {
-		TCHAR errorText[128];
-		mciGetErrorString(mciError, errorText, sizeof(errorText) / sizeof(TCHAR));
-		std::cerr << "MCI open error: " << errorText << std::endl;
-		return;
-	}
-
-	// 배경음악을 재생합니다.
-	mciError = mciSendString(TEXT("play bgm repeat"), NULL, 0, NULL);
-	if (mciError != 0) {
-		TCHAR errorText[128];
-		mciGetErrorString(mciError, errorText, sizeof(errorText) / sizeof(TCHAR));
-		std::cerr << "MCI play error: " << errorText << std::endl;
-		mciSendString(TEXT("close bgm"), NULL, 0, NULL); // 에러 발생 시 파일 닫기
-		return;
-	}
-}
-
-=======
-}
->>>>>>> Stashed changes
