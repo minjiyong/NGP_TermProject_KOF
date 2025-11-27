@@ -24,6 +24,8 @@
 class Chin
 {
 public:
+	CharacterState core{};		// core = "공통 캐릭터 상태"
+
 	int img_left{};
 	int img_top{};
 	int img_right{};
@@ -58,6 +60,10 @@ public:
 	~Chin();
 	
 	void initialize_chin();
+
+	void sync_core_common();		// Chin의 원래 값을 core로 보내주는 동기화 함수
+	void sync_core_with_attackbox(RECT& rect);		// Chin의 원래 값을 core로 보내주는 동기화 함수, 공격 히트박스 포함
+
 	void print_standing_chin(HDC mDC);
 	void print_frontmove_chin(HDC mDC);
 	void print_backmove_chin(HDC mDC);

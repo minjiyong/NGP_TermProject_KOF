@@ -99,6 +99,47 @@ void Chin::initialize_chin()
 	}
 }
 
+
+void Chin::sync_core_common()
+{
+	// 위치
+	core.x = img_left;
+	core.y = img_top;
+
+	// condition 그대로 노출
+	core.condition1 = condition1;
+	core.condition2 = condition2;
+	core.condition3 = condition3;
+
+	// 몸통 히트박스
+	core.body_box = hitbox;
+
+	// 캐릭터 타입은 Chin으로 고정
+	core.type = CT_CHIN;
+}
+
+void Chin::sync_core_with_attackbox(RECT& rect)
+{
+	// 위치
+	core.x = img_left;
+	core.y = img_top;
+
+	// condition 그대로 노출
+	core.condition1 = condition1;
+	core.condition2 = condition2;
+	core.condition3 = condition3;
+
+	// 몸통 히트박스
+	core.body_box = hitbox;
+
+	// 어택 히트박스
+	core.attack_box = rect;
+
+	// 캐릭터 타입은 Chin으로 고정
+	core.type = CT_CHIN;
+}
+
+
 void Chin::print_standing_chin(HDC mDC)
 {
 	img_right = img_left + standing_chin.standing_ani[standing_chin.ani_index].img_width;
@@ -109,6 +150,9 @@ void Chin::print_standing_chin(HDC mDC)
 	hitbox.right = img_left + 91;
 	hitbox.bottom = img_top + 191;
 
+	sync_core_common();
+	::SetRectEmpty(&core.attack_box);             // 공격 없음
+
 	standing_chin.standing_ani[standing_chin.ani_index].img.TransparentBlt(mDC, img_left, img_top, img_right - img_left, img_bottom - img_top, 0, 0, standing_chin.standing_ani[standing_chin.ani_index].img_width, standing_chin.standing_ani[standing_chin.ani_index].img_height, RGB(8, 0, 99));
 	
 }
@@ -118,6 +162,10 @@ void Chin::print_frontmove_chin(HDC mDC)
 {
 	img_right = img_left + frontmove_chin.frontmove_ani[frontmove_chin.ani_index].img_width;
 	img_bottom = img_top + frontmove_chin.frontmove_ani[frontmove_chin.ani_index].img_height;
+
+	sync_core_common();
+	::SetRectEmpty(&core.attack_box);             // 공격 없음
+
 	frontmove_chin.frontmove_ani[frontmove_chin.ani_index].img.TransparentBlt(mDC, img_left, img_top, img_right - img_left, img_bottom - img_top, 0, 0, frontmove_chin.frontmove_ani[frontmove_chin.ani_index].img_width, frontmove_chin.frontmove_ani[frontmove_chin.ani_index].img_height, RGB(8, 0, 99));
 	
 }
@@ -127,6 +175,10 @@ void Chin::print_backmove_chin(HDC mDC)
 {
 	img_right = img_left + backmove_chin.backmove_ani[backmove_chin.ani_index].img_width;
 	img_bottom = img_top + backmove_chin.backmove_ani[backmove_chin.ani_index].img_height;
+
+	sync_core_common();
+	::SetRectEmpty(&core.attack_box);             // 공격 없음
+
 	backmove_chin.backmove_ani[backmove_chin.ani_index].img.TransparentBlt(mDC, img_left, img_top, img_right - img_left, img_bottom - img_top, 0, 0, backmove_chin.backmove_ani[backmove_chin.ani_index].img_width, backmove_chin.backmove_ani[backmove_chin.ani_index].img_height, RGB(8, 0, 99));
 	
 }
@@ -136,6 +188,10 @@ void Chin::print_jump_chin(HDC mDC)
 {
 	img_right = img_left + jump_chin.jump_ani[jump_chin.ani_index].img_width;
 	img_bottom = img_top + jump_chin.jump_ani[jump_chin.ani_index].img_height;
+
+	sync_core_common();
+	::SetRectEmpty(&core.attack_box);             // 공격 없음
+
 	jump_chin.jump_ani[jump_chin.ani_index].img.TransparentBlt(mDC, img_left - 20, img_top, img_right - img_left, img_bottom - img_top, 0, 0, jump_chin.jump_ani[jump_chin.ani_index].img_width, jump_chin.jump_ani[jump_chin.ani_index].img_height, RGB(8, 0, 99));
 
 }
@@ -148,6 +204,9 @@ void Chin::print_sitdown_chin(HDC mDC)
 
 	hitbox.top = img_top + 60;
 	hitbox.bottom = img_top + 191;
+
+	sync_core_common();
+	::SetRectEmpty(&core.attack_box);             // 공격 없음
 
 	sitdown_chin.sitdown_ani[sitdown_chin.ani_index].img.TransparentBlt(mDC, img_left, img_top, img_right - img_left, img_bottom - img_top, 0, 0, sitdown_chin.sitdown_ani[sitdown_chin.ani_index].img_width, sitdown_chin.sitdown_ani[sitdown_chin.ani_index].img_height, RGB(8, 0, 99));
 	
@@ -177,6 +236,8 @@ void Chin::print_smallpunch_chin(HDC mDC)
 		smallpunch_chin.hitbox.bottom = -1000;
 	}
 
+	sync_core_with_attackbox(smallpunch_chin.hitbox);
+
 	smallpunch_chin.smallpunch_ani[smallpunch_chin.ani_index].img.TransparentBlt(mDC, img_left + 20, img_top, img_right - img_left, img_bottom - img_top, 0, 0, smallpunch_chin.smallpunch_ani[smallpunch_chin.ani_index].img_width, smallpunch_chin.smallpunch_ani[smallpunch_chin.ani_index].img_height, RGB(8, 0, 99));
 	
 }
@@ -204,6 +265,8 @@ void Chin::print_downsmallpunch_chin(HDC mDC)
 		downsmallpunch_chin.hitbox.right = -1000;
 		downsmallpunch_chin.hitbox.bottom = -1000;
 	}
+
+	sync_core_with_attackbox(downsmallpunch_chin.hitbox);
 
 	downsmallpunch_chin.downsmallpunch_ani[downsmallpunch_chin.ani_index].img.TransparentBlt(mDC, img_left, img_top, img_right - img_left, img_bottom - img_top, 0, 0, downsmallpunch_chin.downsmallpunch_ani[downsmallpunch_chin.ani_index].img_width, downsmallpunch_chin.downsmallpunch_ani[downsmallpunch_chin.ani_index].img_height, RGB(8, 0, 99));
 	
@@ -233,6 +296,8 @@ void Chin::print_jumpsmallpunch_chin(HDC mDC)
 		jumpsmallpunch_chin.hitbox.bottom = -1000;
 	}
 
+	sync_core_with_attackbox(jumpsmallpunch_chin.hitbox);
+
 	jumpsmallpunch_chin.jumpsmallpunch_ani[jumpsmallpunch_chin.ani_index].img.TransparentBlt(mDC, img_left + 10, img_top, img_right - img_left, img_bottom - img_top, 0, 0, jumpsmallpunch_chin.jumpsmallpunch_ani[jumpsmallpunch_chin.ani_index].img_width, jumpsmallpunch_chin.jumpsmallpunch_ani[jumpsmallpunch_chin.ani_index].img_height, RGB(8, 0, 99));
 	
 }
@@ -260,6 +325,8 @@ void Chin::print_bigpunch_chin(HDC mDC)
 		bigpunch_chin.hitbox.right = -1000;
 		bigpunch_chin.hitbox.bottom = -1000;
 	}
+
+	sync_core_with_attackbox(bigpunch_chin.hitbox);
 
 	bigpunch_chin.bigpunch_ani[bigpunch_chin.ani_index].img.TransparentBlt(mDC, img_left + 10, img_top, img_right - img_left, img_bottom - img_top, 0, 0, bigpunch_chin.bigpunch_ani[bigpunch_chin.ani_index].img_width, bigpunch_chin.bigpunch_ani[bigpunch_chin.ani_index].img_height, RGB(8, 0, 99));
 	
@@ -289,6 +356,8 @@ void Chin::print_smallkick_chin(HDC mDC)
 		smallkick_chin.hitbox.bottom = -1000;
 	}
 
+	sync_core_with_attackbox(smallkick_chin.hitbox);
+
 	smallkick_chin.smallkick_ani[smallkick_chin.ani_index].img.TransparentBlt(mDC, img_left, img_top, img_right - img_left, img_bottom - img_top, 0, 0, smallkick_chin.smallkick_ani[smallkick_chin.ani_index].img_width, smallkick_chin.smallkick_ani[smallkick_chin.ani_index].img_height, RGB(8, 0, 99));
 	
 }
@@ -316,6 +385,8 @@ void Chin::print_downsmallkick_chin(HDC mDC)
 		downsmallkick_chin.hitbox.right = -1000;
 		downsmallkick_chin.hitbox.bottom = -1000;
 	}
+
+	sync_core_with_attackbox(downsmallkick_chin.hitbox);
 
 	downsmallkick_chin.downsmallkick_ani[downsmallkick_chin.ani_index].img.TransparentBlt(mDC, img_left, img_top, img_right - img_left, img_bottom - img_top, 0, 0, downsmallkick_chin.downsmallkick_ani[downsmallkick_chin.ani_index].img_width, downsmallkick_chin.downsmallkick_ani[downsmallkick_chin.ani_index].img_height, RGB(8, 0, 99));
 	
@@ -345,6 +416,8 @@ void Chin::print_jumpsmallkick_chin(HDC mDC)
 		jumpsmallkick_chin.hitbox.bottom = -1000;
 	}
 
+	sync_core_with_attackbox(jumpsmallkick_chin.hitbox);
+
 	jumpsmallkick_chin.jumpsmallkick_ani[jumpsmallkick_chin.ani_index].img.TransparentBlt(mDC, img_left, img_top, img_right - img_left, img_bottom - img_top, 0, 0, jumpsmallkick_chin.jumpsmallkick_ani[jumpsmallkick_chin.ani_index].img_width, jumpsmallkick_chin.jumpsmallkick_ani[jumpsmallkick_chin.ani_index].img_height, RGB(8, 0, 99));
 	
 }
@@ -373,6 +446,8 @@ void Chin::print_bigkick_chin(HDC mDC)
 		bigkick_chin.hitbox.bottom = -1000;
 	}
 
+	sync_core_with_attackbox(bigkick_chin.hitbox);
+
 	bigkick_chin.bigkick_ani[bigkick_chin.ani_index].img.TransparentBlt(mDC, img_left - 40, img_top, img_right - img_left, img_bottom - img_top, 0, 0, bigkick_chin.bigkick_ani[bigkick_chin.ani_index].img_width, bigkick_chin.bigkick_ani[bigkick_chin.ani_index].img_height, RGB(8, 0, 99));
 
 }
@@ -381,6 +456,10 @@ void Chin::print_standinghit_chin(HDC mDC)
 {
 	img_right = img_left + standinghit_chin.standinghit_ani[standinghit_chin.ani_index].img_width;
 	img_bottom = img_top + standinghit_chin.standinghit_ani[standinghit_chin.ani_index].img_height;
+	
+	sync_core_common();
+	::SetRectEmpty(&core.attack_box);
+
 	standinghit_chin.standinghit_ani[standinghit_chin.ani_index].img.TransparentBlt(mDC, img_left, img_top, img_right - img_left, img_bottom - img_top, 0, 0, standinghit_chin.standinghit_ani[standinghit_chin.ani_index].img_width, standinghit_chin.standinghit_ani[standinghit_chin.ani_index].img_height, RGB(8, 0, 99));
 
 }
@@ -389,6 +468,10 @@ void Chin::print_standingguard_chin(HDC mDC)
 {
 	img_right = img_left + standingguard_chin.standingguard_ani[standingguard_chin.ani_index].img_width;
 	img_bottom = img_top + standingguard_chin.standingguard_ani[standingguard_chin.ani_index].img_height;
+	
+	sync_core_common();
+	::SetRectEmpty(&core.attack_box);
+	
 	standingguard_chin.standingguard_ani[standingguard_chin.ani_index].img.TransparentBlt(mDC, img_left, img_top, img_right - img_left, img_bottom - img_top, 0, 0, standingguard_chin.standingguard_ani[standingguard_chin.ani_index].img_width, standingguard_chin.standingguard_ani[standingguard_chin.ani_index].img_height, RGB(8, 0, 99));
 
 }
@@ -398,6 +481,10 @@ void Chin::print_sittinghit_chin(HDC mDC)
 {
 	img_right = img_left + sittinghit_chin.sittinghit_ani[sittinghit_chin.ani_index].img_width;
 	img_bottom = img_top + sittinghit_chin.sittinghit_ani[sittinghit_chin.ani_index].img_height;
+	
+	sync_core_common();
+	::SetRectEmpty(&core.attack_box);
+	
 	sittinghit_chin.sittinghit_ani[sittinghit_chin.ani_index].img.TransparentBlt(mDC, img_left, img_top, img_right - img_left, img_bottom - img_top, 0, 0, sittinghit_chin.sittinghit_ani[sittinghit_chin.ani_index].img_width, sittinghit_chin.sittinghit_ani[sittinghit_chin.ani_index].img_height, RGB(8, 0, 99));
 }
 
@@ -406,6 +493,10 @@ void Chin::print_sittingguard_chin(HDC mDC)
 {
 	img_right = img_left + sittingguard_chin.sittingguard_ani[sittingguard_chin.ani_index].img_width;
 	img_bottom = img_top + sittingguard_chin.sittingguard_ani[sittingguard_chin.ani_index].img_height;
+	
+	sync_core_common();
+	::SetRectEmpty(&core.attack_box);
+	
 	sittingguard_chin.sittingguard_ani[sittingguard_chin.ani_index].img.TransparentBlt(mDC, img_left, img_top, img_right - img_left, img_bottom - img_top, 0, 0, sittingguard_chin.sittingguard_ani[sittingguard_chin.ani_index].img_width, sittingguard_chin.sittingguard_ani[sittingguard_chin.ani_index].img_height, RGB(8, 0, 99));
 }
 
@@ -414,5 +505,9 @@ void Chin::print_jumphit_chin(HDC mDC)
 {
 	img_right = img_left + jumphit_chin.jumphit_ani[jumphit_chin.ani_index].img_width;
 	img_bottom = img_top + jumphit_chin.jumphit_ani[jumphit_chin.ani_index].img_height;
+	
+	sync_core_common();
+	::SetRectEmpty(&core.attack_box);
+	
 	jumphit_chin.jumphit_ani[jumphit_chin.ani_index].img.TransparentBlt(mDC, img_left, img_top, img_right - img_left, img_bottom - img_top, 0, 0, jumphit_chin.jumphit_ani[jumphit_chin.ani_index].img_width, jumphit_chin.jumphit_ani[jumphit_chin.ani_index].img_height, RGB(8, 0, 99));
 }
