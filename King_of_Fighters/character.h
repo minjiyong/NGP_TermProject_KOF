@@ -20,8 +20,8 @@ struct CharacterState
     std::int32_t y{};        // 왼쪽 상단 Y
 
     // HP
-    std::int32_t hp{ 1000 };
-    std::int32_t max_hp{ 1000 };
+    std::int32_t hp{ 266 };
+    std::int32_t max_hp{ 266 };
 
     // 기존 condition1 / 2 / 3 그대로 노출
     // (STANDING, JUMP, NOATTACK, FRONTMOVE, NOHIT, HITTED, GUARD 등)
