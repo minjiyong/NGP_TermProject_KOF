@@ -354,24 +354,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 
 		switch (wParam) {
 		case VK_LEFT:
-			if (Gen.condition2 != WEAKPUNCH && Gen.condition2 != STRONGPUNCH && Gen.condition2 != WEAKKICK && Gen.condition2 != STRONGKICK) {
-				Gen.condition2 = NOATTACK;
-				Gen.standing_chin.ani_index = 0;
-			}
+			Chin.player.status = Idle;
 			break;
 		case VK_RIGHT:
-			if (Gen.condition2 != WEAKPUNCH && Gen.condition2 != STRONGPUNCH && Gen.condition2 != WEAKKICK && Gen.condition2 != STRONGKICK) {
-				Gen.condition2 = NOATTACK;
-				Gen.standing_chin.ani_index = 0;
-			}
+			Chin.player.status = Idle;
 			break;
 		case VK_DOWN:
-			if (Gen.condition2 == NOATTACK) {
-				if (Gen.condition1 != JUMP) {
-					Gen.condition1 = STANDING;
-					Gen.standing_chin.ani_index = 0;
-				}
-			}
+			Chin.player.status = Idle;
 			break;
 		}
 
