@@ -151,104 +151,90 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			}
 			break;
 
+		// 공격/피격 도중 다른 키 씹어야 하는 건 status 내부에서 처리한다고 가정. 다른 status로 넘어갈 수 있는 상태인가요? Y/N
+		// 공격/피격 애니메이션 인덱스는 끝까지 출력된 경우만...
 		case VK_LEFT:
 			if (fight >= 4) {
-				if (Gen.condition3 != NOHIT) break;
-				if (Gen.condition1 != SITTING && Gen.condition2 == NOATTACK) {
-					if (Gen.condition2 != FRONTMOVE) {
-						Gen.condition2 = FRONTMOVE;
-						Gen.frontmove_chin.ani_index = 0;
-					}
+				if (Chin.player.status != ForwardMove) {
+					Chin.player.status = ForwardMove;
 				}
 			}
 			break;
 		case VK_RIGHT:
 			if (fight >= 4) {
-				if (Gen.condition3 != NOHIT) break;
-				if (Gen.condition1 != SITTING && Gen.condition2 == NOATTACK) {
-					if (Gen.condition2 != BACKMOVE) {
-						Gen.condition2 = BACKMOVE;
-						Gen.backmove_chin.ani_index = 0;
-					}
+				if (Chin.player.status != BackMove) {
+					Chin.player.status = BackMove;
 				}
 			}
 			break;
 		case VK_UP:
 			if (fight >= 4) {
-				if (Gen.condition3 != NOHIT) break;
-				if (Gen.condition1 == STANDING && Gen.condition2 != WEAKPUNCH && Gen.condition2 != STRONGPUNCH && Gen.condition2 != WEAKKICK && Gen.condition2 != STRONGKICK) {
-					if (Gen.condition1 != JUMP) {
-						Gen.condition1 = JUMP;
-						Gen.jump_chin.ani_index = 0;
-					}
+				// 일어나 있는 상태에서만 점프 가능하도록 함
+				//if (Chin.player.status == Idle || Chin.player.status == ForwardMove || Chin.player.status == BackMove) {
+				if (Chin.player.status != JumpIdle && Chin.player.status != JumpForwardMove && Chin.player.status != JumpBackMove)
+					Chin.player.status = JumpIdle;
 				}
 			}
 			break;
 		case VK_DOWN:
 			if (fight >= 4) {
-				if (Gen.condition3 != NOHIT) break;
-				if (Gen.condition1 == STANDING && Gen.condition2 != WEAKPUNCH && Gen.condition2 != STRONGPUNCH && Gen.condition2 != WEAKKICK && Gen.condition2 != STRONGKICK) {
-					Gen.condition1 = SITTING;
-					Gen.sitdown_chin.ani_index = 0;
-
-					if (Gen.condition2 == FRONTMOVE) {
-						Gen.condition1 = SITTING;
-						Gen.condition2 = NOATTACK;
-					}
-					if (Gen.condition2 == BACKMOVE) {
-						Gen.condition1 = SITTING;
-						Gen.condition2 = NOATTACK;
-					}
+				if (Chin.player.status == Idle || Chin.player.status == ForwardMove || Chin.player.status == BackMove)
+					Chin.player.status = CrouchIdle;
 				}
 			}
 			break;
 		case VK_NUMPAD1:
 			if (fight >= 4) {
-				if (Gen.condition3 != NOHIT) break;
-				if (Gen.condition2 == NOATTACK || Gen.condition2 == FRONTMOVE || Gen.condition2 == BACKMOVE) {
-					Gen.condition2 = WEAKPUNCH;
-					Gen.smallpunch_chin.ani_index = 0;
-					Gen.downsmallpunch_chin.ani_index = 0;
-					Gen.jumpsmallpunch_chin.ani_index = 0;
+				if (Chin.player.status == Idle || Chin.player.status == ForwardMove || Chin.player.status == BackMove) {
+					Chin.player.status = Punch_Weak;
+				}
+				else if (Chin.player.status != JumpIdle && Chin.player.status != JumpForwardMove && Chin.player.status != JumpBackMove)  {
+					Chin.player.status = Punch_Jump;
+				}
+				else if (Chin.player.status = CrouchIdle) {
+					Chin.player.status = Punch_Crouch;
 				}
 			}
 			break;
 		case VK_NUMPAD2:
 			if (fight >= 4) {
-				if (Gen.condition3 != NOHIT) break;
-				if (Gen.condition2 == NOATTACK || Gen.condition2 == FRONTMOVE || Gen.condition2 == BACKMOVE) {
-					Gen.condition2 = STRONGPUNCH;
-
+				if (Chin.player.status == Idle || Chin.player.status == ForwardMove || Chin.player.status == BackMove) {
+					Chin.player.status = Punch_Strong;
 					PlaySound(TEXT("p05#6"), NULL, SND_FILENAME | SND_ASYNC);
-
-					Gen.bigpunch_chin.ani_index = 0;
-					Gen.downsmallpunch_chin.ani_index = 0;
-					Gen.jumpsmallpunch_chin.ani_index = 0;
+				}
+				else if (Chin.player.status != JumpIdle && Chin.player.status != JumpForwardMove && Chin.player.status != JumpBackMove) {
+					Chin.player.status = Punch_Jump;
+				}
+				else if (Chin.player.status = CrouchIdle) {
+					Chin.player.status = Punch_Crouch;
 				}
 			}
 			break;
 		case VK_NUMPAD4:
 			if (fight >= 4) {
-				if (Gen.condition3 != NOHIT) break;
-				if (Gen.condition2 == NOATTACK || Gen.condition2 == FRONTMOVE || Gen.condition2 == BACKMOVE) {
-					Gen.condition2 = WEAKKICK;
-					Gen.smallkick_chin.ani_index = 0;
-					Gen.downsmallkick_chin.ani_index = 0;
-					Gen.jumpsmallkick_chin.ani_index = 0;
+				if (Chin.player.status == Idle || Chin.player.status == ForwardMove || Chin.player.status == BackMove) {
+					Chin.player.status = Kick_Weak;
+				}
+				else if (Chin.player.status != JumpIdle && Chin.player.status != JumpForwardMove && Chin.player.status != JumpBackMove) {
+					Chin.player.status = Kick_Jump;
+				}
+				else if (Chin.player.status = CrouchIdle) {
+					Chin.player.status = Kick_Crouch;
 				}
 			}
 			break;
 		case VK_NUMPAD5:
 			if (fight >= 4) {
-				if (Gen.condition3 != NOHIT) break;
-				if (Gen.condition2 == NOATTACK || Gen.condition2 == FRONTMOVE || Gen.condition2 == BACKMOVE) {
-					Gen.condition2 = STRONGKICK;
+				if (Chin.player.status == Idle || Chin.player.status == ForwardMove || Chin.player.status == BackMove) {
+					Chin.player.status = Kick_Strong;
 
 					PlaySound(TEXT("p05#9"), NULL, SND_FILENAME | SND_ASYNC);
-
-					Gen.smallkick_chin.ani_index = 0;
-					Gen.downsmallkick_chin.ani_index = 0;
-					Gen.jumpsmallkick_chin.ani_index = 0;
+				}
+				else if (Chin.player.status != JumpIdle && Chin.player.status != JumpForwardMove && Chin.player.status != JumpBackMove) {
+					Chin.player.status = Kick_Jump;
+				}
+				else if (Chin.player.status = CrouchIdle) {
+					Chin.player.status = Kick_Crouch;
 				}
 			}
 			break;
