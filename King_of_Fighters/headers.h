@@ -18,6 +18,8 @@
 #include <TCHAR.H>
 #include <ctime>
 #include <atlImage.h>
+#include "Action.h"
+#include "HitBox.h"
 //#include "IMAGE.h"
 //#include "Chin.h"
 //#include "Kaphwan.h"
