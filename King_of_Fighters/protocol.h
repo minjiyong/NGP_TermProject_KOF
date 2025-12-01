@@ -1,4 +1,3 @@
-#pragma once
 // Protocol definitions for server-client communication in a multiplayer game.
 //--------------------------------------------------------------
 constexpr short GAME_PORT = 9000;
@@ -14,45 +13,45 @@ constexpr int NAME_SIZE = 20;
 // Server to Client Packet Types
 constexpr char SC_LOGIN_INFO = 0;
 constexpr char SC_LOGOUT_INFO = 1;
-constexpr char SC_UPDATE = 2;
+constexpr char SC_MATCH_INFO = 2;
+constexpr char SC_MATCH_END = 3;
+constexpr char SC_UPDATE = 4;
 
 // Client to Server Packet Types
-constexpr char CS_LOGIN = 3;
-constexpr char CS_INPUT = 4;
+constexpr char CS_LOGIN = 5;
+constexpr char CS_NAME_INFO = 6;
+constexpr char CS_INPUT = 7;
 
 //--------------------------------------------------------------
 // Movement and Action State Definitions
 //--------------------------------------------------------------
-enum P_MOVE_STATE {
-	PMS_NONE,
-	PMS_LEFT,
-	PMS_RIGHT,
-	PMS_SIT,
-	PMS_SIT_LEFT,
-	PMS_SIT_RIGHT,
-	PMS_JUMP,
-	PMS_JUMP_LEFT,
-	PMS_JUMP_RIGHT
-};
-
-enum P_ATTACK_STATE {
-	PAS_NONE,
-	PAS_LIGHT_HAND,
-	PAS_LIGHT_FOOT,
-	PAS_HEAVY_HAND,
-	PAS_HEAVY_FOOT
-};
-
-enum P_GUARD_STATE {
-	PGS_NONE,
-	PGS_STAND,
-	PGS_SIT
-};
-
-enum P_HIT_STATE {
-	PHS_NONE,
-	PHS_STAND,
-	PHS_SIT
+enum P_STATE { // 플레이어 상태
+	PS_Idle,
+	PS_CrouchIdle,
+	PS_JumpIdle,
+	//----------------------------
+	PS_BackMove,
+	PS_ForwardMove,
+	PS_JumpBackMove,
+	PS_JumpForwardMove,
+	//----------------------------
+	PS_standguard,
+	PS_crouchguard,
+	//----------------------------
+	PS_standhit,
+	PS_crouchhit,
+	PS_jumphit,
+	//----------------------------
+	PS_punch_crouch,
+	PS_punch_jump,
+	PS_kick_crouch,
+	PS_kick_jump,
+	//----------------------------
+	PS_punch_weak,
+	PS_punch_strong,
+	PS_kick_weak,
+	PS_kick_strong,
+	//----------------------------
 };
 
 //--------------------------------------------------------------
@@ -73,23 +72,42 @@ enum S_STATE { // 세션 상태
 struct SC_LOGIN_INFO_PACKET {
 	unsigned char	size;
 	char			type;
+	S_STATE			s_state;
 	int				id;
 };
 
 struct SC_LOGOUT_INFO_PACKET {
 	unsigned char	size;
 	char			type;
+	S_STATE			s_state;
 	int				id;
+};
+
+struct SC_MATCH_INFO_PACKET {
+	unsigned char	size;
+	char			type;
+	S_STATE			s_state;
+	int				id[MAX_USER];
+	char			name[MAX_USER][NAME_SIZE];
+	P_STATE			p_state[MAX_USER];
+	int				x[MAX_USER];
+	int				y[MAX_USER];
+	int				hp[MAX_USER];
+	int				tick[MAX_USER];
+};
+
+struct SC_MATCH_END_PACKET {
+	unsigned char	size;
+	char			type;
+	S_STATE			s_state;
 };
 
 struct SC_UPDATE_PACKET {
 	unsigned char	size;
 	char			type;
 	int				id;
-	P_MOVE_STATE	m_state;
-	P_ATTACK_STATE	a_state;
-	P_GUARD_STATE	g_state;
-	P_HIT_STATE		h_state;
+	S_STATE			s_state;
+	P_STATE			p_state;
 	int				x;
 	int				y;
 	int				hp;
@@ -101,15 +119,17 @@ struct SC_UPDATE_PACKET {
 struct CS_LOGIN_PACKET {
 	unsigned char	size;
 	char			type;
+};
+
+struct CS_NAME_INFO_PACKET {
+	unsigned char	size;
+	char			type;
 	char			name[NAME_SIZE];
 };
 
 struct CS_INPUT_PACKET {
 	unsigned char	size;
 	char			type;
-	P_MOVE_STATE	m_state;
-	P_ATTACK_STATE	a_state;
-	P_GUARD_STATE	g_state;
-	P_HIT_STATE		h_state;
+	P_STATE			p_state;
 };
 #pragma pack (pop)

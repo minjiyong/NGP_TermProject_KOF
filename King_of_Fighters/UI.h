@@ -1,18 +1,23 @@
 #pragma once
-#include <windows.h>
-#include <atlImage.h>
 #include "IMAGE.h"
 
 class UI {
 public:
-	IMAGE UIindex[22]{};
-	int img_left[22]{};
-	int img_top[22]{};
-	int img_right[22]{};
-	int img_bottom[22]{};
+	IMAGE HP;
+	IMAGE MAP1;
+	IMAGE MAP2;
+	IMAGE MAP3;
+	IMAGE ChinName;
+	IMAGE KapName;
+	IMAGE ChinProfile;
+	IMAGE KapProfile;
+	IMAGE Time[10];
+	IMAGE Start[2];
+	IMAGE Fight;
+	IMAGE KO;
 
 	UI();
 	~UI();
 
-	void UI_img_load();
+	void SetUI();
 };

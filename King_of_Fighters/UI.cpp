@@ -1,57 +1,31 @@
-#include <windows.h>
-#include <iostream>
-#include <atlImage.h>
 #include "UI.h"
-#pragma comment(linker,"/entry:WinMainCRTStartup /subsystem:console") 
-
-#define HP 0
-#define MAP1_1 1
-#define MAP1_2 2
-#define MAP1_3 3
-#define CHINNAME 4
-#define KAPNAME 5
-#define KAPPROFILE 6
-#define CHINPROFILE 7
-#define TIME0 8
-#define TIME1 9
-#define TIME2 10
-#define TIME3 11
-#define TIME4 12
-#define TIME5 13
-#define TIME6 14
-#define TIME7 15
-#define TIME8 16
-#define TIME9 17
-#define START1 18
-#define START2 19
-#define FIGHT 20
-#define KO 21
 
 UI::UI() {};
 
 UI::~UI() {};
 
-void UI::UI_img_load() {
-	UIindex[HP].img.Load(L"HPbar.png");
-	UIindex[MAP1_1].img.Load(L"Background 1-1.png");
-	UIindex[MAP1_2].img.Load(L"Background 1-2.png");
-	UIindex[MAP1_3].img.Load(L"Background 1-3.png");
-	UIindex[CHINNAME].img.Load(L"Chin_name.png");
-	UIindex[KAPNAME].img.Load(L"Kap_name.png");
-	UIindex[KAPPROFILE].img.Load(L"Kap_profile.png");
-	UIindex[CHINPROFILE].img.Load(L"Chin_profile.png");
-	UIindex[TIME0].img.Load(L"Time0.png");
-	UIindex[TIME1].img.Load(L"Time1.png");
-	UIindex[TIME2].img.Load(L"Time2.png");
-	UIindex[TIME3].img.Load(L"Time3.png");
-	UIindex[TIME4].img.Load(L"Time4.png");
-	UIindex[TIME5].img.Load(L"Time5.png");
-	UIindex[TIME6].img.Load(L"Time6.png");
-	UIindex[TIME7].img.Load(L"Time7.png");
-	UIindex[TIME8].img.Load(L"Time8.png");
-	UIindex[TIME9].img.Load(L"Time9.png");
-	UIindex[START1].img.Load(L"Start1.png");
-	UIindex[START2].img.Load(L"Start2.png");
-	UIindex[FIGHT].img.Load(L"Fight.png");
-	UIindex[KO].img.Load(L"KO.png");
+void UI::SetUI() {
+	HP.SetImage(L"image/HPbar.png", 93, 20, 0, 0);
+	MAP1.SetImage(L"image/Background 1-1.png", 0, 0, 0, 0);
+	MAP2.SetImage(L"image/Background 1-2.png", 0, 0, 0, 0);
+	MAP3.SetImage(L"image/Background 1-3.png", 0, 0, 0, 0);
+	ChinName.SetImage(L"image/Chin_name.png", 173, 69, 0, 0);
+	KapName.SetImage(L"image/Kap_name.png", 538, 69, 0, 0);
+	ChinProfile.SetImage(L"image/Kap_profile.png", 126, 40, 0, 0);
+	KapProfile.SetImage(L"image/Chin_profile.png", 711, 40, 0, 0);
+	Time[0].SetImage(L"image/Time0.png", 414, 37, 0, 0);
+	Time[1].SetImage(L"image/Time1.png", 414, 37, 0, 0);
+	Time[2].SetImage(L"image/Time2.png", 414, 37, 0, 0);
+	Time[3].SetImage(L"image/Time3.png", 414, 37, 0, 0);
+	Time[4].SetImage(L"image/Time4.png", 414, 37, 0, 0);
+	Time[5].SetImage(L"image/Time5.png", 414, 37, 0, 0);
+	Time[6].SetImage(L"image/Time6.png", 414, 37, 0, 0);
+	Time[7].SetImage(L"image/Time7.png", 414, 37, 0, 0);
+	Time[8].SetImage(L"image/Time8.png", 414, 37, 0, 0);
+	Time[9].SetImage(L"image/Time9.png", 414, 37, 0, 0);
+	Start[0].SetImage(L"image/Start1.png", 0, 0, 0, 0);
+	Start[1].SetImage(L"image/Start2.png", 0, 0, 0, 0);
+	Fight.SetImage(L"image/Fight.png", 0, 0, 0, 0);
+	KO.SetImage(L"image/KO.png", 0, 0, 0, 0);
+	std::cout << "UI Set Complete" << std::endl;
 }
