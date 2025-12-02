@@ -344,10 +344,10 @@ void Chin::print(HDC& hdc) {
             action[p_state].image[ani_index]._width, action[p_state].image[ani_index]._height, 0, 0,
             action[p_state].image[ani_index]._width, action[p_state].image[ani_index]._height,
             RGB(8, 0, 99));
-        //if (ani_index == action[p_state].Totalframecnt)
-        //{
-        //    ani_index = 0;
-		//	p_state = PS_Idle;
-        //}
+        if (ani_index == action[p_state].Totalframecnt) 
+        {
+            ani_index = 0;
+			p_state = PS_Idle;
+        }
     }
 }
