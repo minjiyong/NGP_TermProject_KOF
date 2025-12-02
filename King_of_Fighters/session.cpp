@@ -84,7 +84,7 @@ void SESSION::recv_thread() {
 					_players[i].x_pos = p->x[i];
 					_players[i].y_pos = p->y[i];
 					_players[i].hp = p->hp[i];
-					_players[i].ani_index = p->tick[i];
+					//_players[i].ani_index = p->tick[i];
 					break;
 				}
 				break;

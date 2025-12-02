@@ -4,7 +4,7 @@ constexpr int CHIN_ACTION_CNT = 20;
 
 Chin::Chin()
 {
-
+    p_state = PS_ForwardMove;
 }
 
 void Chin::init()
@@ -168,6 +168,8 @@ void Chin::init()
     fileName = L"image/Chin_Punch_Crouch_0.png";
     fileName1 = L"image/Chin_Punch_Crouch_1.png";
 
+    //
+
     action[PS_punch_crouch].image[0].SetImage(fileName.c_str(), 0, 0, 0, 0);
     action[PS_punch_crouch].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
     action[PS_punch_crouch].image[2].SetImage(fileName1.c_str(), 0, 0, 0, 0);
@@ -320,10 +322,10 @@ void Chin::init()
 void Chin::print(HDC& hdc) {
     if (p_state == PS_Idle || p_state == PS_CrouchIdle || p_state == PS_ForwardMove || p_state == PS_BackMove)
     {
-		IMAGE temp_img = action[p_state].image[ani_index & action[p_state].Totalframecnt];
+		IMAGE temp_img = action[p_state].image[ani_index];
         temp_img._img.TransparentBlt(hdc, x_pos, y_pos,
             temp_img._width, temp_img._height, 0, 0,
-            temp_img._left, temp_img._top,
+            temp_img._width, temp_img._height,
             RGB(8, 0, 99));
         //if (ani_index == action[p_state].Totalframecnt)
         //{
@@ -332,10 +334,10 @@ void Chin::print(HDC& hdc) {
     }
     else
     {
-        IMAGE temp_img = action[p_state].image[ani_index & action[p_state].Totalframecnt];
+        IMAGE temp_img = action[p_state].image[ani_index];
         temp_img._img.TransparentBlt(hdc, x_pos, y_pos,
             temp_img._width, temp_img._height, 0, 0,
-            temp_img._left, temp_img._top,
+            temp_img._width, temp_img._height,
             RGB(8, 0, 99));
         //if (ani_index == action[p_state].Totalframecnt)
         //{

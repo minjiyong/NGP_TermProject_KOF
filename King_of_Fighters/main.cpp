@@ -308,22 +308,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			Rectangle(mDC, 0, 0, rt.right, rt.bottom); //--- 화면에 비어있기 때문에 화면 가득히 사각형을 그려 배경색으로 설정하기
 
 			// Map
-			//game_manager.printMap(mDC);
-
-			//// HPbar
-			//game_manager.ui.HP._right = game_manager.ui.HP._left + game_manager.ui.HP._width;
-			//game_manager.ui.HP._bottom = game_manager.ui.HP._top + game_manager.ui.HP._height;
-			//game_manager.ui.HP._img.TransparentBlt(mDC, game_manager.ui.HP._left, game_manager.ui.HP._top, game_manager.ui.HP._right - game_manager.ui.HP._left + 450, game_manager.ui.HP._bottom - game_manager.ui.HP._top + 50, 0, 0, game_manager.ui.HP._width, game_manager.ui.HP._height, RGB(0, 0, 32));
-			//
-			//// Name
-			//game_manager.printName(mDC);
-			//
-			//// Profile
-			//game_manager.printProfile(mDC);
-			//
+			game_manager.printMap(mDC);
+			
+			// HPbar
+			game_manager.ui.HP._right = game_manager.ui.HP._left + game_manager.ui.HP._width;
+			game_manager.ui.HP._bottom = game_manager.ui.HP._top + game_manager.ui.HP._height;
+			game_manager.ui.HP._img.TransparentBlt(mDC, game_manager.ui.HP._left, game_manager.ui.HP._top, game_manager.ui.HP._right - game_manager.ui.HP._left + 450, game_manager.ui.HP._bottom - game_manager.ui.HP._top + 50, 0, 0, game_manager.ui.HP._width, game_manager.ui.HP._height, RGB(0, 0, 32));
+			
+			// Name
+			game_manager.printName(mDC);
+			
+			// Profile
+			game_manager.printProfile(mDC);
+			
+			//ewqe
 			//// Time
 			//game_manager.printTime(mDC);
-			//
+			
 			////Start
 			//game_manager.printStart(mDC);
 			//
@@ -332,12 +333,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			//
 			////KO
 			//game_manager.printKO(mDC);
-			//
-			//for (Chin& player : session._players) {
-			//	if (player._id != -1) {
-			//		player.print(mDC);
-			//	}
-			//}
+			
+			for (Chin& player : session._players) {
+				if (player._id != -1) {
+					player.print(mDC);
+				}
+			}
 
 			//--- 마지막에 메모리 DC의 내용을 화면 DC로 복사한다.
 			BitBlt(hDC, 0, 0, rt.right, rt.bottom, mDC, 0, 0, SRCCOPY);
