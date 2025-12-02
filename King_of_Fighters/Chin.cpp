@@ -4,7 +4,7 @@ constexpr int CHIN_ACTION_CNT = 20;
 
 Chin::Chin()
 {
-    p_state = PS_JumpIdle;
+    p_state = PS_Idle;
 }
 
 void Chin::init()

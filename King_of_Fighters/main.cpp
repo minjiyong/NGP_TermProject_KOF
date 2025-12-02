@@ -179,11 +179,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 									std::lock_guard <std::mutex> l_g{ session._lock };
 									chin.p_state = PS_punch_weak;
 								}
-								else if (chin.p_state != PS_JumpIdle && chin.p_state != PS_JumpForwardMove && chin.p_state != PS_JumpBackMove) {
+								else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state == PS_JumpBackMove) {
 									std::lock_guard <std::mutex> l_g{ session._lock };
 									chin.p_state = PS_punch_jump;
 								}
-								else if (chin.p_state = PS_CrouchIdle) {
+								else if (chin.p_state == PS_CrouchIdle) {
 									std::lock_guard <std::mutex> l_g{ session._lock };
 									chin.p_state = PS_punch_crouch;
 								}
@@ -197,13 +197,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 								if (chin.p_state == PS_Idle || chin.p_state == PS_ForwardMove || chin.p_state == PS_BackMove) {
 									std::lock_guard <std::mutex> l_g{ session._lock };
 									chin.p_state = PS_punch_strong;
-									PlaySound(TEXT("p05#6"), NULL, SND_FILENAME | SND_ASYNC);
+									PlaySound(TEXT("character\\sound\\p05#6"), NULL, SND_FILENAME | SND_ASYNC);
 								}
-								else if (chin.p_state != PS_JumpIdle && chin.p_state != PS_JumpForwardMove && chin.p_state != PS_JumpBackMove) {
+								else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state != PS_JumpBackMove) {
 									std::lock_guard <std::mutex> l_g{ session._lock };
 									chin.p_state = PS_punch_jump;
 								}
-								else if (chin.p_state = PS_CrouchIdle) {
+								else if (chin.p_state == PS_CrouchIdle) {
 									std::lock_guard <std::mutex> l_g{ session._lock };
 									chin.p_state = PS_punch_crouch;
 								}
@@ -218,11 +218,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 									std::lock_guard <std::mutex> l_g{ session._lock };
 									chin.p_state = PS_kick_weak;
 								}
-								else if (chin.p_state != PS_JumpIdle && chin.p_state != PS_JumpForwardMove && chin.p_state != PS_JumpBackMove) {
+								else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state == PS_JumpBackMove) {
 									std::lock_guard <std::mutex> l_g{ session._lock };
 									chin.p_state = PS_kick_jump;
 								}
-								else if (chin.p_state = PS_CrouchIdle) {
+								else if (chin.p_state == PS_CrouchIdle) {
 									std::lock_guard <std::mutex> l_g{ session._lock };
 									chin.p_state = PS_kick_crouch;
 								}
@@ -236,13 +236,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 								if (chin.p_state == PS_Idle || chin.p_state == PS_ForwardMove || chin.p_state == PS_BackMove) {
 									std::lock_guard <std::mutex> l_g{ session._lock };
 									chin.p_state = PS_kick_strong;
-									PlaySound(TEXT("p05#9"), NULL, SND_FILENAME | SND_ASYNC);
+									PlaySound(TEXT("character\\sound\\p05#9"), NULL, SND_FILENAME | SND_ASYNC);
 								}
-								else if (chin.p_state != PS_JumpIdle && chin.p_state != PS_JumpForwardMove && chin.p_state != PS_JumpBackMove) {
+								else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state == PS_JumpBackMove) {
 									std::lock_guard <std::mutex> l_g{ session._lock };
 									chin.p_state = PS_kick_jump;
 								}
-								else if (chin.p_state = PS_CrouchIdle) {
+								else if (chin.p_state == PS_CrouchIdle) {
 									std::lock_guard <std::mutex> l_g{ session._lock };
 									chin.p_state = PS_kick_crouch;
 								}
@@ -262,29 +262,32 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		case WM_KEYUP:
 		{
 			hDC = GetDC(hWnd);
-			//for (Chin& player : session._players) {
-			//	if (player._id == session._id) {
-			//		switch (wParam) {
-			//		case VK_LEFT:
-			//		{
-			//			player.p_state = PS_Idle;
-			//			break;
-			//		}
-			//		case VK_RIGHT:
-			//		{
-			//			player.p_state = PS_Idle;
-			//			break;
-			//		}
-			//		case VK_DOWN:
-			//		{
-			//			player.p_state = PS_Idle;x
-			//			break;
-			//		}
-			//		}
-			//		session.send_input_packet(player);
-			//	}
-			//}
-			//
+			for (Chin& player : session._players) {
+				if (player._id == session._id) {
+					switch (wParam) {
+					case 'a':
+					case 'A':
+					{
+						player.p_state = PS_Idle;
+						break;
+					}
+					case 'd':
+					case 'D':
+					{
+						player.p_state = PS_Idle;
+						break;
+					}
+					case 's':
+					case 'S':
+					{
+						player.p_state = PS_Idle;
+						break;
+					}
+					}
+					session.send_input_packet(player);
+				}
+			}
+			
 			InvalidateRect(hWnd, NULL, FALSE); //--- 화면에 다시그리기를 할 때 기존의 내용을 삭제하지 않는다.
 
 			ReleaseDC(hWnd, hDC);
