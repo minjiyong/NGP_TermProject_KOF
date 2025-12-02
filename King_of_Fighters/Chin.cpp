@@ -48,6 +48,11 @@ void Chin::init()
     }
 
     std::wstring fileName;
+    std::wstring fileName1;
+    std::wstring fileName2;
+    std::wstring fileName3;
+    std::wstring fileName4;
+    std::wstring fileName5;
 
     // 이미지 로드
     for (int i = 0; i < action[PS_Idle].Totalframecnt; ++i) {
@@ -59,102 +64,198 @@ void Chin::init()
         fileName = L"image/Chin_CrouchIdle_" + std::to_wstring(i) + L".png";
         action[PS_CrouchIdle].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
     }
-    //
-    //for (int i = 0; i < action[PS_JumpIdle].Totalframecnt; ++i) {
-    //    fileName = L"image/Chin_JumpIdle_" + std::to_wstring(i) + L".png";
-    //    action[PS_JumpIdle].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
-    //}
-    //
-    ////------------------------------
+
+    // JumpIdle, JumpBackMove, JumpForwardMove
+    fileName = L"image/Chin_JumpIdle_0.png";
+    fileName1 = L"image/Chin_JumpIdle_1.png";
+    fileName2 = L"image/Chin_JumpIdle_2.png";
+    fileName3 = L"image/Chin_JumpIdle_3.png";
+
+    action[PS_JumpIdle].image[0].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    action[PS_JumpIdle].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_JumpIdle].image[2].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_JumpIdle].image[3].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpIdle].image[4].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpIdle].image[5].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpIdle].image[6].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpIdle].image[7].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpIdle].image[8].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_JumpIdle].image[9].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_JumpIdle].image[10].SetImage(fileName.c_str(), 0, 0, 0, 0);
+
+
+    action[PS_JumpBackMove].image[0].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    action[PS_JumpBackMove].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_JumpBackMove].image[2].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_JumpBackMove].image[3].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpBackMove].image[4].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpBackMove].image[5].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpBackMove].image[6].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpBackMove].image[7].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpBackMove].image[8].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_JumpBackMove].image[9].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_JumpBackMove].image[10].SetImage(fileName.c_str(), 0, 0, 0, 0);
+
+
+    action[PS_JumpForwardMove].image[0].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    action[PS_JumpForwardMove].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_JumpForwardMove].image[2].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_JumpForwardMove].image[3].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpForwardMove].image[4].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpForwardMove].image[5].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpForwardMove].image[6].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpForwardMove].image[7].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpForwardMove].image[8].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_JumpForwardMove].image[9].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_JumpForwardMove].image[10].SetImage(fileName.c_str(), 0, 0, 0, 0);
+
+    //------------------------------
     for (int i = 0; i < action[PS_BackMove].Totalframecnt; ++i) {
         fileName = L"image/Chin_BackMove_" + std::to_wstring(i) + L".png";
         action[PS_BackMove].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
     }
-    //
+
     for (int i = 0; i < action[PS_ForwardMove].Totalframecnt; ++i) {
         fileName = L"image/Chin_ForwardMove_" + std::to_wstring(i) + L".png";
         action[PS_ForwardMove].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
     }
-    //
-    //// 점프 이미지 돌려쓸거라 JumpIdle 이미지 할당
-    //for (int i = 0; i < action[PS_JumpBackMove].Totalframecnt; ++i) {
-    //    fileName = L"image/Chin_JumpIdle_" + std::to_wstring(i) + L".png";
-    //    action[PS_JumpBackMove].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
-    //}
-    //
-    //for (int i = 0; i < action[PS_JumpForwardMove].Totalframecnt; ++i) {
-    //    fileName = L"image/Chin_JumpIdle_" + std::to_wstring(i) + L".png";
-    //    action[PS_JumpForwardMove].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
-    //}
-    //
-    ////------------------------------
-    //for (int i = 0; i < action[PS_standguard].Totalframecnt; ++i) {
-    //    fileName = L"image/Chin_StandGuard_" + std::to_wstring(i) + L".png";
-    //    action[PS_standguard].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
-    //}
-    //
-    //for (int i = 0; i < action[PS_crouchguard].Totalframecnt; ++i) {
-    //    fileName = L"image/Chin_CrouchGuard_" + std::to_wstring(i) + L".png";
-    //    action[PS_crouchguard].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
-    //}
-    //
-    ////------------------------------
-    //for (int i = 0; i < action[PS_standhit].Totalframecnt; ++i) {
-    //    fileName = L"image/Chin_StandHit_" + std::to_wstring(i) + L".png";
-    //    action[PS_standhit].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
-    //}
-    //
-    //for (int i = 0; i < action[PS_crouchhit].Totalframecnt; ++i) {
-    //    fileName = L"image/Chin_CrouchHit_" + std::to_wstring(i) + L".png";
-    //    action[PS_crouchhit].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
-    //}
-    //
-    //for (int i = 0; i < action[PS_jumphit].Totalframecnt; ++i) {
-    //    fileName = L"image/Chin_JumpHit_" + std::to_wstring(i) + L".png";
-    //    action[PS_jumphit].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
-    //}
-    //
-    ////------------------------------
-    //for (int i = 0; i < action[PS_punch_crouch].Totalframecnt; ++i) {
-    //    fileName = L"image/Chin_Punch_Crouch_" + std::to_wstring(i) + L".png";
-    //    action[PS_punch_crouch].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
-    //}
-    //
-    //for (int i = 0; i < action[PS_punch_jump].Totalframecnt; ++i) {
-    //    fileName = L"image/Chin_Punch_Jump_" + std::to_wstring(i) + L".png";
-    //    action[PS_punch_jump].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
-    //}
-    //
-    //for (int i = 0; i < action[PS_kick_crouch].Totalframecnt; ++i) {
-    //    fileName = L"image/Chin_Kick_Crouch_" + std::to_wstring(i) + L".png";
-    //    action[PS_kick_crouch].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
-    //}
-    //
-    //for (int i = 0; i < action[PS_kick_jump].Totalframecnt; ++i) {
-    //    fileName = L"image/Chin_Kick_Jump_" + std::to_wstring(i) + L".png";
-    //    action[PS_kick_jump].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
-    //}
-    //
-    ////------------------------------
-    //for (int i = 0; i < action[PS_punch_weak].Totalframecnt; ++i) {
-    //    fileName = L"image/Chin_Punch_Weak_" + std::to_wstring(i) + L".png";
-    //    action[PS_punch_weak].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
-    //}
-    //
-    //for (int i = 0; i < action[PS_punch_strong].Totalframecnt; ++i) {
-    //    fileName = L"image/Chin_Punch_Strong_" + std::to_wstring(i) + L".png";
-    //    action[PS_punch_strong].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
-    //}
-    //
-    //for (int i = 0; i < action[PS_kick_weak].Totalframecnt; ++i) {
-    //    fileName = L"image/Chin_Kick_Weak_" + std::to_wstring(i) + L".png";
-    //    action[PS_kick_weak].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
-    //}
-    //
-    //for (int i = 0; i < action[PS_kick_strong].Totalframecnt; ++i) {
-    //    fileName = L"image/Chin_Kick_Strong_" + std::to_wstring(i) + L".png";
-    //    action[PS_kick_strong].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
-    //}
+
+    //------------------------------
+    for (int i = 0; i < action[PS_standguard].Totalframecnt; ++i) {
+        fileName = L"image/Chin_StandGuard_0.png";
+        action[PS_standguard].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    }
+
+    for (int i = 0; i < action[PS_crouchguard].Totalframecnt; ++i) {
+        fileName = L"image/Chin_CrouchGuard_0.png";
+        action[PS_crouchguard].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    }
+
+    //------------------------------
+    for (int i = 0; i < action[PS_standhit].Totalframecnt; ++i) {
+        fileName = L"image/Chin_StandHit_0.png";
+        action[PS_standhit].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    }
+
+    // crouchhit
+    fileName = L"image/Chin_CrouchHit_0.png";
+    fileName1 = L"image/Chin_CrouchHit_1.png";
+    fileName2 = L"image/Chin_CrouchHit_2.png";
+
+    action[PS_crouchhit].image[0].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    action[PS_crouchhit].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_crouchhit].image[2].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_crouchhit].image[3].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+
+    // jumphit
+    fileName = L"image/Chin_JumpHit_0.png";
+    fileName1 = L"image/Chin_JumpHit_1.png";
+    fileName2 = L"image/Chin_JumpHit_2.png";
+    fileName3 = L"image/Chin_JumpHit_3.png";
+    fileName4 = L"image/Chin_JumpHit_4.png";
+    fileName5 = L"image/Chin_JumpHit_5.png";
+
+    action[PS_jumphit].image[0].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    action[PS_jumphit].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_jumphit].image[2].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_jumphit].image[3].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_jumphit].image[4].SetImage(fileName4.c_str(), 0, 0, 0, 0);
+    action[PS_jumphit].image[5].SetImage(fileName5.c_str(), 0, 0, 0, 0);
+    action[PS_jumphit].image[6].SetImage(fileName5.c_str(), 0, 0, 0, 0);
+
+    //------------------------------
+    // punch_crouch
+    fileName = L"image/Chin_Punch_Crouch_0.png";
+    fileName1 = L"image/Chin_Punch_Crouch_1.png";
+
+    action[PS_punch_crouch].image[0].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    action[PS_punch_crouch].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_punch_crouch].image[2].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_punch_crouch].image[3].SetImage(fileName.c_str(), 0, 0, 0, 0);
+
+    // punch_jump
+    fileName = L"image/Chin_Punch_Jump_0.png";
+    fileName1 = L"image/Chin_Punch_Jump_1.png";
+    fileName2 = L"image/Chin_Punch_Jump_2.png";
+
+    action[PS_punch_jump].image[0].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    action[PS_punch_jump].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_punch_jump].image[2].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_punch_jump].image[3].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_punch_jump].image[4].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_punch_jump].image[5].SetImage(fileName.c_str(), 0, 0, 0, 0);
+
+    // kick_crouch
+    fileName = L"image/Chin_Kick_Crouch_0.png";
+    fileName1 = L"image/Chin_Kick_Crouch_1.png";
+    fileName2 = L"image/Chin_Kick_Crouch_2.png";
+
+    action[PS_kick_crouch].image[0].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    action[PS_kick_crouch].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_kick_crouch].image[2].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_kick_crouch].image[3].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_kick_crouch].image[4].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_kick_crouch].image[5].SetImage(fileName.c_str(), 0, 0, 0, 0);
+
+    // kick_jump
+    fileName = L"image/Chin_Kick_Jump_0.png";
+    fileName1 = L"image/Chin_Kick_Jump_1.png";
+    fileName2 = L"image/Chin_Kick_Jump_2.png";
+
+    action[PS_kick_jump].image[0].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    action[PS_kick_jump].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_kick_jump].image[2].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_kick_jump].image[3].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_kick_jump].image[4].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_kick_jump].image[5].SetImage(fileName.c_str(), 0, 0, 0, 0);
+
+    //------------------------------
+    // punch_weak
+    fileName = L"image/Chin_Punch_Weak_0.png";
+    fileName1 = L"image/Chin_Punch_Weak_1.png";
+
+    action[PS_punch_weak].image[0].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    action[PS_punch_weak].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_punch_weak].image[2].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_punch_weak].image[3].SetImage(fileName.c_str(), 0, 0, 0, 0);
+
+    // punch_strong
+    fileName = L"image/Chin_Punch_Strong_0.png";
+    fileName1 = L"image/Chin_Punch_Strong_1.png";
+    fileName2 = L"image/Chin_Punch_Strong_2.png";
+
+    action[PS_punch_strong].image[0].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    action[PS_punch_strong].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_punch_strong].image[2].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_punch_strong].image[3].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_punch_strong].image[4].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_punch_strong].image[5].SetImage(fileName.c_str(), 0, 0, 0, 0);
+
+    // kick_weak
+    fileName = L"image/Chin_Kick_Weak_0.png";
+    fileName1 = L"image/Chin_Kick_Weak_1.png";
+
+    action[PS_kick_weak].image[0].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    action[PS_kick_weak].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_kick_weak].image[2].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_kick_weak].image[3].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    action[PS_kick_weak].image[4].SetImage(fileName.c_str(), 0, 0, 0, 0);
+
+    // kick_strong
+    fileName = L"image/Chin_Kick_Strong_0.png";
+    fileName1 = L"image/Chin_Kick_Strong_1.png";
+    fileName2 = L"image/Chin_Kick_Strong_2.png";
+    fileName3 = L"image/Chin_Kick_Strong_3.png";
+    fileName4 = L"image/Chin_Kick_Strong_4.png";
+
+    action[PS_kick_strong].image[0].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    action[PS_kick_strong].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_kick_strong].image[2].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_kick_strong].image[3].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_kick_strong].image[4].SetImage(fileName4.c_str(), 0, 0, 0, 0);
+    action[PS_kick_strong].image[5].SetImage(fileName4.c_str(), 0, 0, 0, 0);
+    action[PS_kick_strong].image[6].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_kick_strong].image[7].SetImage(fileName2.c_str(), 0, 0, 0, 0);
 
     std::cout << "Chin image load complete\n" << std::endl;
 
