@@ -322,10 +322,9 @@ void Chin::init()
 void Chin::print(HDC& hdc) {
     if (p_state == PS_Idle || p_state == PS_CrouchIdle || p_state == PS_ForwardMove || p_state == PS_BackMove)
     {
-		IMAGE temp_img = action[p_state].image[ani_index];
-        temp_img._img.TransparentBlt(hdc, x_pos, y_pos,
-            temp_img._width, temp_img._height, 0, 0,
-            temp_img._width, temp_img._height,
+		action[p_state].image[ani_index]._img.TransparentBlt(hdc, x_pos, y_pos,
+            action[p_state].image[ani_index]._width, action[p_state].image[ani_index]._height, 0, 0,
+            action[p_state].image[ani_index]._width, action[p_state].image[ani_index]._height,
             RGB(8, 0, 99));
         //if (ani_index == action[p_state].Totalframecnt)
         //{
@@ -334,10 +333,9 @@ void Chin::print(HDC& hdc) {
     }
     else
     {
-        IMAGE temp_img = action[p_state].image[ani_index];
-        temp_img._img.TransparentBlt(hdc, x_pos, y_pos,
-            temp_img._width, temp_img._height, 0, 0,
-            temp_img._width, temp_img._height,
+        action[p_state].image[ani_index]._img.TransparentBlt(hdc, x_pos, y_pos,
+            action[p_state].image[ani_index]._width, action[p_state].image[ani_index]._height, 0, 0,
+            action[p_state].image[ani_index]._width, action[p_state].image[ani_index]._height,
             RGB(8, 0, 99));
         //if (ani_index == action[p_state].Totalframecnt)
         //{

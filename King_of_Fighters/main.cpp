@@ -82,13 +82,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		{
 			break;
 		}
-		case WM_CHAR:
-		{
-			hDC = GetDC(hWnd);
-			InvalidateRect(hWnd, NULL, FALSE);
-			ReleaseDC(hWnd, hDC);
-			break;
-		}
 		case WM_KEYDOWN:
 		{
 			hDC = GetDC(hWnd);
@@ -269,31 +262,29 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		case WM_KEYUP:
 		{
 			hDC = GetDC(hWnd);
-			Chin chin;
-			for (Chin& player : session._players) {
-				if (player._id == session._id) {
-					switch (wParam) {
-					case VK_LEFT:
-					{
-						chin.p_state = PS_Idle;
-						break;
-					}
-					case VK_RIGHT:
-					{
-						chin.p_state = PS_Idle;
-						break;
-					}
-					case VK_DOWN:
-					{
-						chin.p_state = PS_Idle;
-						break;
-					}
-
-					session.send_input_packet(chin);
-					}
-				}
-			}
-
+			//for (Chin& player : session._players) {
+			//	if (player._id == session._id) {
+			//		switch (wParam) {
+			//		case VK_LEFT:
+			//		{
+			//			player.p_state = PS_Idle;
+			//			break;
+			//		}
+			//		case VK_RIGHT:
+			//		{
+			//			player.p_state = PS_Idle;
+			//			break;
+			//		}
+			//		case VK_DOWN:
+			//		{
+			//			player.p_state = PS_Idle;x
+			//			break;
+			//		}
+			//		}
+			//		session.send_input_packet(player);
+			//	}
+			//}
+			//
 			InvalidateRect(hWnd, NULL, FALSE); //--- 화면에 다시그리기를 할 때 기존의 내용을 삭제하지 않는다.
 
 			ReleaseDC(hWnd, hDC);
@@ -307,19 +298,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			SelectObject(mDC, (HBITMAP)hBitmap); //--- 메모리 DC와 비트맵 연결하기
 			Rectangle(mDC, 0, 0, rt.right, rt.bottom); //--- 화면에 비어있기 때문에 화면 가득히 사각형을 그려 배경색으로 설정하기
 
-			// Map
-			game_manager.printMap(mDC);
-			
-			// HPbar
-			game_manager.ui.HP._right = game_manager.ui.HP._left + game_manager.ui.HP._width;
-			game_manager.ui.HP._bottom = game_manager.ui.HP._top + game_manager.ui.HP._height;
-			game_manager.ui.HP._img.TransparentBlt(mDC, game_manager.ui.HP._left, game_manager.ui.HP._top, game_manager.ui.HP._right - game_manager.ui.HP._left + 450, game_manager.ui.HP._bottom - game_manager.ui.HP._top + 50, 0, 0, game_manager.ui.HP._width, game_manager.ui.HP._height, RGB(0, 0, 32));
-			
-			// Name
-			game_manager.printName(mDC);
-			
-			// Profile
-			game_manager.printProfile(mDC);
+			//// Map
+			//game_manager.printMap(mDC);
+			//
+			//// HPbar
+			//game_manager.ui.HP._right = game_manager.ui.HP._left + game_manager.ui.HP._width;
+			//game_manager.ui.HP._bottom = game_manager.ui.HP._top + game_manager.ui.HP._height;
+			//game_manager.ui.HP._img.TransparentBlt(mDC, game_manager.ui.HP._left, game_manager.ui.HP._top, game_manager.ui.HP._right - game_manager.ui.HP._left + 450, game_manager.ui.HP._bottom - game_manager.ui.HP._top + 50, 0, 0, game_manager.ui.HP._width, game_manager.ui.HP._height, RGB(0, 0, 32));
+			//
+			//// Name
+			//game_manager.printName(mDC);
+			//
+			//// Profile
+			//game_manager.printProfile(mDC);
 			
 			//ewqe
 			//// Time
