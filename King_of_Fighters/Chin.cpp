@@ -1,14 +1,17 @@
 #include "chin.h"
-
+#include "hitbox.h"
 constexpr int CHIN_ACTION_CNT = 20;
 
 Chin::Chin()
 {
-    p_state = PS_ForwardMove;
+    p_state = PS_JumpIdle;
 }
 
 void Chin::init()
 {
+    x_pos = rand() % 200;
+    y_pos = 332;
+
     action = new ACTION[CHIN_ACTION_CNT]();
     const RECT commonHurtBox = { 12, 0, 91, 191 };
 
@@ -38,6 +41,65 @@ void Chin::init()
     action[PS_kick_weak].Totalframecnt = 5; // 사진 2개
     action[PS_kick_strong].Totalframecnt = 8; // 사진 5개
     //------------------------------
+
+        // 히트박스 생성
+    action[PS_punch_crouch] = // 1,2 피격타이밍
+        MakeAttackAction(
+            4,
+            135 - 20, 332 + 101,
+            135 + 0, 332 + 122
+        );
+
+
+
+    action[PS_punch_jump] = // 2,3 피격타이밍
+        MakeAttackAction(
+            6,
+            135 - 15, 332 + 135,
+            135 + 5, 332 + 157
+        );
+    //------------------------------
+    action[PS_kick_crouch] = // 2, 3 피격타이밍
+        MakeAttackAction(
+            6,
+            135 - 60, 332 + 173,
+            135 - 27, 332 + 191
+        );
+
+    action[PS_kick_jump] = // 2, 3 피격타이밍
+        MakeAttackAction(
+            6,
+            135 - 70, 332 + 53,
+            135 - 42, 332 + 90
+        );
+    //------------------------------
+    action[PS_punch_weak] = // 1,2 피격타이밍
+        MakeAttackAction(
+            4,
+            135 - 7, 332 + 60,
+            135 + 19, 332 + 82
+        );
+
+    action[PS_punch_strong] = // 2,3 피격타이밍
+        MakeAttackAction(
+            5,
+            135 - 16, 332 + 54,
+            135 + 10, 332 + 74
+        );
+    //------------------------------
+    action[PS_kick_weak] = // 1,2 피격타이밍
+        MakeAttackAction(
+            5,
+            135 - 60, 332 + 83,
+            135 - 27, 332 + 107
+        );
+
+    action[PS_kick_strong] = // 4,5 피격타이밍
+        MakeAttackAction(
+            8,
+            135 - 70, 332 + 109,
+            135 - 39, 332 + 131
+        );
 
     // 모든 Action에 공통 피격 히트박스 적용
     for (int i = 0; i < 20; i++)
@@ -261,62 +323,7 @@ void Chin::init()
 
     std::cout << "Chin image load complete\n" << std::endl;
 
-    // 히트박스 생성
-    action[PS_punch_crouch] = // 1,2 피격타이밍
-        MakeAttackAction(
-            4,
-            135 - 20, 332 + 101,
-            135 + 0, 332 + 122
-        );
 
-    action[PS_punch_jump] = // 2,3 피격타이밍
-        MakeAttackAction(
-            6,
-            135 - 15, 332 + 135,
-            135 + 5, 332 + 157
-        );
-    //------------------------------
-    action[PS_kick_crouch] = // 2, 3 피격타이밍
-        MakeAttackAction(
-            6,
-            135 - 60, 332 + 173,
-            135 - 27, 332 + 191
-        );
-
-    action[PS_kick_jump] = // 2, 3 피격타이밍
-        MakeAttackAction(
-            6,
-            135 - 70, 332 + 53,
-            135 - 42, 332 + 90
-        );
-    //------------------------------
-    action[PS_punch_weak] = // 1,2 피격타이밍
-        MakeAttackAction(
-            4,
-            135 - 7, 332 + 60,
-            135 + 19, 332 + 82
-        );
-
-    action[PS_punch_strong] = // 2,3 피격타이밍
-        MakeAttackAction(
-            5,
-            135 - 16, 332 + 54,
-            135 + 10, 332 + 74
-        );
-    //------------------------------
-    action[PS_kick_weak] = // 1,2 피격타이밍
-        MakeAttackAction(
-            5,
-            135 - 60, 332 + 83,
-            135 - 27, 332 + 107
-        );
-
-    action[PS_kick_strong] = // 4,5 피격타이밍
-        MakeAttackAction(
-            8,
-            135 - 70, 332 + 109,
-            135 - 39, 332 + 131
-        );
 }
 
 void Chin::print(HDC& hdc) {
@@ -326,10 +333,10 @@ void Chin::print(HDC& hdc) {
             action[p_state].image[ani_index]._width, action[p_state].image[ani_index]._height, 0, 0,
             action[p_state].image[ani_index]._width, action[p_state].image[ani_index]._height,
             RGB(8, 0, 99));
-        //if (ani_index == action[p_state].Totalframecnt)
-        //{
-		//	ani_index = 0;
-        //}
+        if (ani_index == action[p_state].Totalframecnt)
+        {
+			ani_index = 0;
+        }
     }
     else
     {
