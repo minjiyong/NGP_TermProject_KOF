@@ -11,8 +11,8 @@ void UI::SetUI() {
 	MAP3.SetImage(L"image/Background 1-3.png", 0, 0, 0, 0);
 	ChinName.SetImage(L"image/Chin_name.png", 173, 69, 0, 0);
 	KapName.SetImage(L"image/Kap_name.png", 538, 69, 0, 0);
-	ChinProfile.SetImage(L"image/Kap_profile.png", 126, 40, 0, 0);
-	KapProfile.SetImage(L"image/Chin_profile.png", 711, 40, 0, 0);
+	ChinProfile.SetImage(L"image/Kap_profile.png", 711, 40, 0, 0);
+	KapProfile.SetImage(L"image/Chin_profile.png", 126, 40, 0, 0);
 	Time[0].SetImage(L"image/Time0.png", 414, 37, 8, 12);
 	Time[1].SetImage(L"image/Time1.png", 414, 37, 8, 12);
 	Time[2].SetImage(L"image/Time2.png", 414, 37, 8, 12);

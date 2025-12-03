@@ -59,7 +59,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	static int hitindex{};
 
 	static int bg = 0;
-	static int Chin_HP = 266;
+	static int Chin_HP = 6;
 	static int Kap_HP = 266;
 
 	static int fight = 5;
@@ -80,6 +80,62 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		}
 		case WM_TIMER:
 		{
+			switch (wParam) {
+			// background 타이머
+			case 0:
+			{
+				if (game_manager.mapTimer == 0) {
+					game_manager.mapTimer = 1;
+				}
+				else if (game_manager.mapTimer == 1) {
+					game_manager.mapTimer = 0;
+				}
+			}
+			break;
+
+			// 시간 타이머 - 1의 자리 수 
+			case 1: 
+			{
+				game_manager.fight++;
+				if (game_manager.fight == 3) {
+					PlaySound(TEXT("character\\sound\\Announce_Fight.wav"), NULL, SND_FILENAME | SND_ASYNC);
+				}
+				else if (game_manager.fight == 5) SetTimer(hWnd, 2, 10000, NULL);
+				else if (game_manager.fight >= 5) {
+					if (game_manager.timeone > 0) game_manager.timeone--;
+					else game_manager.timeone = 9;
+					if (game_manager.timeone == 0 && game_manager.timeten == 0) {
+						KillTimer(hWnd, 0);
+						KillTimer(hWnd, 1);
+					}
+				}
+			}
+			break;
+
+			// 시간 타이머 - 10의 자리 수
+			case 2: 
+			{
+				if (game_manager.fight >= 5) {
+					game_manager.timeten--;
+				}
+			}
+			break;
+
+			// 게임종료 타이머
+			case 3:
+			{
+				Chin_HP -= 2;
+
+				if (Chin_HP == 0 || Kap_HP == 0) {
+					game_manager.ko = TRUE;
+					KillTimer(hWnd, 0);
+					KillTimer(hWnd, 1);
+					KillTimer(hWnd, 2);
+					PlaySound(TEXT("character\\sound\\Announce_Ko.wav"), NULL, SND_FILENAME | SND_ASYNC);
+				}
+			}
+
+			}
 			break;
 		}
 		case WM_KEYDOWN:
@@ -115,8 +171,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 									//SetTimer(hWnd, 10, 1, NULL);
 									//// 이펙트 타이머
 									//SetTimer(hWnd, 11, 40, NULL);
-									////시간 타이머(1의자리)
-									//SetTimer(hWnd, 12, 1000, NULL);
+									//시간 타이머(1의자리)
+									SetTimer(hWnd, 1, 1000, NULL);
+
+									// 게임종료 체크
+									SetTimer(hWnd, 3, 100, NULL);
 
 									PlaySound(NULL, 0, 0);
 									//game_manager.playbackgroundmusic();
@@ -322,6 +381,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			// Profile
 			game_manager.printProfile(mDC);
 			
+			// Player HP
+			game_manager.printHp(mDC, Chin_HP, Kap_HP, Chin_HP);	// p3 HP
+
 			// Time
 			game_manager.printTime(mDC);
 			
