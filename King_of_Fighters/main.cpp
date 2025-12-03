@@ -68,7 +68,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		case WM_CREATE:
 		{
 			game_manager.init();
-			game_manager.startMusic.playSound();
+			//game_manager.startMusic.playSound();
 
 			for (Chin& player : session._players) {
 				player.init();
@@ -119,7 +119,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 									//SetTimer(hWnd, 12, 1000, NULL);
 
 									PlaySound(NULL, 0, 0);
-									game_manager.playbackgroundmusic();
+									//game_manager.playbackgroundmusic();
 								}
 							}
 							break;
@@ -303,6 +303,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 
 			// Map
 			game_manager.printMap(mDC);
+
+			// Chin
+			for (Chin& player : session._players) {
+				if (player._id != -1) {
+					player.print(mDC);
+				}
+			}
 			
 			// HPbar
 			game_manager.ui.HP._right = game_manager.ui.HP._left + game_manager.ui.HP._width;
@@ -315,9 +322,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			// Profile
 			game_manager.printProfile(mDC);
 			
-			//// Time
-			//game_manager.printTime(mDC);
-			//
+			// Time
+			game_manager.printTime(mDC);
+			
 			//Start
 			game_manager.printStart(mDC);
 			
@@ -327,11 +334,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			//KO
 			game_manager.printKO(mDC);
 			
-			for (Chin& player : session._players) {
-				if (player._id != -1) {
-					player.print(mDC);
-				}
-			}
 
 			//--- 마지막에 메모리 DC의 내용을 화면 DC로 복사한다.
 			BitBlt(hDC, 0, 0, rt.right, rt.bottom, mDC, 0, 0, SRCCOPY);

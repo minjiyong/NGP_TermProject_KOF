@@ -95,6 +95,19 @@ void SESSION::recv_thread() {
 			}
 			case SC_UPDATE:
 			{
+				/*std::cout << "SC_UPDATE received" << std::endl;
+				SC_UPDATE_PACKET* p = reinterpret_cast<SC_UPDATE_PACKET*>(packet);
+				std::lock_guard <std::mutex> l_g{ _lock };
+				_state = p->s_state;
+				for (PLAYER& pl : _players) {
+					if (pl._id == p->id) {
+						pl.p_state = p->p_state;
+						pl.x_pos = p->x;
+						pl.y_pos = p->y;
+						pl.hp = p->hp;
+						break;
+					}
+				}*/
 				break;
 			}
 			default:

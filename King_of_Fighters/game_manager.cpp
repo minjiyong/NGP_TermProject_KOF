@@ -68,23 +68,27 @@ void GAMEMANAGER::printProfile(HDC& mDC) {
 }
 
 void GAMEMANAGER::printTime(HDC& mDC) {
-	ui.Time[timeten + 8]._right = ui.Time[timeten + 8]._left + ui.Time[timeten + 8]._width;
-	ui.Time[timeten + 8]._bottom = ui.Time[timeten + 8]._top + ui.Time[timeten + 8]._height;
-	ui.Time[timeten + 8]._img.TransparentBlt(mDC, ui.Time[timeten + 8]._left, ui.Time[timeten + 8]._top, 
-		ui.Time[timeten + 8]._right - ui.Time[timeten + 8]._left + 20, 
-		ui.Time[timeten + 8]._bottom - ui.Time[timeten + 8]._top + 30, 0, 0, 
-		ui.Time[timeten + 8]._width, ui.Time[timeten + 8]._height, RGB(57, 81, 57));
+	if (fight >= 5) {
+		ui.Time[timeten]._right = ui.Time[timeten]._left + ui.Time[timeten]._width;
+		ui.Time[timeten]._bottom = ui.Time[timeten]._top + ui.Time[timeten]._height;
+		ui.Time[timeten]._img.TransparentBlt(mDC, ui.Time[timeten]._left, ui.Time[timeten]._top,
+			ui.Time[timeten]._right - ui.Time[timeten]._left + 20,
+			ui.Time[timeten]._bottom - ui.Time[timeten]._top + 30, 0, 0,
+			ui.Time[timeten]._width, ui.Time[timeten]._height, RGB(57, 81, 57));
 
-	ui.Time[timeone + 8]._right = ui.Time[timeone + 8]._left + ui.Time[timeone + 8]._width;
-	ui.Time[timeone + 8]._bottom = ui.Time[timeone + 8]._top + ui.Time[timeone + 8]._height;
-	ui.Time[timeone + 8]._img.TransparentBlt(mDC, ui.Time[timeone + 8]._left + 28, ui.Time[timeone + 8]._top,
-		ui.Time[timeone + 8]._right - ui.Time[timeone + 8]._left + 20,
-		ui.Time[timeone + 8]._bottom - ui.Time[timeone + 8]._top + 30, 0, 0,
-		ui.Time[timeone + 8]._width, ui.Time[timeone + 8]._height, RGB(57, 81, 57));
+		ui.Time[timeone]._right = ui.Time[timeone]._left + ui.Time[timeone]._width;
+		ui.Time[timeone]._bottom = ui.Time[timeone]._top + ui.Time[timeone]._height;
+		ui.Time[timeone]._img.TransparentBlt(mDC, ui.Time[timeone]._left + 28, ui.Time[timeone]._top,
+			ui.Time[timeone]._right - ui.Time[timeone]._left + 20,
+			ui.Time[timeone]._bottom - ui.Time[timeone]._top + 30, 0, 0,
+			ui.Time[timeone]._width, ui.Time[timeone]._height, RGB(57, 81, 57));
+	}
 }
 
 void GAMEMANAGER::printStart(HDC& mDC) {
-	ui.Start[start]._img.StretchBlt(mDC, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0, 0, ui.Start[start]._width + 10, ui.Start[start]._height + 31);
+	if (start <= 2) {
+		ui.Start[start]._img.StretchBlt(mDC, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, 0, 0, ui.Start[start]._width + 10, ui.Start[start]._height + 31);
+	}
 }
 
 void GAMEMANAGER::printFight(HDC& mDC) {

@@ -11,8 +11,8 @@ public:
 	int timeone = 9;
 	int timeten = 5;
 	int start = 1;
-	int fight = 0;
-	bool ko = FALSE;
+	int fight = 5;		// 초기값 0, 2 넣어서 디버깅
+	bool ko = TRUE;		// 초기값 FALSE
 public:
 	GAMEMANAGER();
 	~GAMEMANAGER() = default;
