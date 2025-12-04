@@ -64,353 +64,435 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 
 	static int fight = 5;
 
+	static bool is_login = false;
+	static TCHAR GetID[8] = { '\0' }; static int   id_len = 0;
+
 	switch (iMessage) {
-		case WM_CREATE:
-		{
-			game_manager.init();
-			//game_manager.startMusic.playSound();
+	case WM_CREATE:
+	{
+		game_manager.init();
+		//game_manager.startMusic.playSound();
 
-			for (Chin& player : session._players) {
-				player.init();
-			}
-
-			//effect.Initialize_effect();
-
-			break;
+		for (Chin& player : session._players) {
+			player.init();
 		}
-		case WM_TIMER:
-		{
-			switch (wParam) {
+
+		//effect.Initialize_effect();
+
+		break;
+	}
+	case WM_TIMER:
+	{
+		switch (wParam) {
 			// background 타이머
-			case 0:
-			{
-				if (game_manager.mapTimer == 0) {
-					game_manager.mapTimer = 1;
-				}
-				else if (game_manager.mapTimer == 1) {
-					game_manager.mapTimer = 0;
-				}
+		case 0:
+		{
+			if (game_manager.mapTimer == 0) {
+				game_manager.mapTimer = 1;
 			}
-			break;
-
-			// 시간 타이머 - 1의 자리 수 
-			case 1: 
-			{
-				game_manager.fight++;
-				if (game_manager.fight == 3) {
-					PlaySound(TEXT("character\\sound\\Announce_Fight.wav"), NULL, SND_FILENAME | SND_ASYNC);
-				}
-				else if (game_manager.fight == 5) SetTimer(hWnd, 2, 10000, NULL);
-				else if (game_manager.fight >= 5) {
-					if (game_manager.timeone > 0) game_manager.timeone--;
-					else game_manager.timeone = 9;
-					if (game_manager.timeone == 0 && game_manager.timeten == 0) {
-						KillTimer(hWnd, 0);
-						KillTimer(hWnd, 1);
-					}
-				}
+			else if (game_manager.mapTimer == 1) {
+				game_manager.mapTimer = 0;
 			}
-			break;
+		}
+		break;
 
-			// 시간 타이머 - 10의 자리 수
-			case 2: 
-			{
-				if (game_manager.fight >= 5) {
-					game_manager.timeten--;
-				}
+		// 시간 타이머 - 1의 자리 수 
+		case 1:
+		{
+			game_manager.fight++;
+			if (game_manager.fight == 3) {
+				PlaySound(TEXT("character\\sound\\Announce_Fight.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			}
-			break;
-
-			// 게임종료 타이머
-			case 3:
-			{
-				Chin_HP -= 2;
-
-				if (Chin_HP == 0 || Kap_HP == 0) {
-					game_manager.ko = TRUE;
+			else if (game_manager.fight == 5) SetTimer(hWnd, 2, 10000, NULL);
+			else if (game_manager.fight >= 5) {
+				if (game_manager.timeone > 0) game_manager.timeone--;
+				else game_manager.timeone = 9;
+				if (game_manager.timeone == 0 && game_manager.timeten == 0) {
 					KillTimer(hWnd, 0);
 					KillTimer(hWnd, 1);
-					KillTimer(hWnd, 2);
-					PlaySound(TEXT("character\\sound\\Announce_Ko.wav"), NULL, SND_FILENAME | SND_ASYNC);
+				}
+			}
+		}
+		break;
+
+		// 시간 타이머 - 10의 자리 수
+		case 2:
+		{
+			if (game_manager.fight >= 5) {
+				game_manager.timeten--;
+			}
+		}
+		break;
+
+		// 게임종료 타이머
+		case 3:
+		{
+			Chin_HP -= 2;
+
+			if (Chin_HP == 0 || Kap_HP == 0) {
+				game_manager.ko = TRUE;
+				KillTimer(hWnd, 0);
+				KillTimer(hWnd, 1);
+				KillTimer(hWnd, 2);
+				PlaySound(TEXT("character\\sound\\Announce_Ko.wav"), NULL, SND_FILENAME | SND_ASYNC);
+			}
+		}
+
+		}
+		break;
+	}
+	case WM_CHAR:
+	{
+		if (!is_login)
+		{
+			TCHAR ch = static_cast<TCHAR>(wParam);
+
+			if (ch == L'\r') // VK_RETURN 말고 '\r'
+			{
+				// ID가 비어있지 않을 때만 보내기
+				if (id_len > 0)
+				{
+					// 1) 서버로 ID 전송 (TCHAR* 기준)
+					session.send_name_info_packet((char*)GetID);
+
+					// 2) 로그인 완료 플래그
+					is_login = true;
+				}
+			}
+			else if (ch == L'\b') // VK_BACK 말고 '\b'
+			{
+				// 한 글자 지우기
+				if (id_len > 0)
+				{
+					--id_len;
+					GetID[id_len] = L'\0';
+				}
+			}
+			else
+			{
+				// 여기는 일반 문자 입력 처리
+				// 예: 숫자/알파벳만 허용, 길이 7까지만
+				if (id_len < 7)  // 마지막은 널 문자
+				{
+					// 필요하면 조건 추가: isalnum(ch) 같은 것
+					GetID[id_len++] = ch;
+					GetID[id_len] = L'\0';
 				}
 			}
 
-			}
-			break;
+			// 입력할 때마다 다시 그리기
+			InvalidateRect(hWnd, nullptr, FALSE);
 		}
-		case WM_KEYDOWN:
+		break;
+	}
+	case WM_KEYDOWN:
+	{
+		hDC = GetDC(hWnd);
+		if (!is_login)
 		{
-			hDC = GetDC(hWnd);
-
-			for (Chin& chin : session._players) {
-				if (chin._id == session._id) {
-					switch (wParam) {
-						case VK_ESCAPE:
-						{
-							PostQuitMessage(0);
-							break;
-						}
-						case VK_F9:
-						{
-							if (mode_hitbox) mode_hitbox = false;
-							else if (!mode_hitbox) mode_hitbox = true;
-							break;
-						}
-						case 'p':
-						case 'P':
-						{
-							if (game_manager.start <= 2) {
-								game_manager.start++;
-								if (game_manager.start == 3) {
-									//Background
-									SetTimer(hWnd, 0, 300, NULL);
-
-									//// 충돌 후 무적시간 쿨 체크
-									//SetTimer(hWnd, 9, 50, NULL);
-									//// 충돌체크 타이머
-									//SetTimer(hWnd, 10, 1, NULL);
-									//// 이펙트 타이머
-									//SetTimer(hWnd, 11, 40, NULL);
-									//시간 타이머(1의자리)
-									SetTimer(hWnd, 1, 1000, NULL);
-
-									// 게임종료 체크
-									SetTimer(hWnd, 3, 100, NULL);
-
-									PlaySound(NULL, 0, 0);
-									//game_manager.playbackgroundmusic();
-								}
-							}
-							break;
-						}
-						case 'a':
-						case 'A':
-						{
-							if (fight >= 4) {
-								if (chin.p_state != PS_ForwardMove) {
-									std::lock_guard <std::mutex> l_g{ session._lock };
-									chin.p_state = PS_ForwardMove;
-								}
-							}
-							break;
-						}
-						case 'd':
-						case 'D':
-						{
-							if (fight >= 4) {
-								if (chin.p_state != PS_BackMove) {
-									std::lock_guard <std::mutex> l_g{ session._lock };
-									chin.p_state = PS_BackMove;
-								}
-							}
-							break;
-						}
-						case 'w':
-						case 'W':
-						{
-							if (fight >= 4) {
-								// 일어나 있는 상태에서만 점프 가능하도록 함
-								//if (chin.p_state == Idle || chin.p_state == ForwardMove || chin.p_state == BackMove) {
-								if (chin.p_state != PS_JumpIdle && chin.p_state != PS_JumpForwardMove
-									&& chin.p_state != PS_JumpBackMove) {
-									std::lock_guard <std::mutex> l_g{ session._lock };
-									chin.p_state = PS_JumpIdle;
-								}
-							}
-							break;
-						}
-						case 's':
-						case 'S':
-						{
-							if (fight >= 4) {
-								if (chin.p_state == PS_Idle || chin.p_state == PS_ForwardMove || chin.p_state == PS_BackMove) {
-									std::lock_guard <std::mutex> l_g{ session._lock };
-									chin.p_state = PS_CrouchIdle;
-								}
-							}
-							break;
-						}
-						case 'j':
-						case 'J':
-						{
-							if (fight >= 4) {
-								if (chin.p_state == PS_Idle || chin.p_state == PS_ForwardMove || chin.p_state == PS_BackMove) {
-									std::lock_guard <std::mutex> l_g{ session._lock };
-									chin.p_state = PS_punch_weak;
-								}
-								else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state == PS_JumpBackMove) {
-									std::lock_guard <std::mutex> l_g{ session._lock };
-									chin.p_state = PS_punch_jump;
-								}
-								else if (chin.p_state == PS_CrouchIdle) {
-									std::lock_guard <std::mutex> l_g{ session._lock };
-									chin.p_state = PS_punch_crouch;
-								}
-							}
-							break;
-						}
-						case 'k':
-						case 'K':
-						{
-							if (fight >= 4) {
-								if (chin.p_state == PS_Idle || chin.p_state == PS_ForwardMove || chin.p_state == PS_BackMove) {
-									std::lock_guard <std::mutex> l_g{ session._lock };
-									chin.p_state = PS_punch_strong;
-									PlaySound(TEXT("character\\sound\\p05#6"), NULL, SND_FILENAME | SND_ASYNC);
-								}
-								else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state != PS_JumpBackMove) {
-									std::lock_guard <std::mutex> l_g{ session._lock };
-									chin.p_state = PS_punch_jump;
-								}
-								else if (chin.p_state == PS_CrouchIdle) {
-									std::lock_guard <std::mutex> l_g{ session._lock };
-									chin.p_state = PS_punch_crouch;
-								}
-							}
-							break;
-						}
-						case 'n':
-						case 'N':
-						{
-							if (fight >= 4) {
-								if (chin.p_state == PS_Idle || chin.p_state == PS_ForwardMove || chin.p_state == PS_BackMove) {
-									std::lock_guard <std::mutex> l_g{ session._lock };
-									chin.p_state = PS_kick_weak;
-								}
-								else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state == PS_JumpBackMove) {
-									std::lock_guard <std::mutex> l_g{ session._lock };
-									chin.p_state = PS_kick_jump;
-								}
-								else if (chin.p_state == PS_CrouchIdle) {
-									std::lock_guard <std::mutex> l_g{ session._lock };
-									chin.p_state = PS_kick_crouch;
-								}
-							}
-							break;
-						}
-						case 'm':
-						case 'M':
-						{
-							if (fight >= 4) {
-								if (chin.p_state == PS_Idle || chin.p_state == PS_ForwardMove || chin.p_state == PS_BackMove) {
-									std::lock_guard <std::mutex> l_g{ session._lock };
-									chin.p_state = PS_kick_strong;
-									PlaySound(TEXT("character\\sound\\p05#9"), NULL, SND_FILENAME | SND_ASYNC);
-								}
-								else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state == PS_JumpBackMove) {
-									std::lock_guard <std::mutex> l_g{ session._lock };
-									chin.p_state = PS_kick_jump;
-								}
-								else if (chin.p_state == PS_CrouchIdle) {
-									std::lock_guard <std::mutex> l_g{ session._lock };
-									chin.p_state = PS_kick_crouch;
-								}
-							}
-							break;
-						}
-					}
-
-					session.send_input_packet(chin);
-				}
-			}
-			InvalidateRect(hWnd, NULL, FALSE); //--- 화면에 다시그리기를 할 때 기존의 내용을 삭제하지 않는다.
-
-			ReleaseDC(hWnd, hDC);
-			break;
-		}
-		case WM_KEYUP:
-		{
-			hDC = GetDC(hWnd);
-			for (Chin& player : session._players) {
-				if (player._id == session._id) {
-					switch (wParam) {
-					case 'a':
-					case 'A':
-					{
-						player.p_state = PS_Idle;
-						break;
-					}
-					case 'd':
-					case 'D':
-					{
-						player.p_state = PS_Idle;
-						break;
-					}
-					case 's':
-					case 'S':
-					{
-						player.p_state = PS_Idle;
-						break;
-					}
-					}
-					session.send_input_packet(player);
-				}
-			}
-			
-			InvalidateRect(hWnd, NULL, FALSE); //--- 화면에 다시그리기를 할 때 기존의 내용을 삭제하지 않는다.
-
-			ReleaseDC(hWnd, hDC);
-			break;
-		}
-		case WM_PAINT:
-		{
-			hDC = BeginPaint(hWnd, &ps);
-			mDC = CreateCompatibleDC(hDC); //--- 메모리 DC 만들기
-			hBitmap = CreateCompatibleBitmap(hDC, rt.right, rt.bottom); //--- 메모리 DC와 연결할 비트맵 만들기
-			SelectObject(mDC, (HBITMAP)hBitmap); //--- 메모리 DC와 비트맵 연결하기
-			Rectangle(mDC, 0, 0, rt.right, rt.bottom); //--- 화면에 비어있기 때문에 화면 가득히 사각형을 그려 배경색으로 설정하기
-
-			// Map
-			game_manager.printMap(mDC);
-
-			// Chin
-			for (Chin& player : session._players) {
-				if (player._id != -1) {
-					player.print(mDC);
-				}
-			}
-			
-			// HPbar
-			game_manager.ui.HP._right = game_manager.ui.HP._left + game_manager.ui.HP._width;
-			game_manager.ui.HP._bottom = game_manager.ui.HP._top + game_manager.ui.HP._height;
-			game_manager.ui.HP._img.TransparentBlt(mDC, game_manager.ui.HP._left, game_manager.ui.HP._top, game_manager.ui.HP._right - game_manager.ui.HP._left + 450, game_manager.ui.HP._bottom - game_manager.ui.HP._top + 50, 0, 0, game_manager.ui.HP._width, game_manager.ui.HP._height, RGB(0, 0, 32));
-			
-			// Name
-			game_manager.printName(mDC);
-			
-			// Profile
-			game_manager.printProfile(mDC);
-			
-			// Player HP
-			game_manager.printHp(mDC, Chin_HP, Kap_HP, Chin_HP);	// p3 HP
-
-			// Time
-			game_manager.printTime(mDC);
-			
-			//Start
-			game_manager.printStart(mDC);
-			
-			//Fight
-			game_manager.printFight(mDC);
-			
-			//KO
-			game_manager.printKO(mDC);
-			
-
-			//--- 마지막에 메모리 DC의 내용을 화면 DC로 복사한다.
-			BitBlt(hDC, 0, 0, rt.right, rt.bottom, mDC, 0, 0, SRCCOPY);
-			DeleteDC(mDC); //--- 생성한 메모리 DC 삭제
-			DeleteObject(hBitmap); //--- 생성한 비트맵 삭제
-
-			EndPaint(hWnd, &ps);
-			break;
-		}
-		case WM_DESTROY:
-		{
-			KillTimer(hWnd, 1);
-			PostQuitMessage(0);
 			return 0;
 		}
+		for (Chin& chin : session._players) {
+			if (chin._id == session._id) {
+				switch (wParam) {
+				case VK_ESCAPE:
+				{
+					PostQuitMessage(0);
+					break;
+				}
+				case VK_F9:
+				{
+					if (mode_hitbox) mode_hitbox = false;
+					else if (!mode_hitbox) mode_hitbox = true;
+					break;
+				}
+				case 'p':
+				case 'P':
+				{
+					if (game_manager.start <= 2) {
+						game_manager.start++;
+						if (game_manager.start == 3) {
+							//Background
+							SetTimer(hWnd, 0, 300, NULL);
+
+							//// 충돌 후 무적시간 쿨 체크
+							//SetTimer(hWnd, 9, 50, NULL);
+							//// 충돌체크 타이머
+							//SetTimer(hWnd, 10, 1, NULL);
+							//// 이펙트 타이머
+							//SetTimer(hWnd, 11, 40, NULL);
+							//시간 타이머(1의자리)
+							SetTimer(hWnd, 1, 1000, NULL);
+
+							// 게임종료 체크
+							SetTimer(hWnd, 3, 100, NULL);
+
+							PlaySound(NULL, 0, 0);
+							//game_manager.playbackgroundmusic();
+						}
+					}
+					break;
+				}
+				case 'a':
+				case 'A':
+				{
+					if (fight >= 4) {
+						if (chin.p_state != PS_ForwardMove) {
+							std::lock_guard <std::mutex> l_g{ session._lock };
+							chin.p_state = PS_ForwardMove;
+						}
+					}
+					break;
+				}
+				case 'd':
+				case 'D':
+				{
+					if (fight >= 4) {
+						if (chin.p_state != PS_BackMove) {
+							std::lock_guard <std::mutex> l_g{ session._lock };
+							chin.p_state = PS_BackMove;
+						}
+					}
+					break;
+				}
+				case 'w':
+				case 'W':
+				{
+					if (fight >= 4) {
+						// 일어나 있는 상태에서만 점프 가능하도록 함
+						//if (chin.p_state == Idle || chin.p_state == ForwardMove || chin.p_state == BackMove) {
+						if (chin.p_state != PS_JumpIdle && chin.p_state != PS_JumpForwardMove
+							&& chin.p_state != PS_JumpBackMove) {
+							std::lock_guard <std::mutex> l_g{ session._lock };
+							chin.p_state = PS_JumpIdle;
+						}
+					}
+					break;
+				}
+				case 's':
+				case 'S':
+				{
+					if (fight >= 4) {
+						if (chin.p_state == PS_Idle || chin.p_state == PS_ForwardMove || chin.p_state == PS_BackMove) {
+							std::lock_guard <std::mutex> l_g{ session._lock };
+							chin.p_state = PS_CrouchIdle;
+						}
+					}
+					break;
+				}
+				case 'j':
+				case 'J':
+				{
+					if (fight >= 4) {
+						if (chin.p_state == PS_Idle || chin.p_state == PS_ForwardMove || chin.p_state == PS_BackMove) {
+							std::lock_guard <std::mutex> l_g{ session._lock };
+							chin.p_state = PS_punch_weak;
+						}
+						else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state == PS_JumpBackMove) {
+							std::lock_guard <std::mutex> l_g{ session._lock };
+							chin.p_state = PS_punch_jump;
+						}
+						else if (chin.p_state == PS_CrouchIdle) {
+							std::lock_guard <std::mutex> l_g{ session._lock };
+							chin.p_state = PS_punch_crouch;
+						}
+					}
+					break;
+				}
+				case 'k':
+				case 'K':
+				{
+					if (fight >= 4) {
+						if (chin.p_state == PS_Idle || chin.p_state == PS_ForwardMove || chin.p_state == PS_BackMove) {
+							std::lock_guard <std::mutex> l_g{ session._lock };
+							chin.p_state = PS_punch_strong;
+							PlaySound(TEXT("character\\sound\\p05#6"), NULL, SND_FILENAME | SND_ASYNC);
+						}
+						else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state != PS_JumpBackMove) {
+							std::lock_guard <std::mutex> l_g{ session._lock };
+							chin.p_state = PS_punch_jump;
+						}
+						else if (chin.p_state == PS_CrouchIdle) {
+							std::lock_guard <std::mutex> l_g{ session._lock };
+							chin.p_state = PS_punch_crouch;
+						}
+					}
+					break;
+				}
+				case 'n':
+				case 'N':
+				{
+					if (fight >= 4) {
+						if (chin.p_state == PS_Idle || chin.p_state == PS_ForwardMove || chin.p_state == PS_BackMove) {
+							std::lock_guard <std::mutex> l_g{ session._lock };
+							chin.p_state = PS_kick_weak;
+						}
+						else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state == PS_JumpBackMove) {
+							std::lock_guard <std::mutex> l_g{ session._lock };
+							chin.p_state = PS_kick_jump;
+						}
+						else if (chin.p_state == PS_CrouchIdle) {
+							std::lock_guard <std::mutex> l_g{ session._lock };
+							chin.p_state = PS_kick_crouch;
+						}
+					}
+					break;
+				}
+				case 'm':
+				case 'M':
+				{
+					if (fight >= 4) {
+						if (chin.p_state == PS_Idle || chin.p_state == PS_ForwardMove || chin.p_state == PS_BackMove) {
+							std::lock_guard <std::mutex> l_g{ session._lock };
+							chin.p_state = PS_kick_strong;
+							PlaySound(TEXT("character\\sound\\p05#9"), NULL, SND_FILENAME | SND_ASYNC);
+						}
+						else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state == PS_JumpBackMove) {
+							std::lock_guard <std::mutex> l_g{ session._lock };
+							chin.p_state = PS_kick_jump;
+						}
+						else if (chin.p_state == PS_CrouchIdle) {
+							std::lock_guard <std::mutex> l_g{ session._lock };
+							chin.p_state = PS_kick_crouch;
+						}
+					}
+					break;
+				}
+				}
+
+				session.send_input_packet(chin);
+			}
+		}
+		InvalidateRect(hWnd, NULL, FALSE); //--- 화면에 다시그리기를 할 때 기존의 내용을 삭제하지 않는다.
+
+		ReleaseDC(hWnd, hDC);
+		break;
+	}
+	case WM_KEYUP:
+	{
+		hDC = GetDC(hWnd);
+		for (Chin& player : session._players) {
+			if (player._id == session._id) {
+				switch (wParam) {
+				case 'a':
+				case 'A':
+				{
+					player.p_state = PS_Idle;
+					break;
+				}
+				case 'd':
+				case 'D':
+				{
+					player.p_state = PS_Idle;
+					break;
+				}
+				case 's':
+				case 'S':
+				{
+					player.p_state = PS_Idle;
+					break;
+				}
+				}
+				session.send_input_packet(player);
+			}
+		}
+
+		InvalidateRect(hWnd, NULL, FALSE); //--- 화면에 다시그리기를 할 때 기존의 내용을 삭제하지 않는다.
+
+		ReleaseDC(hWnd, hDC);
+		break;
+	}
+	case WM_PAINT:
+	{
+		hDC = BeginPaint(hWnd, &ps);
+		mDC = CreateCompatibleDC(hDC); //--- 메모리 DC 만들기
+		hBitmap = CreateCompatibleBitmap(hDC, rt.right, rt.bottom); //--- 메모리 DC와 연결할 비트맵 만들기
+		SelectObject(mDC, (HBITMAP)hBitmap); //--- 메모리 DC와 비트맵 연결하기
+		Rectangle(mDC, 0, 0, rt.right, rt.bottom); //--- 화면에 비어있기 때문에 화면 가득히 사각형을 그려 배경색으로 설정하기
+
+		// Map
+		game_manager.printMap(mDC);
+
+		// Chin
+		for (Chin& player : session._players) {
+			if (player._id != -1) {
+				player.print(mDC);
+			}
+		}
+
+		// HPbar
+		game_manager.ui.HP._right = game_manager.ui.HP._left + game_manager.ui.HP._width;
+		game_manager.ui.HP._bottom = game_manager.ui.HP._top + game_manager.ui.HP._height;
+		game_manager.ui.HP._img.TransparentBlt(mDC, game_manager.ui.HP._left, game_manager.ui.HP._top, game_manager.ui.HP._right - game_manager.ui.HP._left + 450, game_manager.ui.HP._bottom - game_manager.ui.HP._top + 50, 0, 0, game_manager.ui.HP._width, game_manager.ui.HP._height, RGB(0, 0, 32));
+
+		// Name
+		game_manager.printName(mDC);
+
+		// Profile
+		game_manager.printProfile(mDC);
+
+		// Player HP
+		game_manager.printHp(mDC, Chin_HP, Kap_HP, Chin_HP);	// p3 HP
+
+		// Time
+		game_manager.printTime(mDC);
+
+		//Start
+		game_manager.printStart(mDC);
+
+		//Fight
+		game_manager.printFight(mDC);
+
+		//KO
+		game_manager.printKO(mDC);
+
+		//Login Box
+		if (!is_login) {
+			RECT box = { 200, 150, 600, 260 };
+			HBRUSH brush = CreateSolidBrush(RGB(0, 0, 0));
+			FillRect(mDC, &box, brush);
+
+
+			SetTextColor(mDC, RGB(255, 255, 255));
+			SetBkMode(mDC, TRANSPARENT);
+
+			const TCHAR* title = L"ENTER YOUR ID";
+			TextOut(mDC, box.left + 20, box.top + 20, title, lstrlen(title));
+
+			TCHAR buf[32];
+			wsprintf(buf, L"ID: %s", GetID);
+			TextOut(mDC, box.left + 20, box.top + 60, buf, lstrlen(buf));
+
+			const TCHAR* hint = L"[Enter] 확정 / [Backspace] 지우기 / [ESC] 종료";
+			TextOut(mDC, box.left + 20, box.top + 100, hint, lstrlen(hint));
+			DeleteObject(brush);
+		}
+		else {
+			// 로그인 완료 후 화면 구석에 ID 표시
+			SetTextColor(mDC, RGB(255, 0, 255));
+			SetBkMode(mDC, TRANSPARENT);
+			TCHAR buf[32];
+			wsprintf(buf, L"ID: %s", GetID);
+			TextOut(mDC, 10, 10, buf, lstrlen(buf));
+		}
+
+
+		//--- 마지막에 메모리 DC의 내용을 화면 DC로 복사한다.
+		BitBlt(hDC, 0, 0, rt.right, rt.bottom, mDC, 0, 0, SRCCOPY);
+		DeleteDC(mDC); //--- 생성한 메모리 DC 삭제
+		DeleteObject(hBitmap); //--- 생성한 비트맵 삭제
+
+		EndPaint(hWnd, &ps);
+		break;
+	}
+	case WM_DESTROY:
+	{
+		KillTimer(hWnd, 1);
+		PostQuitMessage(0);
+		return 0;
+	}
 	}
 	return (DefWindowProc(hWnd, iMessage, wParam, lParam));
 }
+
+
