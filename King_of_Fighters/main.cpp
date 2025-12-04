@@ -61,8 +61,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	static int bg = 0;
 	static int Chin_HP = 6;
 	static int Kap_HP = 266;
-
 	static int fight = 5;
+	static bool is_login = false;
 
 	static TCHAR GetID[8] = { '\0' }; static int   id_len = 0;
 
@@ -142,7 +142,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	}
 	case WM_CHAR:
 	{
-		if (session._state == ST_LOGIN)
+		if (session._state == ST_CONNECT || is_login)
 		{
 			TCHAR ch = static_cast<TCHAR>(wParam);
 
@@ -151,15 +151,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 				// ID가 비어있지 않을 때만 보내기
 				if (id_len > 0)
 				{
-					// 1) 로그인 완료 플래그
-					session._state == ST_WAITGAME;
 					// 2) 서버로 ID 전송 (TCHAR* 기준)
 					session.send_name_info_packet((char*)GetID);
-
 				}
 
 			}
-			else if (ch == L'\b') 
+			else if (ch == L'\b')
 			{
 				// 한 글자 지우기
 				if (id_len > 0)
@@ -193,15 +190,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		case ST_CONNECT:
 			if (wParam == 'P' || wParam == 'p')
 			{
-				session._state = ST_LOGIN;
+				is_login = true;
+
 			}
 			else
 			{
 				return 0;
 			}
 			break;
-		case ST_LOGIN:
-			return 0;
 			//if (game_manager.start <= 2) {
 			//	game_manager.start++;
 			//	if (game_manager.start == 3) {
@@ -224,9 +220,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			//		//game_manager.playbackgroundmusic();
 			//	}
 			//}
-			break;
-
-
+			
 		case ST_INGAME:
 			// 게임 진행 중일 때만 입력 처리
 			for (Chin& chin : session._players) {
@@ -377,8 +371,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		default:
 			break;
 		}
-		
-		
+
+
 		InvalidateRect(hWnd, NULL, FALSE); //--- 화면에 다시그리기를 할 때 기존의 내용을 삭제하지 않는다.
 
 		ReleaseDC(hWnd, hDC);
@@ -425,8 +419,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		hBitmap = CreateCompatibleBitmap(hDC, rt.right, rt.bottom); //--- 메모리 DC와 연결할 비트맵 만들기
 		SelectObject(mDC, (HBITMAP)hBitmap); //--- 메모리 DC와 비트맵 연결하기
 		Rectangle(mDC, 0, 0, rt.right, rt.bottom); //--- 화면에 비어있기 때문에 화면 가득히 사각형을 그려 배경색으로 설정하기
-		
-		if (session._state == ST_LOGIN || session._state == ST_INGAME || session._state == ST_WAITGAME)
+
+		if (is_login || session._state == ST_INGAME || session._state == ST_WAITGAME)
 		{
 			// Map
 			game_manager.printMap(mDC);
@@ -468,7 +462,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 
 
 		//Login Box
-		if (session._state == ST_LOGIN) {
+		if (session._state == ST_CONNECT || is_login) {
 			RECT box = { 200, 150, 600, 260 };
 			HBRUSH brush = CreateSolidBrush(RGB(0, 0, 0));
 			FillRect(mDC, &box, brush);
@@ -486,7 +480,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			TextOut(mDC, box.left + 20, box.top + 100, hint, lstrlen(hint));
 			DeleteObject(brush);
 		}
-		else {
+		else if (session._state == ST_WAITGAME || session._state == ST_INGAME)
+		{
 			// 로그인 완료 후 화면 구석에 ID 표시
 			SetTextColor(mDC, RGB(255, 0, 255));
 			SetBkMode(mDC, TRANSPARENT);
@@ -509,6 +504,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		PostQuitMessage(0);
 		return 0;
 	}
+
 	}
 	return (DefWindowProc(hWnd, iMessage, wParam, lParam));
 }

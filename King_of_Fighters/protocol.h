@@ -60,7 +60,6 @@ enum P_STATE { // 플레이어 상태
 enum S_STATE { // 세션 상태
 	ST_FREE,
 	ST_CONNECT,
-	ST_LOGIN,
 	ST_WAITGAME,
 	ST_INGAME,
 	ST_OUTGAME,
