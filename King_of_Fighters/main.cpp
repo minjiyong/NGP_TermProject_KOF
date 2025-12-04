@@ -153,35 +153,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 				{
 					// 1) 로그인 완료 플래그
 					session._state == ST_WAITGAME;
-					if (game_manager.start <= 2) {
-						game_manager.start++;
-						if (game_manager.start == 3) {
-							//Background
-							SetTimer(hWnd, 0, 300, NULL);
-
-							//// 충돌 후 무적시간 쿨 체크
-							//SetTimer(hWnd, 9, 50, NULL);
-							//// 충돌체크 타이머
-							//SetTimer(hWnd, 10, 1, NULL);
-							//// 이펙트 타이머
-							//SetTimer(hWnd, 11, 40, NULL);
-							//시간 타이머(1의자리)
-							SetTimer(hWnd, 1, 1000, NULL);
-
-							// 게임종료 체크
-							SetTimer(hWnd, 3, 100, NULL);
-
-							PlaySound(NULL, 0, 0);
-							//game_manager.playbackgroundmusic();
-						}
-					}
 					// 2) 서버로 ID 전송 (TCHAR* 기준)
 					session.send_name_info_packet((char*)GetID);
 
 				}
 
 			}
-			else if (ch == L'\b') // VK_BACK 말고 '\b'
+			else if (ch == L'\b') 
 			{
 				// 한 글자 지우기
 				if (id_len > 0)
@@ -224,7 +202,31 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			break;
 		case ST_LOGIN:
 			return 0;
+			//if (game_manager.start <= 2) {
+			//	game_manager.start++;
+			//	if (game_manager.start == 3) {
+			//		//Background
+			//		SetTimer(hWnd, 0, 300, NULL);
+
+			//		//// 충돌 후 무적시간 쿨 체크
+			//		//SetTimer(hWnd, 9, 50, NULL);
+			//		//// 충돌체크 타이머
+			//		//SetTimer(hWnd, 10, 1, NULL);
+			//		//// 이펙트 타이머
+			//		//SetTimer(hWnd, 11, 40, NULL);
+			//		//시간 타이머(1의자리)
+			//		SetTimer(hWnd, 1, 1000, NULL);
+
+			//		// 게임종료 체크
+			//		SetTimer(hWnd, 3, 100, NULL);
+
+			//		PlaySound(NULL, 0, 0);
+			//		//game_manager.playbackgroundmusic();
+			//	}
+			//}
 			break;
+
+
 		case ST_INGAME:
 			// 게임 진행 중일 때만 입력 처리
 			for (Chin& chin : session._players) {
@@ -424,7 +426,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		SelectObject(mDC, (HBITMAP)hBitmap); //--- 메모리 DC와 비트맵 연결하기
 		Rectangle(mDC, 0, 0, rt.right, rt.bottom); //--- 화면에 비어있기 때문에 화면 가득히 사각형을 그려 배경색으로 설정하기
 		
-		if (session._state == ST_INGAME)
+		if (session._state == ST_LOGIN || session._state == ST_INGAME || session._state == ST_WAITGAME)
 		{
 			// Map
 			game_manager.printMap(mDC);
