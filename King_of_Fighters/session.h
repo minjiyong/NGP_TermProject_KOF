@@ -16,8 +16,8 @@ public:
 	~SESSION() = default;
 
 	void print() const;
-	void start_network();
-	void recv_thread();
+	void start_network(HWND& hWnd);
+	void recv_thread(HWND& hWnd);
 	void update();
 	void send_login_packet() const;
 	void send_name_info_packet(const char* s_name) const;

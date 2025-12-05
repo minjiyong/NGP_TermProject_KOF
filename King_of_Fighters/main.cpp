@@ -35,7 +35,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevinstance, LPSTR lpszCmdPa
 
 	hWnd = CreateWindow(IpszClass, IpszWindowName, WS_OVERLAPPEDWINDOW, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, NULL, (HMENU)NULL, hInstance, NULL);
 
-	InitialzeNetwork(session);
+	InitialzeNetwork(session, hWnd);
 
 	ShowWindow(hWnd, nCmdShow);
 	UpdateWindow(hWnd);
@@ -183,7 +183,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	}
 	case WM_KEYDOWN:
 	{
-		hDC = GetDC(hWnd);
 		switch (session._state)
 		{
 		case ST_CONNECT:
@@ -244,6 +243,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 							if (chin.p_state != PS_ForwardMove) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
 								temp.p_state = PS_ForwardMove;
+								session.send_input_packet(temp);
 							}
 						}
 						break;
@@ -255,6 +255,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 							if (chin.p_state != PS_BackMove) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
 								temp.p_state = PS_BackMove;
+								session.send_input_packet(temp);
 							}
 						}
 						break;
@@ -269,6 +270,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 								&& chin.p_state != PS_JumpBackMove) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
 								temp.p_state = PS_JumpIdle;
+								session.send_input_packet(temp);
 							}
 						}
 						break;
@@ -280,6 +282,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 							if (chin.p_state == PS_Idle || chin.p_state == PS_ForwardMove || chin.p_state == PS_BackMove) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
 								temp.p_state = PS_CrouchIdle;
+								session.send_input_packet(temp);
 							}
 						}
 						break;
@@ -291,14 +294,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 							if (chin.p_state == PS_Idle || chin.p_state == PS_ForwardMove || chin.p_state == PS_BackMove) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
 								temp.p_state = PS_punch_weak;
+								session.send_input_packet(temp);
 							}
 							else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state == PS_JumpBackMove) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
 								temp.p_state = PS_punch_jump;
+								session.send_input_packet(temp);
 							}
 							else if (chin.p_state == PS_CrouchIdle) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
 								temp.p_state = PS_punch_crouch;
+								session.send_input_packet(temp);
 							}
 						}
 						break;
@@ -310,15 +316,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 							if (chin.p_state == PS_Idle || chin.p_state == PS_ForwardMove || chin.p_state == PS_BackMove) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
 								temp.p_state = PS_punch_strong;
+								session.send_input_packet(temp);
 								PlaySound(TEXT("character\\sound\\p05#6"), NULL, SND_FILENAME | SND_ASYNC);
 							}
 							else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state != PS_JumpBackMove) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
 								temp.p_state = PS_punch_jump;
+								session.send_input_packet(temp);
 							}
 							else if (chin.p_state == PS_CrouchIdle) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
 								temp.p_state = PS_punch_crouch;
+								session.send_input_packet(temp);
 							}
 						}
 						break;
@@ -330,14 +339,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 							if (chin.p_state == PS_Idle || chin.p_state == PS_ForwardMove || chin.p_state == PS_BackMove) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
 								temp.p_state = PS_kick_weak;
+								session.send_input_packet(temp);
 							}
 							else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state == PS_JumpBackMove) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
 								temp.p_state = PS_kick_jump;
+								session.send_input_packet(temp);
 							}
 							else if (chin.p_state == PS_CrouchIdle) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
 								temp.p_state = PS_kick_crouch;
+								session.send_input_packet(temp);
 							}
 						}
 						break;
@@ -349,22 +361,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 							if (chin.p_state == PS_Idle || chin.p_state == PS_ForwardMove || chin.p_state == PS_BackMove) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
 								temp.p_state = PS_kick_strong;
+								session.send_input_packet(temp);
 								PlaySound(TEXT("character\\sound\\p05#9"), NULL, SND_FILENAME | SND_ASYNC);
 							}
 							else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state == PS_JumpBackMove) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
 								temp.p_state = PS_kick_jump;
+								session.send_input_packet(temp);
 							}
 							else if (chin.p_state == PS_CrouchIdle) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
 								temp.p_state = PS_kick_crouch;
+								session.send_input_packet(temp);
 							}
 						}
 						break;
 					}
 					}
-
-					session.send_input_packet(temp);
 				}
 			}
 			break;
@@ -372,38 +385,36 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			break;
 		}
 
-
 		InvalidateRect(hWnd, NULL, FALSE); //--- 화면에 다시그리기를 할 때 기존의 내용을 삭제하지 않는다.
-
-		ReleaseDC(hWnd, hDC);
 		break;
 	}
 	case WM_KEYUP:
 	{
 		hDC = GetDC(hWnd);
-		for (Chin& player : session._players) {
-			if (player._id == session._id) {
+		for (Chin& chin : session._players) {
+			Chin temp = chin;
+			if (chin._id == session._id) {
 				switch (wParam) {
 				case 'a':
 				case 'A':
 				{
-					player.p_state = PS_Idle;
+					temp.p_state = PS_Idle;
 					break;
 				}
 				case 'd':
 				case 'D':
 				{
-					player.p_state = PS_Idle;
+					temp.p_state = PS_Idle;
 					break;
 				}
 				case 's':
 				case 'S':
 				{
-					player.p_state = PS_Idle;
+					temp.p_state = PS_Idle;
 					break;
 				}
 				}
-				session.send_input_packet(player);
+				session.send_input_packet(temp);
 			}
 		}
 

@@ -9,6 +9,7 @@ void SESSION::print() const {
 		std::cout << "Session ID: " << p._id << std::endl;
 		std::cout << "Name: " << p._name << std::endl;
 		std::cout << "m_state: " << (int)p.p_state << std::endl;
+		std::cout << "Position: (" << p.x_pos << ", " << p.y_pos << ")" << std::endl;
 		std::cout << "ani_index: " << p.ani_index << std::endl;
 	}
 	std::cout << "------------------------" << std::endl;
@@ -38,13 +39,13 @@ void SESSION::send_input_packet(Chin& chin) const{
 	send_packet(_socket, &p);
 }
 
-void SESSION::start_network() {
-	_recv_thread = std::thread(&SESSION::recv_thread, this);
+void SESSION::start_network(HWND& hWnd) {
+	_recv_thread = std::thread(&SESSION::recv_thread, this, std::ref(hWnd));
 	_recv_thread.detach();
 	send_login_packet();
 }
 
-void SESSION::recv_thread() {
+void SESSION::recv_thread(HWND& hWnd) {
 	while (true) {
 		if (_socket == 0) break;
 		if (recv_packet(_socket, &_recv_buf)) {
@@ -121,6 +122,7 @@ void SESSION::recv_thread() {
 			break;
 		}
 		print();
+		InvalidateRect(hWnd, nullptr, FALSE);
 	}
 }
 

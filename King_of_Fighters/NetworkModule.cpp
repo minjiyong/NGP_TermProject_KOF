@@ -1,6 +1,6 @@
 #include "NetworkModule.h"
 
-void InitialzeNetwork(SESSION& session)
+void InitialzeNetwork(SESSION& session, HWND& hWnd)
 {
 	int retval;
 
@@ -22,5 +22,5 @@ void InitialzeNetwork(SESSION& session)
 	retval = connect(session._socket, (struct sockaddr*)&serveraddr, sizeof(serveraddr));
 	if (retval == SOCKET_ERROR) err_quit("connect()");
 
-	session.start_network();
+	session.start_network(hWnd);
 }
