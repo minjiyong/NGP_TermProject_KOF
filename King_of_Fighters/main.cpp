@@ -399,22 +399,24 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 				case 'A':
 				{
 					temp.p_state = PS_Idle;
+					session.send_input_packet(temp);
 					break;
 				}
 				case 'd':
 				case 'D':
 				{
 					temp.p_state = PS_Idle;
+					session.send_input_packet(temp);
 					break;
 				}
 				case 's':
 				case 'S':
 				{
 					temp.p_state = PS_Idle;
+					session.send_input_packet(temp);
 					break;
 				}
 				}
-				session.send_input_packet(temp);
 			}
 		}
 
