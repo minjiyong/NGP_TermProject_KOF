@@ -6,6 +6,7 @@ IMAGE::~IMAGE() {};
 void IMAGE::SetImage(const wchar_t* filename, int left, int top, int right, int bottom) {
     // 1. 이미지가 이미 로드되어 있다면 해제 (재사용 시 안전장치)
     if (!_img.IsNull()) {
+        _img.ReleaseDC();
         _img.Destroy();
     }
 
@@ -33,9 +34,6 @@ void IMAGE::SetImage(const wchar_t* filename, int left, int top, int right, int 
     _top = top;
     _right = right;
     _bottom = bottom;
-
-    // WinMain 환경에서는 std::cout이 안 보일 수 있으니 OutputDebugString 권장
-    OutputDebugString(L"이미지 로딩 성공\n");
 }
 void IMAGE::InitImage(const wchar_t* action, const int num) {
 	//wchar_t fileName = L"Chin Gentsai_"+ std::to_wstring(num) + std::to_wstring(num) + L".png";

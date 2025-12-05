@@ -9,11 +9,7 @@ Chin::Chin()
 
 void Chin::init()
 {
-    x_pos = rand() % 200;
-    y_pos = 332;
-
     action = new ACTION[CHIN_ACTION_CNT]();
-    const RECT commonHurtBox = { 12, 0, 91, 191 };
 
     action[PS_Idle].Totalframecnt = 9; // V
     action[PS_CrouchIdle].Totalframecnt = 1; // V
@@ -42,71 +38,11 @@ void Chin::init()
     action[PS_kick_strong].Totalframecnt = 8; // 사진 5개
     //------------------------------
 
-        // 히트박스 생성
-    action[PS_punch_crouch] = // 1,2 피격타이밍
-        MakeAttackAction(
-            4,
-            135 - 20, 332 + 101,
-            135 + 0, 332 + 122
-        );
-
-
-
-    action[PS_punch_jump] = // 2,3 피격타이밍
-        MakeAttackAction(
-            6,
-            135 - 15, 332 + 135,
-            135 + 5, 332 + 157
-        );
-    //------------------------------
-    action[PS_kick_crouch] = // 2, 3 피격타이밍
-        MakeAttackAction(
-            6,
-            135 - 60, 332 + 173,
-            135 - 27, 332 + 191
-        );
-
-    action[PS_kick_jump] = // 2, 3 피격타이밍
-        MakeAttackAction(
-            6,
-            135 - 70, 332 + 53,
-            135 - 42, 332 + 90
-        );
-    //------------------------------
-    action[PS_punch_weak] = // 1,2 피격타이밍
-        MakeAttackAction(
-            4,
-            135 - 7, 332 + 60,
-            135 + 19, 332 + 82
-        );
-
-    action[PS_punch_strong] = // 2,3 피격타이밍
-        MakeAttackAction(
-            5,
-            135 - 16, 332 + 54,
-            135 + 10, 332 + 74
-        );
-    //------------------------------
-    action[PS_kick_weak] = // 1,2 피격타이밍
-        MakeAttackAction(
-            5,
-            135 - 60, 332 + 83,
-            135 - 27, 332 + 107
-        );
-
-    action[PS_kick_strong] = // 4,5 피격타이밍
-        MakeAttackAction(
-            8,
-            135 - 70, 332 + 109,
-            135 - 39, 332 + 131
-        );
-
     // 모든 Action에 공통 피격 히트박스 적용
     for (int i = 0; i < 20; i++)
     {
-        action[i].HurtBox.type = HITBOXTYPE::Hurt;
-        action[i].HurtBox.rect = commonHurtBox;
         action[i].initImages(); // Image 갯수대로 Image 객체 생성
+        //std::cout << "action[" << i << "] image init" << std::endl;
     }
 
     std::wstring fileName;
@@ -122,10 +58,14 @@ void Chin::init()
         action[PS_Idle].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
     }
 
+    //std::cout << "action[" << PS_Idle << "] image load" << std::endl;
+
     for (int i = 0; i < action[PS_CrouchIdle].Totalframecnt; ++i) {
         fileName = L"image/Chin_CrouchIdle_" + std::to_wstring(i) + L".png";
         action[PS_CrouchIdle].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
     }
+    
+    //std::cout << "action[" << PS_CrouchIdle << "] image load" << std::endl;
 
     // JumpIdle, JumpBackMove, JumpForwardMove
     fileName = L"image/Chin_JumpIdle_0.png";
@@ -145,6 +85,22 @@ void Chin::init()
     action[PS_JumpIdle].image[9].SetImage(fileName1.c_str(), 0, 0, 0, 0);
     action[PS_JumpIdle].image[10].SetImage(fileName.c_str(), 0, 0, 0, 0);
 
+    //std::cout << "action[" << PS_JumpIdle << "] image load" << std::endl;
+
+    for (int i = 0; i < action[PS_BackMove].Totalframecnt; ++i) {
+        fileName = L"image/Chin_BackMove_" + std::to_wstring(i) + L".png";
+        action[PS_BackMove].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    }
+
+    //std::cout << "action[" << PS_BackMove << "] image load" << std::endl;
+
+    for (int i = 0; i < action[PS_ForwardMove].Totalframecnt; ++i) {
+        fileName = L"image/Chin_ForwardMove_" + std::to_wstring(i) + L".png";
+        action[PS_ForwardMove].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    }
+
+    //std::cout << "action[" << PS_ForwardMove << "] image load" << std::endl;
+
 
     action[PS_JumpBackMove].image[0].SetImage(fileName.c_str(), 0, 0, 0, 0);
     action[PS_JumpBackMove].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
@@ -158,6 +114,7 @@ void Chin::init()
     action[PS_JumpBackMove].image[9].SetImage(fileName1.c_str(), 0, 0, 0, 0);
     action[PS_JumpBackMove].image[10].SetImage(fileName.c_str(), 0, 0, 0, 0);
 
+    //std::cout << "action[" << PS_JumpBackMove << "] image load" << std::endl;
 
     action[PS_JumpForwardMove].image[0].SetImage(fileName.c_str(), 0, 0, 0, 0);
     action[PS_JumpForwardMove].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
@@ -171,33 +128,29 @@ void Chin::init()
     action[PS_JumpForwardMove].image[9].SetImage(fileName1.c_str(), 0, 0, 0, 0);
     action[PS_JumpForwardMove].image[10].SetImage(fileName.c_str(), 0, 0, 0, 0);
 
-    //------------------------------
-    for (int i = 0; i < action[PS_BackMove].Totalframecnt; ++i) {
-        fileName = L"image/Chin_BackMove_" + std::to_wstring(i) + L".png";
-        action[PS_BackMove].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
-    }
+    //std::cout << "action[" << PS_JumpForwardMove << "] image load" << std::endl;
 
-    for (int i = 0; i < action[PS_ForwardMove].Totalframecnt; ++i) {
-        fileName = L"image/Chin_ForwardMove_" + std::to_wstring(i) + L".png";
-        action[PS_ForwardMove].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
-    }
-
-    //------------------------------
     for (int i = 0; i < action[PS_standguard].Totalframecnt; ++i) {
         fileName = L"image/Chin_StandGuard_0.png";
         action[PS_standguard].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
     }
+
+    //std::cout << "action[" << PS_standguard << "] image load" << std::endl;
 
     for (int i = 0; i < action[PS_crouchguard].Totalframecnt; ++i) {
         fileName = L"image/Chin_CrouchGuard_0.png";
         action[PS_crouchguard].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
     }
 
+    //std::cout << "action[" << PS_crouchguard << "] image load" << std::endl;
+
     //------------------------------
     for (int i = 0; i < action[PS_standhit].Totalframecnt; ++i) {
         fileName = L"image/Chin_StandHit_0.png";
         action[PS_standhit].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
     }
+
+    //std::cout << "action[" << PS_standhit << "] image load" << std::endl;
 
     // crouchhit
     fileName = L"image/Chin_CrouchHit_0.png";
@@ -208,6 +161,8 @@ void Chin::init()
     action[PS_crouchhit].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
     action[PS_crouchhit].image[2].SetImage(fileName2.c_str(), 0, 0, 0, 0);
     action[PS_crouchhit].image[3].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+
+    //std::cout << "action[" << PS_crouchhit << "] image load" << std::endl;
 
     // jumphit
     fileName = L"image/Chin_JumpHit_0.png";
@@ -225,6 +180,8 @@ void Chin::init()
     action[PS_jumphit].image[5].SetImage(fileName5.c_str(), 0, 0, 0, 0);
     action[PS_jumphit].image[6].SetImage(fileName5.c_str(), 0, 0, 0, 0);
 
+    //std::cout << "action[" << PS_jumphit << "] image load" << std::endl;
+
     //------------------------------
     // punch_crouch
     fileName = L"image/Chin_Punch_Crouch_0.png";
@@ -236,6 +193,8 @@ void Chin::init()
     action[PS_punch_crouch].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
     action[PS_punch_crouch].image[2].SetImage(fileName1.c_str(), 0, 0, 0, 0);
     action[PS_punch_crouch].image[3].SetImage(fileName.c_str(), 0, 0, 0, 0);
+
+    //std::cout << "action[" << PS_punch_crouch << "] image load" << std::endl;
 
     // punch_jump
     fileName = L"image/Chin_Punch_Jump_0.png";
@@ -249,6 +208,8 @@ void Chin::init()
     action[PS_punch_jump].image[4].SetImage(fileName1.c_str(), 0, 0, 0, 0);
     action[PS_punch_jump].image[5].SetImage(fileName.c_str(), 0, 0, 0, 0);
 
+    //std::cout << "action[" << PS_punch_jump << "] image load" << std::endl;
+
     // kick_crouch
     fileName = L"image/Chin_Kick_Crouch_0.png";
     fileName1 = L"image/Chin_Kick_Crouch_1.png";
@@ -260,6 +221,8 @@ void Chin::init()
     action[PS_kick_crouch].image[3].SetImage(fileName2.c_str(), 0, 0, 0, 0);
     action[PS_kick_crouch].image[4].SetImage(fileName1.c_str(), 0, 0, 0, 0);
     action[PS_kick_crouch].image[5].SetImage(fileName.c_str(), 0, 0, 0, 0);
+
+    //std::cout << "action[" << PS_kick_crouch << "] image load" << std::endl;
 
     // kick_jump
     fileName = L"image/Chin_Kick_Jump_0.png";
@@ -273,6 +236,8 @@ void Chin::init()
     action[PS_kick_jump].image[4].SetImage(fileName1.c_str(), 0, 0, 0, 0);
     action[PS_kick_jump].image[5].SetImage(fileName.c_str(), 0, 0, 0, 0);
 
+    //std::cout << "action[" << PS_kick_jump << "] image load" << std::endl;
+
     //------------------------------
     // punch_weak
     fileName = L"image/Chin_Punch_Weak_0.png";
@@ -282,6 +247,8 @@ void Chin::init()
     action[PS_punch_weak].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
     action[PS_punch_weak].image[2].SetImage(fileName1.c_str(), 0, 0, 0, 0);
     action[PS_punch_weak].image[3].SetImage(fileName.c_str(), 0, 0, 0, 0);
+
+    //std::cout << "action[" << PS_punch_weak << "] image load" << std::endl;
 
     // punch_strong
     fileName = L"image/Chin_Punch_Strong_0.png";
@@ -295,6 +262,8 @@ void Chin::init()
     action[PS_punch_strong].image[4].SetImage(fileName1.c_str(), 0, 0, 0, 0);
     action[PS_punch_strong].image[5].SetImage(fileName.c_str(), 0, 0, 0, 0);
 
+    //std::cout << "action[" << PS_punch_strong << "] image load" << std::endl;
+
     // kick_weak
     fileName = L"image/Chin_Kick_Weak_0.png";
     fileName1 = L"image/Chin_Kick_Weak_1.png";
@@ -304,6 +273,8 @@ void Chin::init()
     action[PS_kick_weak].image[2].SetImage(fileName1.c_str(), 0, 0, 0, 0);
     action[PS_kick_weak].image[3].SetImage(fileName.c_str(), 0, 0, 0, 0);
     action[PS_kick_weak].image[4].SetImage(fileName.c_str(), 0, 0, 0, 0);
+
+    //std::cout << "action[" << PS_kick_weak << "] image load" << std::endl;
 
     // kick_strong
     fileName = L"image/Chin_Kick_Strong_0.png";
@@ -321,9 +292,9 @@ void Chin::init()
     action[PS_kick_strong].image[6].SetImage(fileName3.c_str(), 0, 0, 0, 0);
     action[PS_kick_strong].image[7].SetImage(fileName2.c_str(), 0, 0, 0, 0);
 
+    //std::cout << "action[" << PS_kick_strong << "] image load" << std::endl;
+
     std::cout << "Chin image load complete\n" << std::endl;
-
-
 }
 
 void Chin::print(HDC& hdc) {
