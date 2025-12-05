@@ -126,7 +126,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		// 게임종료 타이머
 		case 3:
 		{
-			Chin_HP -= 2;
+			//Chin_HP -= 2;
 
 			if (Chin_HP == 0 || Kap_HP == 0) {
 				game_manager.ko = TRUE;
