@@ -142,7 +142,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	}
 	case WM_CHAR:
 	{
-		if (session._state == ST_CONNECT || is_login)
+		if (session._state == ST_CONNECT && is_login)
 		{
 			TCHAR ch = static_cast<TCHAR>(wParam);
 
@@ -154,7 +154,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					// 2) 서버로 ID 전송 (TCHAR* 기준)
 					session.send_name_info_packet((char*)GetID);
 				}
-
 			}
 			else if (ch == L'\b')
 			{
@@ -225,6 +224,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			// 게임 진행 중일 때만 입력 처리
 			for (Chin& chin : session._players) {
 				if (chin._id == session._id) {
+					Chin temp = chin;
 					switch (wParam) {
 					case VK_ESCAPE:
 					{
@@ -243,7 +243,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 						if (fight >= 4) {
 							if (chin.p_state != PS_ForwardMove) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
-								chin.p_state = PS_ForwardMove;
+								temp.p_state = PS_ForwardMove;
 							}
 						}
 						break;
@@ -254,7 +254,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 						if (fight >= 4) {
 							if (chin.p_state != PS_BackMove) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
-								chin.p_state = PS_BackMove;
+								temp.p_state = PS_BackMove;
 							}
 						}
 						break;
@@ -268,7 +268,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 							if (chin.p_state != PS_JumpIdle && chin.p_state != PS_JumpForwardMove
 								&& chin.p_state != PS_JumpBackMove) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
-								chin.p_state = PS_JumpIdle;
+								temp.p_state = PS_JumpIdle;
 							}
 						}
 						break;
@@ -279,7 +279,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 						if (fight >= 4) {
 							if (chin.p_state == PS_Idle || chin.p_state == PS_ForwardMove || chin.p_state == PS_BackMove) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
-								chin.p_state = PS_CrouchIdle;
+								temp.p_state = PS_CrouchIdle;
 							}
 						}
 						break;
@@ -290,15 +290,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 						if (fight >= 4) {
 							if (chin.p_state == PS_Idle || chin.p_state == PS_ForwardMove || chin.p_state == PS_BackMove) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
-								chin.p_state = PS_punch_weak;
+								temp.p_state = PS_punch_weak;
 							}
 							else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state == PS_JumpBackMove) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
-								chin.p_state = PS_punch_jump;
+								temp.p_state = PS_punch_jump;
 							}
 							else if (chin.p_state == PS_CrouchIdle) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
-								chin.p_state = PS_punch_crouch;
+								temp.p_state = PS_punch_crouch;
 							}
 						}
 						break;
@@ -309,16 +309,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 						if (fight >= 4) {
 							if (chin.p_state == PS_Idle || chin.p_state == PS_ForwardMove || chin.p_state == PS_BackMove) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
-								chin.p_state = PS_punch_strong;
+								temp.p_state = PS_punch_strong;
 								PlaySound(TEXT("character\\sound\\p05#6"), NULL, SND_FILENAME | SND_ASYNC);
 							}
 							else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state != PS_JumpBackMove) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
-								chin.p_state = PS_punch_jump;
+								temp.p_state = PS_punch_jump;
 							}
 							else if (chin.p_state == PS_CrouchIdle) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
-								chin.p_state = PS_punch_crouch;
+								temp.p_state = PS_punch_crouch;
 							}
 						}
 						break;
@@ -329,15 +329,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 						if (fight >= 4) {
 							if (chin.p_state == PS_Idle || chin.p_state == PS_ForwardMove || chin.p_state == PS_BackMove) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
-								chin.p_state = PS_kick_weak;
+								temp.p_state = PS_kick_weak;
 							}
 							else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state == PS_JumpBackMove) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
-								chin.p_state = PS_kick_jump;
+								temp.p_state = PS_kick_jump;
 							}
 							else if (chin.p_state == PS_CrouchIdle) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
-								chin.p_state = PS_kick_crouch;
+								temp.p_state = PS_kick_crouch;
 							}
 						}
 						break;
@@ -348,23 +348,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 						if (fight >= 4) {
 							if (chin.p_state == PS_Idle || chin.p_state == PS_ForwardMove || chin.p_state == PS_BackMove) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
-								chin.p_state = PS_kick_strong;
+								temp.p_state = PS_kick_strong;
 								PlaySound(TEXT("character\\sound\\p05#9"), NULL, SND_FILENAME | SND_ASYNC);
 							}
 							else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state == PS_JumpBackMove) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
-								chin.p_state = PS_kick_jump;
+								temp.p_state = PS_kick_jump;
 							}
 							else if (chin.p_state == PS_CrouchIdle) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
-								chin.p_state = PS_kick_crouch;
+								temp.p_state = PS_kick_crouch;
 							}
 						}
 						break;
 					}
 					}
 
-					session.send_input_packet(chin);
+					session.send_input_packet(temp);
 				}
 			}
 			break;
@@ -419,12 +419,54 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		hBitmap = CreateCompatibleBitmap(hDC, rt.right, rt.bottom); //--- 메모리 DC와 연결할 비트맵 만들기
 		SelectObject(mDC, (HBITMAP)hBitmap); //--- 메모리 DC와 비트맵 연결하기
 		Rectangle(mDC, 0, 0, rt.right, rt.bottom); //--- 화면에 비어있기 때문에 화면 가득히 사각형을 그려 배경색으로 설정하기
+		
+		// Map
+		game_manager.printMap(mDC);
 
-		if (is_login || session._state == ST_INGAME || session._state == ST_WAITGAME)
-		{
-			// Map
-			game_manager.printMap(mDC);
+		switch (session._state) {
+		case ST_FREE:
+			break;
+		case ST_CONNECT:
+			//Start
+			game_manager.printStart(mDC);
 
+			//Login Box
+			if (is_login) {
+				RECT box = { 200, 150, 600, 260 };
+				HBRUSH brush = CreateSolidBrush(RGB(0, 0, 0));
+				FillRect(mDC, &box, brush);
+				SetTextColor(mDC, RGB(255, 255, 255));
+				SetBkMode(mDC, TRANSPARENT);
+
+				const TCHAR* title = L"ENTER YOUR ID";
+				TextOut(mDC, box.left + 20, box.top + 20, title, lstrlen(title));
+
+				TCHAR buf[32];
+				wsprintf(buf, L"ID: %s", GetID);
+				TextOut(mDC, box.left + 20, box.top + 60, buf, lstrlen(buf));
+
+				const TCHAR* hint = L"[Enter] 확정 / [Backspace] 지우기 / [ESC] 종료";
+				TextOut(mDC, box.left + 20, box.top + 100, hint, lstrlen(hint));
+				DeleteObject(brush);
+			}
+			break;
+		case ST_WAITGAME:
+			//Start
+			game_manager.printStart(mDC);
+
+			// 로그인 완료 후 화면 구석에 ID 표시
+			SetTextColor(mDC, RGB(255, 0, 255));
+			SetBkMode(mDC, TRANSPARENT);
+			TCHAR buf[32];
+			for (PLAYER& player : session._players) {
+				if (player._id == session._id) {
+					wsprintf(buf, L"ID: %s", player._name);
+					break;
+				}
+			}
+			TextOut(mDC, 10, 10, buf, lstrlen(buf));
+			break;
+		case ST_INGAME:
 			// Chin
 			for (Chin& player : session._players) {
 				if (player._id != -1) {
@@ -449,45 +491,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			// Time
 			game_manager.printTime(mDC);
 
-			//Start
-			game_manager.printStart(mDC);
-
 			//Fight
 			game_manager.printFight(mDC);
 
 			//KO
 			game_manager.printKO(mDC);
-		}
-
-
-
-		//Login Box
-		if (session._state == ST_CONNECT || is_login) {
-			RECT box = { 200, 150, 600, 260 };
-			HBRUSH brush = CreateSolidBrush(RGB(0, 0, 0));
-			FillRect(mDC, &box, brush);
-			SetTextColor(mDC, RGB(255, 255, 255));
-			SetBkMode(mDC, TRANSPARENT);
-
-			const TCHAR* title = L"ENTER YOUR ID";
-			TextOut(mDC, box.left + 20, box.top + 20, title, lstrlen(title));
-
-			TCHAR buf[32];
-			wsprintf(buf, L"ID: %s", GetID);
-			TextOut(mDC, box.left + 20, box.top + 60, buf, lstrlen(buf));
-
-			const TCHAR* hint = L"[Enter] 확정 / [Backspace] 지우기 / [ESC] 종료";
-			TextOut(mDC, box.left + 20, box.top + 100, hint, lstrlen(hint));
-			DeleteObject(brush);
-		}
-		else if (session._state == ST_WAITGAME || session._state == ST_INGAME)
-		{
-			// 로그인 완료 후 화면 구석에 ID 표시
-			SetTextColor(mDC, RGB(255, 0, 255));
-			SetBkMode(mDC, TRANSPARENT);
-			TCHAR buf[32];
-			wsprintf(buf, L"ID: %s", GetID);
-			TextOut(mDC, 10, 10, buf, lstrlen(buf));
+			break;
+		case ST_OUTGAME:
+			break;
+		case ST_DISCONNECT:
+			break;
 		}
 
 		//--- 마지막에 메모리 DC의 내용을 화면 DC로 복사한다.

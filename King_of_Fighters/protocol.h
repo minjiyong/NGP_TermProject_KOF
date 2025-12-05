@@ -13,9 +13,9 @@ constexpr int NAME_SIZE = 20;
 // Server to Client Packet Types
 constexpr char SC_LOGIN_INFO = 0;
 constexpr char SC_LOGOUT_INFO = 1;
-constexpr char SC_MATCH_INFO = 2;
-constexpr char SC_MATCH_END = 3;
-constexpr char SC_UPDATE = 4;
+constexpr char SC_PLAYER_INFO = 2;
+constexpr char SC_MATCH_INFO = 3;
+constexpr char SC_MATCH_END = 4;
 
 // Client to Server Packet Types
 constexpr char CS_LOGIN = 5;
@@ -84,6 +84,14 @@ struct SC_LOGOUT_INFO_PACKET {
 	int				id;
 };
 
+struct SC_PLAYER_INFO_PACKET {
+	unsigned char	size;
+	char			type;
+	S_STATE			s_state;
+	int				id[MAX_USER];
+	char			name[MAX_USER][NAME_SIZE];
+};
+
 struct SC_MATCH_INFO_PACKET {
 	unsigned char	size;
 	char			type;
@@ -101,17 +109,6 @@ struct SC_MATCH_END_PACKET {
 	unsigned char	size;
 	char			type;
 	S_STATE			s_state;
-};
-
-struct SC_UPDATE_PACKET {
-	unsigned char	size;
-	char			type;
-	int				id;
-	S_STATE			s_state;
-	P_STATE			p_state;
-	int				x;
-	int				y;
-	int				hp;
 };
 
 //--------------------------------------------------------------

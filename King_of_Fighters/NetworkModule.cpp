@@ -22,7 +22,5 @@ void InitialzeNetwork(SESSION& session)
 	retval = connect(session._socket, (struct sockaddr*)&serveraddr, sizeof(serveraddr));
 	if (retval == SOCKET_ERROR) err_quit("connect()");
 
-	session.send_login_packet();
-
 	session.start_network();
 }

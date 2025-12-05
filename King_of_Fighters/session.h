@@ -15,11 +15,11 @@ public:
 	SESSION() = default;
 	~SESSION() = default;
 
-	void print();
+	void print() const;
 	void start_network();
 	void recv_thread();
 	void update();
-	void send_login_packet();
-	void send_name_info_packet(const char* s_name);
-	void send_input_packet(Chin& chin);
+	void send_login_packet() const;
+	void send_name_info_packet(const char* s_name) const;
+	void send_input_packet(Chin& chin) const;
 };
