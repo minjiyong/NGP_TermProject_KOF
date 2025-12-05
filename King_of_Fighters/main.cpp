@@ -126,7 +126,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		// 게임종료 타이머
 		case 3:
 		{
+			// KO 화면 디버깅용
 			//Chin_HP -= 2;
+			// 지하 안내려가게, pos는 정상 작동하는데 이미지 출력은 그렇지 않음.
+			//for (Chin& player : session._players) {
+			//	if (player.y_pos < 140) player.y_pos = 330;
+			//}
 
 			if (Chin_HP == 0 || Kap_HP == 0) {
 				game_manager.ko = TRUE;
