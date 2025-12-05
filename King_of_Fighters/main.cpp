@@ -236,8 +236,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 						else if (!mode_hitbox) mode_hitbox = true;
 						break;
 					}
-					case 'a':
-					case 'A':
+					case 'd':
+					case 'D':
 					{
 						if (fight >= 4) {
 							if (chin.p_state != PS_ForwardMove) {
@@ -248,8 +248,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 						}
 						break;
 					}
-					case 'd':
-					case 'D':
+					case 'a':
+					case 'A':
 					{
 						if (fight >= 4) {
 							if (chin.p_state != PS_BackMove) {
@@ -319,7 +319,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 								session.send_input_packet(temp);
 								PlaySound(TEXT("character\\sound\\p05#6"), NULL, SND_FILENAME | SND_ASYNC);
 							}
-							else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state != PS_JumpBackMove) {
+							else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state == PS_JumpBackMove) {
 								std::lock_guard <std::mutex> l_g{ session._lock };
 								temp.p_state = PS_punch_jump;
 								session.send_input_packet(temp);
