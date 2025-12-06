@@ -160,16 +160,27 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		{
 			TCHAR ch = static_cast<TCHAR>(wParam);
 
-			if (ch == L'\r') // VK_RETURN 말고 '\r'
+			if (ch == L'\r') // Enter
 			{
-				// ID가 비어있지 않을 때만 보내기
 				if (id_len > 0)
 				{
-					// 2) 서버로 ID 전송 (TCHAR* 기준)
-					session.send_name_info_packet((char*)GetID);
+					char send_id[8] = {};   // 서버에 보낼 ANSI 버퍼
+
+					// 유니코드(TCHAR, wchar_t) -> 멀티바이트(char) 변환
+					WideCharToMultiByte(
+						CP_ACP,             // 코드 페이지 (그냥 시스템 기본)
+						0,
+						GetID,              // 원본 wide 문자열
+						-1,                 // 널까지 변환
+						send_id,            // 목적지 버퍼
+						sizeof(send_id),    // 버퍼 크기
+						NULL, NULL
+					);
+
+					session.send_name_info_packet(send_id);
 				}
 			}
-			else if (ch == L'\b')
+			else if (ch == L'\b') //BackSpace
 			{
 				// 한 글자 지우기
 				if (id_len > 0)
@@ -454,21 +465,36 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			}
 			break;
 		case ST_WAITGAME:
-			//Start
+		{
 			game_manager.printStart(mDC);
 
-			// 로그인 완료 후 화면 구석에 ID 표시
 			SetTextColor(mDC, RGB(255, 0, 255));
 			SetBkMode(mDC, TRANSPARENT);
-			TCHAR buf[32];
+			TCHAR buf[32] = {};
+
 			for (PLAYER& player : session._players) {
 				if (player._id == session._id) {
-					wsprintf(buf, L"ID: %s", player._name);
+
+					// 1) player._name (char[]) -> wide 문자열로 변환
+					WCHAR wide_name[16] = {};
+					MultiByteToWideChar(
+						CP_ACP,
+						0,
+						player._name,   // char*
+						-1,
+						wide_name,      // wchar_t*
+						16
+					);
+
+					// 2) wide_name을 이용해 출력 문자열 만들기
+					wsprintf(buf, L"ID: %s", wide_name);
 					break;
 				}
 			}
+
 			TextOut(mDC, 10, 10, buf, lstrlen(buf));
 			break;
+		}
 		case ST_INGAME:
 			// Chin
 			for (Chin& player : session._players) {
