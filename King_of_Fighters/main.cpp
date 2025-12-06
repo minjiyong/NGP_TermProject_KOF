@@ -4,6 +4,11 @@
 #include "NetworkModule.h"
 #include "chin.h"
 
+#define TIMER_BACKGROUND 0
+#define TIMER_TIMEONE 1
+#define TIMER_TIMETEN 2
+#define TIMER_GAMEOVER 3
+
 HINSTANCE g_hInst;
 LPCTSTR IpszClass = L"Window Class Name";
 LPCTSTR IpszWindowName = L"KOF";
@@ -84,7 +89,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	{
 		switch (wParam) {
 			// background 타이머
-		case 0:
+		case TIMER_BACKGROUND:
 		{
 			if (game_manager.mapTimer == 0) {
 				game_manager.mapTimer = 1;
@@ -96,26 +101,27 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		break;
 
 		// 시간 타이머 - 1의 자리 수 
-		case 1:
+		case TIMER_TIMEONE:
 		{
 			game_manager.fight++;
 			if (game_manager.fight == 3) {
 				PlaySound(TEXT("character\\sound\\Announce_Fight.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			}
-			else if (game_manager.fight == 5) SetTimer(hWnd, 2, 10000, NULL);
+			else if (game_manager.fight == 5) SetTimer(hWnd, TIMER_TIMETEN, 10000, NULL);
 			else if (game_manager.fight >= 5) {
 				if (game_manager.timeone > 0) game_manager.timeone--;
 				else game_manager.timeone = 9;
 				if (game_manager.timeone == 0 && game_manager.timeten == 0) {
-					KillTimer(hWnd, 0);
-					KillTimer(hWnd, 1);
+					KillTimer(hWnd, TIMER_BACKGROUND);
+					KillTimer(hWnd, TIMER_TIMEONE);
+					KillTimer(hWnd, TIMER_TIMETEN);
 				}
 			}
 		}
 		break;
 
 		// 시간 타이머 - 10의 자리 수
-		case 2:
+		case TIMER_TIMETEN:
 		{
 			if (game_manager.fight >= 5) {
 				game_manager.timeten--;
@@ -124,9 +130,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		break;
 
 		// 게임종료 타이머
-		case 3:
+		case TIMER_GAMEOVER:
 		{
-			Chin_HP -= 2;
+			// KO 출력, HP 박스 디버깅용
+			//Chin_HP -= 2;
 
 			if (Chin_HP == 0 || Kap_HP == 0) {
 				game_manager.ko = TRUE;
@@ -200,7 +207,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			//	game_manager.start++;
 			//	if (game_manager.start == 3) {
 			//		//Background
-			//		SetTimer(hWnd, 0, 300, NULL);
+			//		SetTimer(hWnd, TIMER_BACKGROUND, 300, NULL);
 
 			//		//// 충돌 후 무적시간 쿨 체크
 			//		//SetTimer(hWnd, 9, 50, NULL);
@@ -212,7 +219,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			//		SetTimer(hWnd, 1, 1000, NULL);
 
 			//		// 게임종료 체크
-			//		SetTimer(hWnd, 3, 100, NULL);
+			//		SetTimer(hWnd, TIMER_GAMEOVER, 100, NULL);
 
 			//		PlaySound(NULL, 0, 0);
 			//		//game_manager.playbackgroundmusic();
