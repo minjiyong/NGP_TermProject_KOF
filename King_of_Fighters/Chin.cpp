@@ -64,7 +64,7 @@ void Chin::init()
         fileName = L"image/Chin_CrouchIdle_" + std::to_wstring(i) + L".png";
         action[PS_CrouchIdle].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
     }
-
+    
     //std::cout << "action[" << PS_CrouchIdle << "] image load" << std::endl;
 
     // JumpIdle, JumpBackMove, JumpForwardMove
@@ -73,17 +73,17 @@ void Chin::init()
     fileName2 = L"image/Chin_JumpIdle_2.png";
     fileName3 = L"image/Chin_JumpIdle_3.png";
 
-    action[PS_JumpIdle].image[0].SetImage(fileName.c_str(), -20, 0, 0, 0);
-    action[PS_JumpIdle].image[1].SetImage(fileName1.c_str(), -20, 0, 0, 0);
-    action[PS_JumpIdle].image[2].SetImage(fileName2.c_str(), -20, 0, 0, 0);
-    action[PS_JumpIdle].image[3].SetImage(fileName3.c_str(), -20, 0, 0, 0);
-    action[PS_JumpIdle].image[4].SetImage(fileName3.c_str(), -20, 0, 0, 0);
-    action[PS_JumpIdle].image[5].SetImage(fileName3.c_str(), -20, 0, 0, 0);
-    action[PS_JumpIdle].image[6].SetImage(fileName3.c_str(), -20, 0, 0, 0);
-    action[PS_JumpIdle].image[7].SetImage(fileName3.c_str(), -20, 0, 0, 0);
-    action[PS_JumpIdle].image[8].SetImage(fileName2.c_str(), -20, 0, 0, 0);
-    action[PS_JumpIdle].image[9].SetImage(fileName1.c_str(), -20, 0, 0, 0);
-    action[PS_JumpIdle].image[10].SetImage(fileName.c_str(), -20, 0, 0, 0);
+    action[PS_JumpIdle].image[0].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    action[PS_JumpIdle].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_JumpIdle].image[2].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_JumpIdle].image[3].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpIdle].image[4].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpIdle].image[5].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpIdle].image[6].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpIdle].image[7].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpIdle].image[8].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_JumpIdle].image[9].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_JumpIdle].image[10].SetImage(fileName.c_str(), 0, 0, 0, 0);
 
     //std::cout << "action[" << PS_JumpIdle << "] image load" << std::endl;
 
@@ -102,31 +102,31 @@ void Chin::init()
     //std::cout << "action[" << PS_ForwardMove << "] image load" << std::endl;
 
 
-    action[PS_JumpBackMove].image[0].SetImage(fileName.c_str(), -20, 0, 0, 0);
-    action[PS_JumpBackMove].image[1].SetImage(fileName1.c_str(), -20, 0, 0, 0);
-    action[PS_JumpBackMove].image[2].SetImage(fileName2.c_str(), -20, 0, 0, 0);
-    action[PS_JumpBackMove].image[3].SetImage(fileName3.c_str(), -20, 0, 0, 0);
-    action[PS_JumpBackMove].image[4].SetImage(fileName3.c_str(), -20, 0, 0, 0);
-    action[PS_JumpBackMove].image[5].SetImage(fileName3.c_str(), -20, 0, 0, 0);
-    action[PS_JumpBackMove].image[6].SetImage(fileName3.c_str(), -20, 0, 0, 0);
-    action[PS_JumpBackMove].image[7].SetImage(fileName3.c_str(), -20, 0, 0, 0);
-    action[PS_JumpBackMove].image[8].SetImage(fileName2.c_str(), -20, 0, 0, 0);
-    action[PS_JumpBackMove].image[9].SetImage(fileName1.c_str(), -20, 0, 0, 0);
-    action[PS_JumpBackMove].image[10].SetImage(fileName.c_str(), -20, 0, 0, 0);
+    action[PS_JumpBackMove].image[0].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    action[PS_JumpBackMove].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_JumpBackMove].image[2].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_JumpBackMove].image[3].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpBackMove].image[4].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpBackMove].image[5].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpBackMove].image[6].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpBackMove].image[7].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpBackMove].image[8].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_JumpBackMove].image[9].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_JumpBackMove].image[10].SetImage(fileName.c_str(), 0, 0, 0, 0);
 
     //std::cout << "action[" << PS_JumpBackMove << "] image load" << std::endl;
 
-    action[PS_JumpForwardMove].image[0].SetImage(fileName.c_str(), -20, 0, 0, 0);
-    action[PS_JumpForwardMove].image[1].SetImage(fileName1.c_str(), -20, 0, 0, 0);
-    action[PS_JumpForwardMove].image[2].SetImage(fileName2.c_str(), -20, 0, 0, 0);
-    action[PS_JumpForwardMove].image[3].SetImage(fileName3.c_str(), -20, 0, 0, 0);
-    action[PS_JumpForwardMove].image[4].SetImage(fileName3.c_str(), -20, 0, 0, 0);
-    action[PS_JumpForwardMove].image[5].SetImage(fileName3.c_str(), -20, 0, 0, 0);
-    action[PS_JumpForwardMove].image[6].SetImage(fileName3.c_str(), -20, 0, 0, 0);
-    action[PS_JumpForwardMove].image[7].SetImage(fileName3.c_str(), -20, 0, 0, 0);
-    action[PS_JumpForwardMove].image[8].SetImage(fileName2.c_str(), -20, 0, 0, 0);
-    action[PS_JumpForwardMove].image[9].SetImage(fileName1.c_str(), -20, 0, 0, 0);
-    action[PS_JumpForwardMove].image[10].SetImage(fileName.c_str(), -20, 0, 0, 0);
+    action[PS_JumpForwardMove].image[0].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    action[PS_JumpForwardMove].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_JumpForwardMove].image[2].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_JumpForwardMove].image[3].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpForwardMove].image[4].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpForwardMove].image[5].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpForwardMove].image[6].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpForwardMove].image[7].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_JumpForwardMove].image[8].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_JumpForwardMove].image[9].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_JumpForwardMove].image[10].SetImage(fileName.c_str(), 0, 0, 0, 0);
 
     //std::cout << "action[" << PS_JumpForwardMove << "] image load" << std::endl;
 
@@ -201,12 +201,12 @@ void Chin::init()
     fileName1 = L"image/Chin_Punch_Jump_1.png";
     fileName2 = L"image/Chin_Punch_Jump_2.png";
 
-    action[PS_punch_jump].image[0].SetImage(fileName.c_str(), 10, 0, 0, 0);
-    action[PS_punch_jump].image[1].SetImage(fileName1.c_str(), 10, 0, 0, 0);
-    action[PS_punch_jump].image[2].SetImage(fileName2.c_str(), 10, 0, 0, 0);
-    action[PS_punch_jump].image[3].SetImage(fileName2.c_str(), 10, 0, 0, 0);
-    action[PS_punch_jump].image[4].SetImage(fileName1.c_str(), 10, 0, 0, 0);
-    action[PS_punch_jump].image[5].SetImage(fileName.c_str(), 10, 0, 0, 0);
+    action[PS_punch_jump].image[0].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    action[PS_punch_jump].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_punch_jump].image[2].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_punch_jump].image[3].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_punch_jump].image[4].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_punch_jump].image[5].SetImage(fileName.c_str(), 0, 0, 0, 0);
 
     //std::cout << "action[" << PS_punch_jump << "] image load" << std::endl;
 
@@ -243,10 +243,10 @@ void Chin::init()
     fileName = L"image/Chin_Punch_Weak_0.png";
     fileName1 = L"image/Chin_Punch_Weak_1.png";
 
-    action[PS_punch_weak].image[0].SetImage(fileName.c_str(), 20, 0, 0, 0);
-    action[PS_punch_weak].image[1].SetImage(fileName1.c_str(), 20, 0, 0, 0);
-    action[PS_punch_weak].image[2].SetImage(fileName1.c_str(), 20, 0, 0, 0);
-    action[PS_punch_weak].image[3].SetImage(fileName.c_str(), 20, 0, 0, 0);
+    action[PS_punch_weak].image[0].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    action[PS_punch_weak].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_punch_weak].image[2].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_punch_weak].image[3].SetImage(fileName.c_str(), 0, 0, 0, 0);
 
     //std::cout << "action[" << PS_punch_weak << "] image load" << std::endl;
 
@@ -255,12 +255,12 @@ void Chin::init()
     fileName1 = L"image/Chin_Punch_Strong_1.png";
     fileName2 = L"image/Chin_Punch_Strong_2.png";
 
-    action[PS_punch_strong].image[0].SetImage(fileName.c_str(), 10, 0, 0, 0);
-    action[PS_punch_strong].image[1].SetImage(fileName1.c_str(), 10, 0, 0, 0);
-    action[PS_punch_strong].image[2].SetImage(fileName2.c_str(), 10, 0, 0, 0);
-    action[PS_punch_strong].image[3].SetImage(fileName2.c_str(), 10, 0, 0, 0);
-    action[PS_punch_strong].image[4].SetImage(fileName1.c_str(), 10, 0, 0, 0);
-    action[PS_punch_strong].image[5].SetImage(fileName.c_str(), 10, 0, 0, 0);
+    action[PS_punch_strong].image[0].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    action[PS_punch_strong].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_punch_strong].image[2].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_punch_strong].image[3].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_punch_strong].image[4].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_punch_strong].image[5].SetImage(fileName.c_str(), 0, 0, 0, 0);
 
     //std::cout << "action[" << PS_punch_strong << "] image load" << std::endl;
 
@@ -283,14 +283,14 @@ void Chin::init()
     fileName3 = L"image/Chin_Kick_Strong_3.png";
     fileName4 = L"image/Chin_Kick_Strong_4.png";
 
-    action[PS_kick_strong].image[0].SetImage(fileName.c_str(), -40, 0, 0, 0);
-    action[PS_kick_strong].image[1].SetImage(fileName1.c_str(), -40, 0, 0, 0);
-    action[PS_kick_strong].image[2].SetImage(fileName2.c_str(), -40, 0, 0, 0);
-    action[PS_kick_strong].image[3].SetImage(fileName3.c_str(), -40, 0, 0, 0);
-    action[PS_kick_strong].image[4].SetImage(fileName4.c_str(), -40, 0, 0, 0);
-    action[PS_kick_strong].image[5].SetImage(fileName4.c_str(), -40, 0, 0, 0);
-    action[PS_kick_strong].image[6].SetImage(fileName3.c_str(), -40, 0, 0, 0);
-    action[PS_kick_strong].image[7].SetImage(fileName2.c_str(), -40, 0, 0, 0);
+    action[PS_kick_strong].image[0].SetImage(fileName.c_str(), 0, 0, 0, 0);
+    action[PS_kick_strong].image[1].SetImage(fileName1.c_str(), 0, 0, 0, 0);
+    action[PS_kick_strong].image[2].SetImage(fileName2.c_str(), 0, 0, 0, 0);
+    action[PS_kick_strong].image[3].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_kick_strong].image[4].SetImage(fileName4.c_str(), 0, 0, 0, 0);
+    action[PS_kick_strong].image[5].SetImage(fileName4.c_str(), 0, 0, 0, 0);
+    action[PS_kick_strong].image[6].SetImage(fileName3.c_str(), 0, 0, 0, 0);
+    action[PS_kick_strong].image[7].SetImage(fileName2.c_str(), 0, 0, 0, 0);
 
     //std::cout << "action[" << PS_kick_strong << "] image load" << std::endl;
 
@@ -300,13 +300,13 @@ void Chin::init()
 void Chin::print(HDC& hdc) {
     if (p_state == PS_Idle || p_state == PS_CrouchIdle || p_state == PS_ForwardMove || p_state == PS_BackMove)
     {
-        action[p_state].image[ani_index]._img.TransparentBlt(hdc, x_pos, y_pos,
+		action[p_state].image[ani_index]._img.TransparentBlt(hdc, x_pos, y_pos,
             action[p_state].image[ani_index]._width, action[p_state].image[ani_index]._height, 0, 0,
             action[p_state].image[ani_index]._width, action[p_state].image[ani_index]._height,
             RGB(8, 0, 99));
         if (ani_index == action[p_state].Totalframecnt)
         {
-            ani_index = 0;
+			ani_index = 0;
         }
     }
     else
@@ -315,10 +315,10 @@ void Chin::print(HDC& hdc) {
             action[p_state].image[ani_index]._width, action[p_state].image[ani_index]._height, 0, 0,
             action[p_state].image[ani_index]._width, action[p_state].image[ani_index]._height,
             RGB(8, 0, 99));
-        if (ani_index == action[p_state].Totalframecnt)
+        if (ani_index == action[p_state].Totalframecnt) 
         {
             ani_index = 0;
-            p_state = PS_Idle;
+			p_state = PS_Idle;
         }
     }
 }
