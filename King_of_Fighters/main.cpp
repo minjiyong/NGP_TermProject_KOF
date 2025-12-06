@@ -135,6 +135,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			// KO 출력, HP 박스 디버깅용
 			//Chin_HP -= 2;
 
+			// 플레이어 발맞추기
+			//for (Chin& player : session._players) {
+			//	if (player.y_pos < 140) player.y_pos = 332;
+			//}
+
 			if (Chin_HP == 0 || Kap_HP == 0) {
 				game_manager.ko = TRUE;
 				KillTimer(hWnd, 0);
@@ -243,8 +248,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 						else if (!mode_hitbox) mode_hitbox = true;
 						break;
 					}
-					case 'a':
-					case 'A':
+					case 'd':
+					case 'D':
 					{
 						if (fight >= 4) {
 							if (chin.p_state != PS_ForwardMove) {
@@ -254,8 +259,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 						}
 						break;
 					}
-					case 'd':
-					case 'D':
+					case 'a':
+					case 'A':
 					{
 						if (fight >= 4) {
 							if (chin.p_state != PS_BackMove) {
@@ -318,7 +323,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 								session.send_input_packet(temp);
 								PlaySound(TEXT("character\\sound\\p05#6"), NULL, SND_FILENAME | SND_ASYNC);
 							}
-							else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state != PS_JumpBackMove) {
+							else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state == PS_JumpBackMove) {
 								temp.p_state = PS_punch_jump;
 								session.send_input_packet(temp);
 							}
