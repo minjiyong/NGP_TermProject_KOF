@@ -368,13 +368,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		default:
 			break;
 		}
-
-		InvalidateRect(hWnd, NULL, FALSE); //--- 화면에 다시그리기를 할 때 기존의 내용을 삭제하지 않는다.
 		break;
 	}
 	case WM_KEYUP:
 	{
-		hDC = GetDC(hWnd);
 		for (Chin& chin : session._players) {
 			Chin temp = chin;
 			if (chin._id == session._id) {
@@ -403,10 +400,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 				}
 			}
 		}
-
-		InvalidateRect(hWnd, NULL, FALSE); //--- 화면에 다시그리기를 할 때 기존의 내용을 삭제하지 않는다.
-
-		ReleaseDC(hWnd, hDC);
 		break;
 	}
 	case WM_PAINT:
