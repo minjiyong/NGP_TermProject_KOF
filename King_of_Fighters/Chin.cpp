@@ -5,6 +5,8 @@ constexpr int CHIN_ACTION_CNT = 20;
 Chin::Chin()
 {
     p_state = PS_Idle;
+    x_pos = 50 + (rand() % 8) * 30;
+    y_pos = 330;
 }
 
 void Chin::init()
