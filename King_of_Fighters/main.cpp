@@ -65,8 +65,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	static bool is_login = false;
 
 	static TCHAR GetID[8] = { '\0' }; static int   id_len = 0;
-	static char send_id[8] = {};   // 서버에 보낼 ANSI 버퍼
-
 
 	switch (iMessage) {
 	case WM_CREATE:
@@ -152,6 +150,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			{
 				if (id_len > 0)
 				{
+					char send_id[8] = {};   // 서버에 보낼 ANSI 버퍼
 
 					// 유니코드(TCHAR, wchar_t) -> 멀티바이트(char) 변환
 					WideCharToMultiByte(
@@ -163,6 +162,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 						sizeof(send_id),    // 버퍼 크기
 						NULL, NULL
 					);
+
 					session.send_name_info_packet(send_id);
 				}
 			}
@@ -478,11 +478,24 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 
 			SetTextColor(mDC, RGB(255, 0, 255));
 			SetBkMode(mDC, TRANSPARENT);
-			TCHAR buf[16] = {};
+			TCHAR buf[32] = {};
 
 			for (PLAYER& player : session._players) {
 				if (player._id == session._id) {
-					wsprintf(buf, L"ID: %s", send_id);
+
+					// 1) player._name (char[]) -> wide 문자열로 변환
+					WCHAR wide_name[16] = {};
+					MultiByteToWideChar(
+						CP_ACP,
+						0,
+						player._name,   // char*
+						-1,
+						wide_name,      // wchar_t*
+						16
+					);
+
+					// 2) wide_name을 이용해 출력 문자열 만들기
+					wsprintf(buf, L"ID: %s", wide_name);
 					break;
 				}
 			}
@@ -520,18 +533,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 
 			//KO
 			game_manager.printKO(mDC);
-
-			////Player ID
-			//SetTextColor(mDC, RGB(255, 0, 255));
-			//SetBkMode(mDC, TRANSPARENT);
-			//TCHAR buf[32] = {};
-			//for (PLAYER& player : session._players) {
-			//	if (player._id == session._id) {
-			//		wsprintf(buf, L"ID: %s", send_id);
-			//		break;
-			//	}
-			//}
-			//TextOut(mDC, 10, 10, buf, lstrlen(buf));
 			break;
 		case ST_OUTGAME:
 			break;
