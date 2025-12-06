@@ -253,6 +253,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					{
 						if (fight >= 4) {
 							if (chin.p_state != PS_ForwardMove) {
+								if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state == PS_JumpBackMove) {
+									temp.p_state = PS_JumpForwardMove;
+									session.send_input_packet(temp);
+									break;
+								}
+
 								temp.p_state = PS_ForwardMove;
 								session.send_input_packet(temp);
 							}
@@ -264,6 +270,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					{
 						if (fight >= 4) {
 							if (chin.p_state != PS_BackMove) {
+								if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state == PS_JumpBackMove) {
+									temp.p_state = PS_JumpBackMove;
+									session.send_input_packet(temp);
+									break;
+								}
+
 								temp.p_state = PS_BackMove;
 								session.send_input_packet(temp);
 							}

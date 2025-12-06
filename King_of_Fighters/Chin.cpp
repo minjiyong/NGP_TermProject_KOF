@@ -60,10 +60,9 @@ void Chin::init()
 
     //std::cout << "action[" << PS_Idle << "] image load" << std::endl;
 
-    for (int i = 0; i < action[PS_CrouchIdle].Totalframecnt; ++i) {
-        fileName = L"image/Chin_CrouchIdle_" + std::to_wstring(i) + L".png";
-        action[PS_CrouchIdle].image[i].SetImage(fileName.c_str(), 0, 0, 0, 0);
-    }
+
+    fileName = L"image/Chin_CrouchIdle_0.png";
+    action[PS_CrouchIdle].image[0].SetImage(fileName.c_str(), 0, 0, 0, 0);
     
     //std::cout << "action[" << PS_CrouchIdle << "] image load" << std::endl;
 
