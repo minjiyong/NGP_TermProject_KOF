@@ -32,8 +32,6 @@ enum P_STATE { // 플레이어 상태
 	//----------------------------
 	PS_BackMove,
 	PS_ForwardMove,
-	PS_JumpBackMove,
-	PS_JumpForwardMove,
 	//----------------------------
 	PS_standguard,
 	PS_crouchguard,

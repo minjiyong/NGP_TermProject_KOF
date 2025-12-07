@@ -17,8 +17,6 @@ void Chin::init()
     //------------------------------
     action[PS_BackMove].Totalframecnt = 5; // V
     action[PS_ForwardMove].Totalframecnt = 7; // V
-    action[PS_JumpBackMove].Totalframecnt = 11; // 사진 4개
-    action[PS_JumpForwardMove].Totalframecnt = 11; // 사진 4개
     //------------------------------
     action[PS_standguard].Totalframecnt = 3; // 사진 1개
     action[PS_crouchguard].Totalframecnt = 3; // 사진 1개
@@ -99,35 +97,6 @@ void Chin::init()
     }
 
     //std::cout << "action[" << PS_ForwardMove << "] image load" << std::endl;
-
-
-    action[PS_JumpBackMove].image[0].SetImage(fileName.c_str(), -20, 0, 0, 0);
-    action[PS_JumpBackMove].image[1].SetImage(fileName1.c_str(), -20, 0, 0, 0);
-    action[PS_JumpBackMove].image[2].SetImage(fileName2.c_str(), -20, 0, 0, 0);
-    action[PS_JumpBackMove].image[3].SetImage(fileName3.c_str(), -20, 0, 0, 0);
-    action[PS_JumpBackMove].image[4].SetImage(fileName3.c_str(), -20, 0, 0, 0);
-    action[PS_JumpBackMove].image[5].SetImage(fileName3.c_str(), -20, 0, 0, 0);
-    action[PS_JumpBackMove].image[6].SetImage(fileName3.c_str(), -20, 0, 0, 0);
-    action[PS_JumpBackMove].image[7].SetImage(fileName3.c_str(), -20, 0, 0, 0);
-    action[PS_JumpBackMove].image[8].SetImage(fileName2.c_str(), -20, 0, 0, 0);
-    action[PS_JumpBackMove].image[9].SetImage(fileName1.c_str(), -20, 0, 0, 0);
-    action[PS_JumpBackMove].image[10].SetImage(fileName.c_str(), -20, 0, 0, 0);
-
-    //std::cout << "action[" << PS_JumpBackMove << "] image load" << std::endl;
-
-    action[PS_JumpForwardMove].image[0].SetImage(fileName.c_str(), -20, 0, 0, 0);
-    action[PS_JumpForwardMove].image[1].SetImage(fileName1.c_str(), -20, 0, 0, 0);
-    action[PS_JumpForwardMove].image[2].SetImage(fileName2.c_str(), -20, 0, 0, 0);
-    action[PS_JumpForwardMove].image[3].SetImage(fileName3.c_str(), -20, 0, 0, 0);
-    action[PS_JumpForwardMove].image[4].SetImage(fileName3.c_str(), -20, 0, 0, 0);
-    action[PS_JumpForwardMove].image[5].SetImage(fileName3.c_str(), -20, 0, 0, 0);
-    action[PS_JumpForwardMove].image[6].SetImage(fileName3.c_str(), -20, 0, 0, 0);
-    action[PS_JumpForwardMove].image[7].SetImage(fileName3.c_str(), -20, 0, 0, 0);
-    action[PS_JumpForwardMove].image[8].SetImage(fileName2.c_str(), -20, 0, 0, 0);
-    action[PS_JumpForwardMove].image[9].SetImage(fileName1.c_str(), -20, 0, 0, 0);
-    action[PS_JumpForwardMove].image[10].SetImage(fileName.c_str(), -20, 0, 0, 0);
-
-    //std::cout << "action[" << PS_JumpForwardMove << "] image load" << std::endl;
 
     for (int i = 0; i < action[PS_standguard].Totalframecnt; ++i) {
         fileName = L"image/Chin_StandGuard_0.png";

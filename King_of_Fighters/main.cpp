@@ -253,12 +253,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					{
 						if (fight >= 4) {
 							if (chin.p_state != PS_ForwardMove) {
-								if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state == PS_JumpBackMove) {
-									temp.p_state = PS_JumpForwardMove;
-									session.send_input_packet(temp);
-									break;
-								}
-
 								temp.p_state = PS_ForwardMove;
 								session.send_input_packet(temp);
 							}
@@ -270,12 +264,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					{
 						if (fight >= 4) {
 							if (chin.p_state != PS_BackMove) {
-								if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state == PS_JumpBackMove) {
-									temp.p_state = PS_JumpBackMove;
-									session.send_input_packet(temp);
-									break;
-								}
-
 								temp.p_state = PS_BackMove;
 								session.send_input_packet(temp);
 							}
@@ -288,8 +276,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 						if (fight >= 4) {
 							// 일어나 있는 상태에서만 점프 가능하도록 함
 							//if (chin.p_state == Idle || chin.p_state == ForwardMove || chin.p_state == BackMove) {
-							if (chin.p_state != PS_JumpIdle && chin.p_state != PS_JumpForwardMove
-								&& chin.p_state != PS_JumpBackMove) {
+							if (chin.p_state != PS_JumpIdle) {
 								temp.p_state = PS_JumpIdle;
 								session.send_input_packet(temp);
 							}
@@ -315,7 +302,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 								temp.p_state = PS_punch_weak;
 								session.send_input_packet(temp);
 							}
-							else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state == PS_JumpBackMove) {
+							else if (chin.p_state == PS_JumpIdle) {
 								temp.p_state = PS_punch_jump;
 								session.send_input_packet(temp);
 							}
@@ -335,7 +322,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 								session.send_input_packet(temp);
 								PlaySound(TEXT("character\\sound\\p05#6"), NULL, SND_FILENAME | SND_ASYNC);
 							}
-							else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state == PS_JumpBackMove) {
+							else if (chin.p_state == PS_JumpIdle) {
 								temp.p_state = PS_punch_jump;
 								session.send_input_packet(temp);
 							}
@@ -354,7 +341,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 								temp.p_state = PS_kick_weak;
 								session.send_input_packet(temp);
 							}
-							else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state == PS_JumpBackMove) {
+							else if (chin.p_state == PS_JumpIdle) {
 								temp.p_state = PS_kick_jump;
 								session.send_input_packet(temp);
 							}
@@ -374,7 +361,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 								session.send_input_packet(temp);
 								PlaySound(TEXT("character\\sound\\p05#9"), NULL, SND_FILENAME | SND_ASYNC);
 							}
-							else if (chin.p_state == PS_JumpIdle || chin.p_state == PS_JumpForwardMove || chin.p_state == PS_JumpBackMove) {
+							else if (chin.p_state == PS_JumpIdle) {
 								temp.p_state = PS_kick_jump;
 								session.send_input_packet(temp);
 							}
