@@ -12,6 +12,9 @@ Chin::Chin()
 void Chin::init()
 {
     action = new ACTION[CHIN_ACTION_CNT]();
+    mirrorDC = CreateCompatibleDC(NULL);
+    mirrorBMP = CreateCompatibleBitmap(GetDC(NULL), 250, 250);
+    mirrorOld = (HBITMAP)SelectObject(mirrorDC, mirrorBMP);
 
     action[PS_Idle].Totalframecnt = 9; // V
     action[PS_CrouchIdle].Totalframecnt = 1; // V
@@ -268,27 +271,69 @@ void Chin::init()
 }
 
 void Chin::print(HDC& hdc) {
-    if (p_state == PS_Idle || p_state == PS_CrouchIdle || p_state == PS_ForwardMove || p_state == PS_BackMove)
+
+    auto& frame = action[p_state].image[ani_index];
+    int w = frame._width;
+    int h = frame._height;
+    
+    frame._img.TransparentBlt(hdc,
+        x_pos, y_pos,
+        w, h,
+        0, 0,
+        w, h,
+        RGB(8, 0, 99));
+
+     if (ani_index == action[p_state].Totalframecnt)
+     {
+         ani_index = 0;
+         if (!(p_state == PS_Idle || p_state == PS_CrouchIdle ||
+             p_state == PS_ForwardMove || p_state == PS_BackMove))
+             p_state = PS_Idle;
+     }
+}
+
+void Chin::reverse_print(HDC& hdc)
+{
+    auto& frame = action[p_state].image[ani_index];
+    int w = frame._width;
+    int h = frame._height;
+
+    // 1) mirrorDC 비우기
+    HBRUSH b = CreateSolidBrush(RGB(8, 0, 99));
+    RECT r = { 0,0,w,h };
+    FillRect(mirrorDC, &r, b);
+    DeleteObject(b);
+
+    HDC srcDC = frame._img.GetDC();
+
+    // 좌우 반전 StretchBlt -> mirrorDC로 그려 넣기
+    StretchBlt(
+        mirrorDC,
+        0, 0, w, h,
+        srcDC,
+        w, 0, -w, h,   // ★ 좌우 반전 핵심
+        SRCCOPY
+    );
+
+    frame._img.ReleaseDC();
+
+    // 4) mirrorDC → 화면으로 투명 블리팅
+    TransparentBlt(
+        hdc,
+        x_pos, y_pos,
+        w, h,
+        mirrorDC,
+        0, 0,
+        w, h,
+        RGB(8, 0, 99)
+    );
+
+    // 애니메이션 처리
+    if (ani_index == action[p_state].Totalframecnt)
     {
-		action[p_state].image[ani_index]._img.TransparentBlt(hdc, x_pos, y_pos,
-            action[p_state].image[ani_index]._width, action[p_state].image[ani_index]._height, 0, 0,
-            action[p_state].image[ani_index]._width, action[p_state].image[ani_index]._height,
-            RGB(8, 0, 99));
-        if (ani_index == action[p_state].Totalframecnt)
-        {
-			ani_index = 0;
-        }
-    }
-    else
-    {
-        action[p_state].image[ani_index]._img.TransparentBlt(hdc, x_pos, y_pos,
-            action[p_state].image[ani_index]._width, action[p_state].image[ani_index]._height, 0, 0,
-            action[p_state].image[ani_index]._width, action[p_state].image[ani_index]._height,
-            RGB(8, 0, 99));
-        if (ani_index == action[p_state].Totalframecnt) 
-        {
-            ani_index = 0;
-			p_state = PS_Idle;
-        }
+        ani_index = 0;
+        if (!(p_state == PS_Idle || p_state == PS_CrouchIdle ||
+            p_state == PS_ForwardMove || p_state == PS_BackMove))
+            p_state = PS_Idle;
     }
 }
