@@ -61,7 +61,9 @@ enum S_STATE { // 세션 상태
 	ST_WAITGAME,
 	ST_INGAME,
 	ST_OUTGAME,
-	ST_DISCONNECT
+	ST_DISCONNECT,
+
+	ST_ENDGAME
 };
 
 #pragma pack (push, 1)

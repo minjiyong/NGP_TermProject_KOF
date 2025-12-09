@@ -144,14 +144,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			//	if (player.y_pos < 140) player.y_pos = 332;
 			//}
 
-			if (Chin_HP == 0 || Kap_HP == 0) {
+			//if (Chin_HP == 0 || Kap_HP == 0) {
+
+			if (session._state == ST_ENDGAME && is_login) {
 				game_manager.ko = TRUE;
 				KillTimer(hWnd, TIMER_BACKGROUND);
 				KillTimer(hWnd, TIMER_TIMEONE);
 				KillTimer(hWnd, TIMER_TIMETEN);
 				PlaySound(TEXT("character\\sound\\Announce_Ko.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				KillTimer(hWnd, TIMER_GAMEOVER);
+				InvalidateRect(hWnd, nullptr, FALSE);
 			}
+			//}
 		}
 
 		}
@@ -240,7 +244,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			//		SetTimer(hWnd, 1, TIMER_TIMEONE, NULL);
 
 			//		// 게임종료 체크
-			//		SetTimer(hWnd, TIMER_GAMEOVER, 100, NULL);
+					SetTimer(hWnd, TIMER_GAMEOVER, 100, NULL);
 
 			//		PlaySound(NULL, 0, 0);
 			//		//game_manager.playbackgroundmusic();
@@ -536,13 +540,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			//Fight
 			game_manager.printFight(mDC);
 
-			//KO
-			game_manager.printKO(mDC);
 			break;
 		case ST_OUTGAME:
 			PostQuitMessage(0);
 			break;
 		case ST_DISCONNECT:
+			break;
+		case ST_ENDGAME:
+			//KO
+			game_manager.printKO(mDC);
 			break;
 		}
 
