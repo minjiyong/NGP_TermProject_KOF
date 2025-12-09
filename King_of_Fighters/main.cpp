@@ -9,6 +9,8 @@
 #define TIMER_TIMETEN 2
 #define TIMER_GAMEOVER 3
 
+#define MAX_HP 532
+
 HINSTANCE g_hInst;
 LPCTSTR IpszClass = L"Window Class Name";
 LPCTSTR IpszWindowName = L"KOF";
@@ -64,8 +66,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	static int hitindex{};
 
 	static int bg = 0;
-	static int Chin_HP = 6;
-	static int Kap_HP = 266;
+	static int Chin_HP = 333;
+	static int Kap_HP = MAX_HP;
 	static int fight = 5;
 	static bool is_login = false;
 
@@ -497,7 +499,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			game_manager.printProfile(mDC);
 
 			// Player HP
-			game_manager.printHp(mDC, Chin_HP, Kap_HP, Chin_HP);	// p3 HP
+			game_manager.printHp(mDC, Chin_HP, Chin_HP, Chin_HP);	// p3 HP
 
 			// Time
 			game_manager.printTime(mDC);

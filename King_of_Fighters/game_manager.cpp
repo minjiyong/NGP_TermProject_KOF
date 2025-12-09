@@ -27,14 +27,15 @@ void GAMEMANAGER::printMap(HDC& mDC) {
 void GAMEMANAGER::printHp(HDC& mDC, int p1_hp, int p2_hp, int p3_hp) {
 	ui.HP._right = ui.HP._left + ui.HP._width;
 	ui.HP._bottom = ui.HP._top + ui.HP._height;
-	ui.HP._img.TransparentBlt(mDC, ui.HP._left, ui.HP._top, ui.HP._right - ui.HP._left + 450, 
-		ui.HP._bottom - ui.HP._top + 50, 0, 0, ui.HP._width, ui.HP._height, RGB(0, 0, 32));
+	//ui.HP._img.TransparentBlt(mDC, ui.HP._left, ui.HP._top, ui.HP._right - ui.HP._left + 450, 
+	//	ui.HP._bottom - ui.HP._top + 50, 0, 0, ui.HP._width, ui.HP._height, RGB(0, 0, 32));
 	
 	// p1_HP (Chin)
-	draw_rectangle(mDC, 176, 49, 442 - p1_hp, 67, RGB(255, 0, 0));
-	// p2_HP (Kap)
-	draw_rectangle(mDC, 708, 49, 442 + p2_hp, 67, RGB(255, 0, 0));
+	draw_rectangle(mDC, 176, 49, 266 + 442 - p1_hp, 67, RGB(255, 0, 0));
+	// p2_HP 
+	draw_rectangle(mDC, 176, 49 + 50, 266 + 442 - p2_hp, 67 + 50, RGB(255, 0, 0));
 	// p3_HP
+	draw_rectangle(mDC, 176, 49 + 100, 266 + 442 - p3_hp, 67 + 100, RGB(255, 0, 0));
 }
 
 void GAMEMANAGER::printName(HDC& mDC) {
