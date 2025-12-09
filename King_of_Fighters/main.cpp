@@ -83,6 +83,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			player.init();
 		}
 
+		SetTimer(hWnd, TIMER_GAMEOVER, 100, NULL);
+
 		//effect.Initialize_effect();
 
 		break;
@@ -144,10 +146,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 
 			if (Chin_HP == 0 || Kap_HP == 0) {
 				game_manager.ko = TRUE;
-				KillTimer(hWnd, 0);
-				KillTimer(hWnd, 1);
-				KillTimer(hWnd, 2);
+				KillTimer(hWnd, TIMER_BACKGROUND);
+				KillTimer(hWnd, TIMER_TIMEONE);
+				KillTimer(hWnd, TIMER_TIMETEN);
 				PlaySound(TEXT("character\\sound\\Announce_Ko.wav"), NULL, SND_FILENAME | SND_ASYNC);
+				KillTimer(hWnd, TIMER_GAMEOVER);
 			}
 		}
 
@@ -234,7 +237,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			//		//// 이펙트 타이머
 			//		//SetTimer(hWnd, 11, 40, NULL);
 			//		//시간 타이머(1의자리)
-			//		SetTimer(hWnd, 1, 1000, NULL);
+			//		SetTimer(hWnd, 1, TIMER_TIMEONE, NULL);
 
 			//		// 게임종료 체크
 			//		SetTimer(hWnd, TIMER_GAMEOVER, 100, NULL);
@@ -537,6 +540,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			game_manager.printKO(mDC);
 			break;
 		case ST_OUTGAME:
+			PostQuitMessage(0);
 			break;
 		case ST_DISCONNECT:
 			break;
