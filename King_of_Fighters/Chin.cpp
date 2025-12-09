@@ -266,7 +266,7 @@ void Chin::init()
 }
 
 void Chin::print(HDC& hdc) {
-    if (p_state == PS_Idle || p_state == PS_CrouchIdle || p_state == PS_ForwardMove || p_state == PS_BackMove || p_state == PS_JumpIdle)
+    if (p_state == PS_Idle || p_state == PS_CrouchIdle || p_state == PS_ForwardMove || p_state == PS_BackMove)
     {
 		action[p_state].image[ani_index]._img.TransparentBlt(hdc, x_pos, y_pos,
             action[p_state].image[ani_index]._width, action[p_state].image[ani_index]._height, 0, 0,

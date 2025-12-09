@@ -38,33 +38,65 @@ void GAMEMANAGER::printHp(HDC& mDC, int p1_hp, int p2_hp, int p3_hp) {
 }
 
 void GAMEMANAGER::printName(HDC& mDC) {
+	// P1
 	ui.ChinName._right = ui.ChinName._left + ui.ChinName._width;
 	ui.ChinName._bottom = ui.ChinName._top + ui.ChinName._height;
 	ui.ChinName._img.TransparentBlt(mDC, ui.ChinName._left, ui.ChinName._top, 
 		ui.ChinName._right - ui.ChinName._left, ui.ChinName._bottom - ui.ChinName._top, 
 		0, 0, ui.ChinName._width, ui.ChinName._height, RGB(57, 81, 57));
 
-	ui.KapName._right = ui.KapName._left + ui.KapName._width;
-	ui.KapName._bottom = ui.KapName._top + ui.KapName._height;
-	ui.KapName._img.TransparentBlt(mDC, ui.KapName._left, ui.KapName._top, 
-		ui.KapName._right - ui.KapName._left, ui.KapName._bottom - ui.KapName._top, 
-		0, 0, ui.KapName._width, ui.KapName._height, RGB(57, 81, 57));
+	// P2
+	ui.ChinName._right = ui.ChinName._left + ui.ChinName._width;
+	ui.ChinName._bottom = ui.ChinName._top + ui.ChinName._height;
+	ui.ChinName._img.TransparentBlt(mDC, ui.ChinName._left, ui.ChinName._top + 50,
+		ui.ChinName._right - ui.ChinName._left, ui.ChinName._bottom - ui.ChinName._top,
+		0, 0, ui.ChinName._width, ui.ChinName._height, RGB(57, 81, 57));
+
+	// P3
+	ui.ChinName._right = ui.ChinName._left + ui.ChinName._width;
+	ui.ChinName._bottom = ui.ChinName._top + ui.ChinName._height;
+	ui.ChinName._img.TransparentBlt(mDC, ui.ChinName._left, ui.ChinName._top + 100,
+		ui.ChinName._right - ui.ChinName._left, ui.ChinName._bottom - ui.ChinName._top,
+		0, 0, ui.ChinName._width, ui.ChinName._height, RGB(57, 81, 57));
+
+	//ui.KapName._right = ui.KapName._left + ui.KapName._width;
+	//ui.KapName._bottom = ui.KapName._top + ui.KapName._height;
+	//ui.KapName._img.TransparentBlt(mDC, ui.KapName._left, ui.KapName._top, 
+	//	ui.KapName._right - ui.KapName._left, ui.KapName._bottom - ui.KapName._top, 
+	//	0, 0, ui.KapName._width, ui.KapName._height, RGB(57, 81, 57));
 }
 
 void GAMEMANAGER::printProfile(HDC& mDC) {
 	// Chin_profile
+	// P1
 	ui.ChinProfile._right = ui.ChinProfile._left + ui.ChinProfile._width;
 	ui.ChinProfile._bottom = ui.ChinProfile._top + ui.ChinProfile._height;
 	ui.ChinProfile._img.StretchBlt(mDC, ui.ChinProfile._left, ui.ChinProfile._top, 
 		ui.ChinProfile._right - ui.ChinProfile._left, ui.ChinProfile._bottom - ui.ChinProfile._top, 
 		0, 0, ui.ChinProfile._width, ui.ChinProfile._height);
 
+	// P2
+	ui.ChinProfile._right = ui.ChinProfile._left + ui.ChinProfile._width;
+	ui.ChinProfile._bottom = ui.ChinProfile._top + ui.ChinProfile._height;
+	ui.ChinProfile._img.StretchBlt(mDC, ui.ChinProfile._left, ui.ChinProfile._top + 50,
+		ui.ChinProfile._right - ui.ChinProfile._left, ui.ChinProfile._bottom - ui.ChinProfile._top,
+		0, 0, ui.ChinProfile._width, ui.ChinProfile._height);
+
+	// P3
+	ui.ChinProfile._right = ui.ChinProfile._left + ui.ChinProfile._width;
+	ui.ChinProfile._bottom = ui.ChinProfile._top + ui.ChinProfile._height;
+	ui.ChinProfile._img.StretchBlt(mDC, ui.ChinProfile._left, ui.ChinProfile._top + 100,
+		ui.ChinProfile._right - ui.ChinProfile._left, ui.ChinProfile._bottom - ui.ChinProfile._top,
+		0, 0, ui.ChinProfile._width, ui.ChinProfile._height);
+
 	// Kap_profile
-	ui.KapProfile._right = ui.KapProfile._left + ui.KapProfile._width;
-	ui.KapProfile._bottom = ui.KapProfile._top + ui.KapProfile._height;
-	ui.KapProfile._img.StretchBlt(mDC, ui.KapProfile._left, ui.KapProfile._top, 
-		ui.KapProfile._right - ui.KapProfile._left, ui.KapProfile._bottom - ui.KapProfile._top, 
-		0, 0, ui.KapProfile._width, ui.KapProfile._height);
+	//ui.KapProfile._right = ui.KapProfile._left + ui.KapProfile._width;
+	//ui.KapProfile._bottom = ui.KapProfile._top + ui.KapProfile._height;
+	//ui.KapProfile._img.StretchBlt(mDC, ui.KapProfile._left, ui.KapProfile._top, 
+	//	ui.KapProfile._right - ui.KapProfile._left, ui.KapProfile._bottom - ui.KapProfile._top, 
+	//	0, 0, ui.KapProfile._width, ui.KapProfile._height);
+
+
 }
 
 void GAMEMANAGER::printTime(HDC& mDC) {
