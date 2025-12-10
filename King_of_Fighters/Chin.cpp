@@ -290,6 +290,17 @@ void Chin::print(HDC& hdc) {
              p_state == PS_ForwardMove || p_state == PS_BackMove))
              p_state = PS_Idle;
      }
+
+     WCHAR wide_name[16] = {};
+     MultiByteToWideChar(
+         CP_ACP,
+         0,
+         _name,   // char*
+         -1,
+         wide_name,      // wchar_t*
+         16
+     );
+     TextOut(hdc, x_pos + (w / 2), y_pos - 15, wide_name, lstrlen(wide_name));
 }
 
 void Chin::reverse_print(HDC& hdc)
@@ -336,4 +347,15 @@ void Chin::reverse_print(HDC& hdc)
             p_state == PS_ForwardMove || p_state == PS_BackMove))
             p_state = PS_Idle;
     }
+
+    WCHAR wide_name[16] = {};
+    MultiByteToWideChar(
+        CP_ACP,
+        0,
+        _name,   // char*
+        -1,
+        wide_name,      // wchar_t*
+        16
+    );
+    TextOut(hdc, x_pos + (w / 2), y_pos - 15, wide_name, lstrlen(wide_name));
 }
