@@ -136,13 +136,21 @@ void GAMEMANAGER::printFight(HDC& mDC) {
 }
 
 void GAMEMANAGER::printKO(HDC& mDC) {
-	if (ko) {
+	if (ko != true) {
+		ko = true;
 		ui.KO._right = ui.KO._left + ui.KO._width;
 		ui.KO._bottom = ui.KO._top + ui.KO._height;
-		ui.KO._img.TransparentBlt(mDC, ui.KO._left + 365, ui.KO._top + 200, 
-			ui.KO._right - ui.KO._left + 140, ui.KO._bottom - ui.KO._top + 70, 0, 0, 
+		ui.KO._img.TransparentBlt(mDC, ui.KO._left + 365, ui.KO._top + 200,
+			ui.KO._right - ui.KO._left + 140, ui.KO._bottom - ui.KO._top + 70, 0, 0,
 			ui.KO._width, ui.KO._height, RGB(0, 0, 32));
-		//PlaySound(TEXT("Announce_Ko.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		PlaySound(TEXT("character\\sound\\Announce_Ko.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	}
+	else {
+		ui.KO._right = ui.KO._left + ui.KO._width;
+		ui.KO._bottom = ui.KO._top + ui.KO._height;
+		ui.KO._img.TransparentBlt(mDC, ui.KO._left + 365, ui.KO._top + 200,
+			ui.KO._right - ui.KO._left + 140, ui.KO._bottom - ui.KO._top + 70, 0, 0,
+			ui.KO._width, ui.KO._height, RGB(0, 0, 32));
 	}
 }
 

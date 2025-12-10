@@ -11,6 +11,7 @@ public:
 	int				hp;
 	int				x_pos;
 	int				y_pos;
+	int				dic;	// 0: 오른쪽, 1: 왼쪽
 
 	P_STATE			p_state;
 	int				ani_index{};

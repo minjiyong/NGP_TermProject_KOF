@@ -60,10 +60,9 @@ enum S_STATE { // 세션 상태
 	ST_CONNECT,
 	ST_WAITGAME,
 	ST_INGAME,
+	ST_ENDGAME,
 	ST_OUTGAME,
-	ST_DISCONNECT,
-
-	ST_ENDGAME
+	ST_DISCONNECT
 };
 
 #pragma pack (push, 1)
@@ -99,6 +98,7 @@ struct SC_MATCH_INFO_PACKET {
 	int				id[MAX_USER];
 	char			name[MAX_USER][NAME_SIZE];
 	P_STATE			p_state[MAX_USER];
+	int				dic[MAX_USER];
 	int				x[MAX_USER];
 	int				y[MAX_USER];
 	int				hp[MAX_USER];

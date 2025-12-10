@@ -83,8 +83,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			player.init();
 		}
 
-		SetTimer(hWnd, TIMER_GAMEOVER, 100, NULL);
-
 		//effect.Initialize_effect();
 
 		break;
@@ -144,18 +142,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			//	if (player.y_pos < 140) player.y_pos = 332;
 			//}
 
-			//if (Chin_HP == 0 || Kap_HP == 0) {
-
-			if (session._state == ST_ENDGAME && is_login) {
-				game_manager.ko = TRUE;
-				KillTimer(hWnd, TIMER_BACKGROUND);
-				KillTimer(hWnd, TIMER_TIMEONE);
-				KillTimer(hWnd, TIMER_TIMETEN);
-				PlaySound(TEXT("character\\sound\\Announce_Ko.wav"), NULL, SND_FILENAME | SND_ASYNC);
-				KillTimer(hWnd, TIMER_GAMEOVER);
-				InvalidateRect(hWnd, nullptr, FALSE);
+			if (Chin_HP == 0 || Kap_HP == 0) {
+				//game_manager.ko = TRUE;
+				KillTimer(hWnd, 0);
+				KillTimer(hWnd, 1);
+				KillTimer(hWnd, 2);
+				//PlaySound(TEXT("character\\sound\\Announce_Ko.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			}
-			//}
 		}
 
 		}
@@ -241,10 +234,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			//		//// 이펙트 타이머
 			//		//SetTimer(hWnd, 11, 40, NULL);
 			//		//시간 타이머(1의자리)
-			//		SetTimer(hWnd, 1, TIMER_TIMEONE, NULL);
+			//		SetTimer(hWnd, 1, 1000, NULL);
 
 			//		// 게임종료 체크
-					SetTimer(hWnd, TIMER_GAMEOVER, 100, NULL);
+			//		SetTimer(hWnd, TIMER_GAMEOVER, 100, NULL);
 
 			//		PlaySound(NULL, 0, 0);
 			//		//game_manager.playbackgroundmusic();
@@ -506,7 +499,63 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			// Chin
 			for (Chin& player : session._players) {
 				if (player._id != -1) {
-					player.print(mDC);
+					switch (player.dic) {
+					case -1:
+						player.reverse_print(mDC);
+						break;
+					case 1:
+						player.print(mDC);
+						break;
+					}
+				}
+			}
+
+			// HPbar - P1
+			game_manager.ui.HP._right = game_manager.ui.HP._left + game_manager.ui.HP._width;
+			game_manager.ui.HP._bottom = game_manager.ui.HP._top + game_manager.ui.HP._height;
+			game_manager.ui.HP._img.TransparentBlt(mDC, game_manager.ui.HP._left, game_manager.ui.HP._top, game_manager.ui.HP._right - game_manager.ui.HP._left + 450, game_manager.ui.HP._bottom - game_manager.ui.HP._top + 50, 0, 0, game_manager.ui.HP._width, game_manager.ui.HP._height, RGB(0, 0, 32));
+
+			// HPbar - P2
+			game_manager.ui.HP._right = game_manager.ui.HP._left + game_manager.ui.HP._width;
+			game_manager.ui.HP._bottom = game_manager.ui.HP._top + game_manager.ui.HP._height;
+			game_manager.ui.HP._img.TransparentBlt(mDC, game_manager.ui.HP._left, game_manager.ui.HP._top + 50, game_manager.ui.HP._right - game_manager.ui.HP._left + 450, game_manager.ui.HP._bottom - game_manager.ui.HP._top + 50, 0, 0, game_manager.ui.HP._width, game_manager.ui.HP._height, RGB(0, 0, 32));
+
+			// HPbar - P3
+			game_manager.ui.HP._right = game_manager.ui.HP._left + game_manager.ui.HP._width;
+			game_manager.ui.HP._bottom = game_manager.ui.HP._top + game_manager.ui.HP._height;
+			game_manager.ui.HP._img.TransparentBlt(mDC, game_manager.ui.HP._left, game_manager.ui.HP._top + 100, game_manager.ui.HP._right - game_manager.ui.HP._left + 450, game_manager.ui.HP._bottom - game_manager.ui.HP._top + 50, 0, 0, game_manager.ui.HP._width, game_manager.ui.HP._height, RGB(0, 0, 32));
+
+			// Name
+			game_manager.printName(mDC);
+
+			// Profile
+			game_manager.printProfile(mDC);
+
+			// Player HP
+			game_manager.printHp(mDC, Chin_HP, Chin_HP, Chin_HP);	// p3 HP
+
+			// Time
+			game_manager.printTime(mDC);
+
+			//Fight
+			game_manager.printFight(mDC);
+			break;
+		case ST_OUTGAME:
+			PostQuitMessage(0);
+			break;
+		case ST_ENDGAME:
+			//KO
+						// Chin
+			for (Chin& player : session._players) {
+				if (player._id != -1) {
+					switch (player.dic) {
+					case -1:
+						player.reverse_print(mDC);
+						break;
+					case 1:
+						player.print(mDC);
+						break;
+					}
 				}
 			}
 
@@ -540,15 +589,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			//Fight
 			game_manager.printFight(mDC);
 
-			break;
-		case ST_OUTGAME:
-			PostQuitMessage(0);
+			game_manager.printKO(mDC);
 			break;
 		case ST_DISCONNECT:
-			break;
-		case ST_ENDGAME:
-			//KO
-			game_manager.printKO(mDC);
 			break;
 		}
 

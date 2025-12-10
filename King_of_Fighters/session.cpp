@@ -96,6 +96,7 @@ void SESSION::recv_thread(HWND& hWnd) {
 					_players[i]._id = p->id[i];
 					strcpy(_players[i]._name, p->name[i]);
 					_players[i].p_state = p->p_state[i];
+					_players[i].dic = p->dic[i];
 					_players[i].x_pos = p->x[i];
 					_players[i].y_pos = p->y[i];
 					_players[i].hp = p->hp[i];
