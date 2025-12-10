@@ -5,7 +5,9 @@ UI::UI() {};
 UI::~UI() {};
 
 void UI::SetUI() {
-	HP.SetImage(L"image/HPbar.png", 93, 20, 0, 0);
+	HP[0].SetImage(L"image/HPbar1.png", 93, 20, 0, 0);
+	HP[1].SetImage(L"image/HPbar2.png", 93, 20, 0, 0);
+	HP[2].SetImage(L"image/HPbar3.png", 93, 20, 0, 0);
 	MAP1.SetImage(L"image/Background 1-1.png", 0, 0, 0, 0);
 	MAP2.SetImage(L"image/Background 1-2.png", 0, 0, 0, 0);
 	MAP3.SetImage(L"image/Background 1-3.png", 0, 0, 0, 0);

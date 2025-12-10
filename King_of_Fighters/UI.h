@@ -3,7 +3,7 @@
 
 class UI {
 public:
-	IMAGE HP;
+	IMAGE HP[3];
 	IMAGE MAP1;
 	IMAGE MAP2;
 	IMAGE MAP3;
