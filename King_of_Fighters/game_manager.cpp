@@ -25,8 +25,10 @@ void GAMEMANAGER::printMap(HDC& mDC) {
 }
 
 void GAMEMANAGER::printHp(HDC& mDC, int p1_hp, int p2_hp, int p3_hp) {
-	ui.HP._right = ui.HP._left + ui.HP._width;
-	ui.HP._bottom = ui.HP._top + ui.HP._height;
+	for (int i = 0; i < 3; ++i) {
+		ui.HP[i]._right = ui.HP[i]._left + ui.HP[i]._width;
+		ui.HP[i]._bottom = ui.HP[i]._top + ui.HP[i]._height;
+	}
 	//ui.HP._img.TransparentBlt(mDC, ui.HP._left, ui.HP._top, ui.HP._right - ui.HP._left + 450, 
 	//	ui.HP._bottom - ui.HP._top + 50, 0, 0, ui.HP._width, ui.HP._height, RGB(0, 0, 32));
 	

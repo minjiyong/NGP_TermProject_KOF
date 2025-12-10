@@ -535,19 +535,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			}
 
 			// HPbar - P1
-			game_manager.ui.HP._right = game_manager.ui.HP._left + game_manager.ui.HP._width;
-			game_manager.ui.HP._bottom = game_manager.ui.HP._top + game_manager.ui.HP._height;
-			game_manager.ui.HP._img.TransparentBlt(mDC, game_manager.ui.HP._left, game_manager.ui.HP._top, game_manager.ui.HP._right - game_manager.ui.HP._left + 450, game_manager.ui.HP._bottom - game_manager.ui.HP._top + 50, 0, 0, game_manager.ui.HP._width, game_manager.ui.HP._height, RGB(0, 0, 32));
+			game_manager.ui.HP[0]._right = game_manager.ui.HP[0]._left + game_manager.ui.HP[0]._width;
+			game_manager.ui.HP[0]._bottom = game_manager.ui.HP[0]._top + game_manager.ui.HP[0]._height;
+			game_manager.ui.HP[0]._img.TransparentBlt(mDC, game_manager.ui.HP[0]._left, game_manager.ui.HP[0]._top, game_manager.ui.HP[0]._right - game_manager.ui.HP[0]._left + 450, game_manager.ui.HP[0]._bottom - game_manager.ui.HP[0]._top + 50, 0, 0, game_manager.ui.HP[0]._width, game_manager.ui.HP[0]._height, RGB(0, 0, 32));
 
 			// HPbar - P2
-			game_manager.ui.HP._right = game_manager.ui.HP._left + game_manager.ui.HP._width;
-			game_manager.ui.HP._bottom = game_manager.ui.HP._top + game_manager.ui.HP._height;
-			game_manager.ui.HP._img.TransparentBlt(mDC, game_manager.ui.HP._left, game_manager.ui.HP._top + 50, game_manager.ui.HP._right - game_manager.ui.HP._left + 450, game_manager.ui.HP._bottom - game_manager.ui.HP._top + 50, 0, 0, game_manager.ui.HP._width, game_manager.ui.HP._height, RGB(0, 0, 32));
+			game_manager.ui.HP[1]._right = game_manager.ui.HP[1]._left + game_manager.ui.HP[1]._width;
+			game_manager.ui.HP[1]._bottom = game_manager.ui.HP[1]._top + game_manager.ui.HP[1]._height;
+			game_manager.ui.HP[1]._img.TransparentBlt(mDC, game_manager.ui.HP[1]._left, game_manager.ui.HP[1]._top + 50, game_manager.ui.HP[1]._right - game_manager.ui.HP[1]._left + 450, game_manager.ui.HP[1]._bottom - game_manager.ui.HP[1]._top + 50, 0, 0, game_manager.ui.HP[1]._width, game_manager.ui.HP[1]._height, RGB(0, 0, 32));
 
 			// HPbar - P3
-			game_manager.ui.HP._right = game_manager.ui.HP._left + game_manager.ui.HP._width;
-			game_manager.ui.HP._bottom = game_manager.ui.HP._top + game_manager.ui.HP._height;
-			game_manager.ui.HP._img.TransparentBlt(mDC, game_manager.ui.HP._left, game_manager.ui.HP._top + 100, game_manager.ui.HP._right - game_manager.ui.HP._left + 450, game_manager.ui.HP._bottom - game_manager.ui.HP._top + 50, 0, 0, game_manager.ui.HP._width, game_manager.ui.HP._height, RGB(0, 0, 32));
+			game_manager.ui.HP[2]._right = game_manager.ui.HP[2]._left + game_manager.ui.HP[2]._width;
+			game_manager.ui.HP[2]._bottom = game_manager.ui.HP[2]._top + game_manager.ui.HP[2]._height;
+			game_manager.ui.HP[2]._img.TransparentBlt(mDC, game_manager.ui.HP[2]._left, game_manager.ui.HP[2]._top + 100, game_manager.ui.HP[2]._right - game_manager.ui.HP[2]._left + 450, game_manager.ui.HP[2]._bottom - game_manager.ui.HP[2]._top + 50, 0, 0, game_manager.ui.HP[2]._width, game_manager.ui.HP[2]._height, RGB(0, 0, 32));
 
 			// Name
 			game_manager.printName(mDC);
@@ -556,7 +556,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			game_manager.printProfile(mDC);
 
 			// Player HP
-			game_manager.printHp(mDC, Chin_HP, Chin_HP, Chin_HP);	// p3 HP
+			game_manager.printHp(mDC, session._players[0].hp, session._players[1].hp, session._players[2].hp);	// p3 HP
 
 			// Time
 			game_manager.printTime(mDC);
@@ -584,19 +584,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			}
 
 			// HPbar - P1
-			game_manager.ui.HP._right = game_manager.ui.HP._left + game_manager.ui.HP._width;
-			game_manager.ui.HP._bottom = game_manager.ui.HP._top + game_manager.ui.HP._height;
-			game_manager.ui.HP._img.TransparentBlt(mDC, game_manager.ui.HP._left, game_manager.ui.HP._top, game_manager.ui.HP._right - game_manager.ui.HP._left + 450, game_manager.ui.HP._bottom - game_manager.ui.HP._top + 50, 0, 0, game_manager.ui.HP._width, game_manager.ui.HP._height, RGB(0, 0, 32));
+			game_manager.ui.HP[0]._right = game_manager.ui.HP[0]._left + game_manager.ui.HP[0]._width;
+			game_manager.ui.HP[0]._bottom = game_manager.ui.HP[0]._top + game_manager.ui.HP[0]._height;
+			game_manager.ui.HP[0]._img.TransparentBlt(mDC, game_manager.ui.HP[0]._left, game_manager.ui.HP[0]._top, game_manager.ui.HP[0]._right - game_manager.ui.HP[0]._left + 450, game_manager.ui.HP[0]._bottom - game_manager.ui.HP[0]._top + 50, 0, 0, game_manager.ui.HP[0]._width, game_manager.ui.HP[0]._height, RGB(0, 0, 32));
 
 			// HPbar - P2
-			game_manager.ui.HP._right = game_manager.ui.HP._left + game_manager.ui.HP._width;
-			game_manager.ui.HP._bottom = game_manager.ui.HP._top + game_manager.ui.HP._height;
-			game_manager.ui.HP._img.TransparentBlt(mDC, game_manager.ui.HP._left, game_manager.ui.HP._top + 50, game_manager.ui.HP._right - game_manager.ui.HP._left + 450, game_manager.ui.HP._bottom - game_manager.ui.HP._top + 50, 0, 0, game_manager.ui.HP._width, game_manager.ui.HP._height, RGB(0, 0, 32));
+			game_manager.ui.HP[1]._right = game_manager.ui.HP[1]._left + game_manager.ui.HP[1]._width;
+			game_manager.ui.HP[1]._bottom = game_manager.ui.HP[1]._top + game_manager.ui.HP[1]._height;
+			game_manager.ui.HP[1]._img.TransparentBlt(mDC, game_manager.ui.HP[1]._left, game_manager.ui.HP[1]._top + 50, game_manager.ui.HP[1]._right - game_manager.ui.HP[1]._left + 450, game_manager.ui.HP[1]._bottom - game_manager.ui.HP[1]._top + 50, 0, 0, game_manager.ui.HP[1]._width, game_manager.ui.HP[1]._height, RGB(0, 0, 32));
 
-			// HPbar - P3	
-			game_manager.ui.HP._right = game_manager.ui.HP._left + game_manager.ui.HP._width;
-			game_manager.ui.HP._bottom = game_manager.ui.HP._top + game_manager.ui.HP._height;
-			game_manager.ui.HP._img.TransparentBlt(mDC, game_manager.ui.HP._left, game_manager.ui.HP._top + 100, game_manager.ui.HP._right - game_manager.ui.HP._left + 450, game_manager.ui.HP._bottom - game_manager.ui.HP._top + 50, 0, 0, game_manager.ui.HP._width, game_manager.ui.HP._height, RGB(0, 0, 32));
+			// HPbar - P3
+			game_manager.ui.HP[2]._right = game_manager.ui.HP[2]._left + game_manager.ui.HP[2]._width;
+			game_manager.ui.HP[2]._bottom = game_manager.ui.HP[2]._top + game_manager.ui.HP[2]._height;
+			game_manager.ui.HP[2]._img.TransparentBlt(mDC, game_manager.ui.HP[2]._left, game_manager.ui.HP[2]._top + 100, game_manager.ui.HP[2]._right - game_manager.ui.HP[2]._left + 450, game_manager.ui.HP[2]._bottom - game_manager.ui.HP[2]._top + 50, 0, 0, game_manager.ui.HP[2]._width, game_manager.ui.HP[2]._height, RGB(0, 0, 32));
 
 			// Name
 			game_manager.printName(mDC);
@@ -605,7 +605,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			game_manager.printProfile(mDC);
 
 			// Player HP
-			game_manager.printHp(mDC, Chin_HP, Chin_HP, Chin_HP);	// p3 HP
+			game_manager.printHp(mDC, session._players[0].hp, session._players[1].hp, session._players[2].hp);	// p3 HP
 
 			// Time
 			game_manager.printTime(mDC);
