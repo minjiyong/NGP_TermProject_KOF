@@ -70,7 +70,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	static int Kap_HP = MAX_HP;
 	static int fight = 5;
 	static bool is_login = false;
-
+	static HFONT UINameFont = CreateFont(36, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, ANSI_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, L"Impact");
+	
 	static TCHAR GetID[8] = { '\0' }; static int   id_len = 0;
 
 	switch (iMessage) {
@@ -489,6 +490,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			game_manager.printStart(mDC);
 
 			SetTextColor(mDC, RGB(255, 0, 255));
+			SelectObject(mDC, UINameFont);
 			SetBkMode(mDC, TRANSPARENT);
 			TCHAR buf[32] = {};
 
@@ -549,12 +551,28 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			game_manager.ui.HP[2]._bottom = game_manager.ui.HP[2]._top + game_manager.ui.HP[2]._height;
 			game_manager.ui.HP[2]._img.TransparentBlt(mDC, game_manager.ui.HP[2]._left, game_manager.ui.HP[2]._top + 100, game_manager.ui.HP[2]._right - game_manager.ui.HP[2]._left + 450, game_manager.ui.HP[2]._bottom - game_manager.ui.HP[2]._top + 50, 0, 0, game_manager.ui.HP[2]._width, game_manager.ui.HP[2]._height, RGB(0, 0, 32));
 
-			// Name
-			game_manager.printName(mDC);
+			//// Name
+			//game_manager.printName(mDC);
 
-			// Profile
-			game_manager.printProfile(mDC);
-
+			//// Profile
+			//game_manager.printProfile(mDC);
+			
+			for (Chin& player : session._players)
+			{
+				WCHAR wide_name[16] = {};
+				MultiByteToWideChar(
+					CP_ACP,
+					0,
+					player._name,   // char*
+					-1,
+					wide_name,      // wchar_t*
+					16
+				);
+				SelectObject(mDC, UINameFont);
+				SetBkMode(mDC, TRANSPARENT);
+				SetTextColor(mDC, RGB(255, 255, 255));
+				TextOut(mDC, game_manager.ui.ChinName._left, game_manager.ui.HP[0]._top - 5  + 50 * (player._id - 1), wide_name, lstrlen(wide_name));
+			}
 			// Player HP
 			game_manager.printHp(mDC, session._players[0].hp, session._players[1].hp, session._players[2].hp);	// p3 HP
 
@@ -572,13 +590,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 						// Chin
 			for (Chin& player : session._players) {
 				if (player._id != -1) {
-					switch (player.dic) {
-					case -1:
-						player.reverse_print(mDC);
-						break;
-					case 1:
-						player.print(mDC);
-						break;
+					if (player.hp > 0)
+					{
+						switch (player.dic) {
+						case -1:
+							player.reverse_print(mDC);
+							break;
+						case 1:
+							player.print(mDC);
+							break;
+						}
 					}
 				}
 			}
@@ -598,11 +619,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			game_manager.ui.HP[2]._bottom = game_manager.ui.HP[2]._top + game_manager.ui.HP[2]._height;
 			game_manager.ui.HP[2]._img.TransparentBlt(mDC, game_manager.ui.HP[2]._left, game_manager.ui.HP[2]._top + 100, game_manager.ui.HP[2]._right - game_manager.ui.HP[2]._left + 450, game_manager.ui.HP[2]._bottom - game_manager.ui.HP[2]._top + 50, 0, 0, game_manager.ui.HP[2]._width, game_manager.ui.HP[2]._height, RGB(0, 0, 32));
 
-			// Name
-			game_manager.printName(mDC);
+			//// Name
+			//game_manager.printName(mDC);
 
-			// Profile
-			game_manager.printProfile(mDC);
+			////// Profile
+			//game_manager.printProfile(mDC);
 
 			// Player HP
 			game_manager.printHp(mDC, session._players[0].hp, session._players[1].hp, session._players[2].hp);	// p3 HP

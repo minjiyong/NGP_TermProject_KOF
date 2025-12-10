@@ -271,7 +271,7 @@ void Chin::init()
 }
 
 void Chin::print(HDC& hdc) {
-
+    static HFONT NameFont = CreateFont(16, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, ANSI_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, L"Impact");
     auto& frame = action[p_state].image[ani_index];
     int w = frame._width;
     int h = frame._height;
@@ -300,11 +300,15 @@ void Chin::print(HDC& hdc) {
          wide_name,      // wchar_t*
          16
      );
+     SetBkMode(hdc, TRANSPARENT);
+     SetTextColor(hdc, RGB(255, 255, 255));
+     SelectObject(hdc, NameFont);
      TextOut(hdc, x_pos + (w / 2), y_pos - 15, wide_name, lstrlen(wide_name));
 }
 
 void Chin::reverse_print(HDC& hdc)
 {
+    static HFONT NameFont = CreateFont(16, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, ANSI_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, L"Impact");
     auto& frame = action[p_state].image[ani_index];
     int w = frame._width;
     int h = frame._height;
@@ -357,5 +361,8 @@ void Chin::reverse_print(HDC& hdc)
         wide_name,      // wchar_t*
         16
     );
+    SetBkMode(hdc, TRANSPARENT);
+    SetTextColor(hdc, RGB(255, 255, 255));
+    SelectObject(hdc, NameFont);
     TextOut(hdc, x_pos + (w / 2), y_pos - 15, wide_name, lstrlen(wide_name));
 }
