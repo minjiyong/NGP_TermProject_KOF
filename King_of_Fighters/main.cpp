@@ -265,9 +265,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					case 'D':
 					{
 						if (fight >= 4) {
-							if (chin.p_state != PS_ForwardMove) {
-								temp.p_state = PS_ForwardMove;
-								session.send_input_packet(temp);
+							switch (chin.dic) {
+							case 1:
+								if (chin.p_state != PS_ForwardMove) {
+									temp.p_state = PS_ForwardMove;
+									session.send_input_packet(temp);
+								}
+								break;
+							case -1:
+								if (chin.p_state != PS_BackMove) {
+									temp.p_state = PS_BackMove;
+									session.send_input_packet(temp);
+								}
+								break;
 							}
 						}
 						break;
@@ -276,9 +286,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					case 'A':
 					{
 						if (fight >= 4) {
-							if (chin.p_state != PS_BackMove) {
-								temp.p_state = PS_BackMove;
-								session.send_input_packet(temp);
+							switch (chin.dic) {
+							case 1:
+								if (chin.p_state != PS_BackMove) {
+									temp.p_state = PS_BackMove;
+									session.send_input_packet(temp);
+								}
+								break;
+							case -1:
+								if (chin.p_state != PS_ForwardMove) {
+									temp.p_state = PS_ForwardMove;
+									session.send_input_packet(temp);
+								}
+								break;
 							}
 						}
 						break;
@@ -499,14 +519,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			// Chin
 			for (Chin& player : session._players) {
 				if (player._id != -1) {
-					switch (player.dic) {
-					case -1:
-						player.reverse_print(mDC);
-						break;
-					case 1:
-						player.print(mDC);
-						break;
+					if (player.hp > 0)
+					{
+						switch (player.dic) {
+						case -1:
+							player.reverse_print(mDC);
+							break;
+						case 1:
+							player.print(mDC);
+							break;
+						}
 					}
+
 				}
 			}
 
@@ -569,7 +593,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			game_manager.ui.HP._bottom = game_manager.ui.HP._top + game_manager.ui.HP._height;
 			game_manager.ui.HP._img.TransparentBlt(mDC, game_manager.ui.HP._left, game_manager.ui.HP._top + 50, game_manager.ui.HP._right - game_manager.ui.HP._left + 450, game_manager.ui.HP._bottom - game_manager.ui.HP._top + 50, 0, 0, game_manager.ui.HP._width, game_manager.ui.HP._height, RGB(0, 0, 32));
 
-			// HPbar - P3
+			// HPbar - P3	
 			game_manager.ui.HP._right = game_manager.ui.HP._left + game_manager.ui.HP._width;
 			game_manager.ui.HP._bottom = game_manager.ui.HP._top + game_manager.ui.HP._height;
 			game_manager.ui.HP._img.TransparentBlt(mDC, game_manager.ui.HP._left, game_manager.ui.HP._top + 100, game_manager.ui.HP._right - game_manager.ui.HP._left + 450, game_manager.ui.HP._bottom - game_manager.ui.HP._top + 50, 0, 0, game_manager.ui.HP._width, game_manager.ui.HP._height, RGB(0, 0, 32));
