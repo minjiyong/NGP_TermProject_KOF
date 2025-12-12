@@ -17,7 +17,7 @@ void InitialzeNetwork(SESSION& session, HWND& hWnd)
 	struct sockaddr_in serveraddr;
 	memset(&serveraddr, 0, sizeof(serveraddr));
 	serveraddr.sin_family = AF_INET;
-	inet_pton(AF_INET, "127.0.0.1", &serveraddr.sin_addr);
+	inet_pton(AF_INET, "119.207.176.105", &serveraddr.sin_addr);
 	serveraddr.sin_port = htons(GAME_PORT);
 	retval = connect(session._socket, (struct sockaddr*)&serveraddr, sizeof(serveraddr));
 	if (retval == SOCKET_ERROR) err_quit("connect()");
